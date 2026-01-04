@@ -1,43 +1,11 @@
 from Models.mopp_instance import MOPPInstance
-
-"""
-AutonomousDeliveryVehicleCaseStudy.py
-
-This file defines a larger case study for the MOPP-DEC problem
-with 5 objectives and 5 plans, following the updated SAT formulation
-used in the paper.
-
-The class provides:
-- Objectives
-- Plans with objective-value vectors
-- Plan comparison sample C
-- Cardinality bound k
-
-This structure is intentionally simple and solver-agnostic,
-mirroring the case-study style used in the MICBSS project.
-"""
-
 from typing import Dict, List, Tuple
 
 
 class AutonomousDeliveryVehicleCaseStudy:
-    """
-    Autonomous Delivery Vehicle case study for MOPP-DEC.
-
-    Objectives (higher is better):
-        o1: Travel time
-        o2: Energy efficiency
-        o3: Safety
-        o4: Traffic compliance
-        o5: Passenger comfort
-
-    Plans represent different driving strategies.
-    """
 
     def __init__(self):
-        # ---------------------------------------------
-        # Objective names (index = objective ID - 1)
-        # ---------------------------------------------
+
         self.objectives: List[str] = [
             "travel_time", # Faster is better
             "energy_efficiency", # Lower is better
@@ -46,9 +14,6 @@ class AutonomousDeliveryVehicleCaseStudy:
             "passenger_comfort", # Higher is better
         ]
 
-        # -------------------------------------------------
-        # Plans (identifiers only)
-        # -------------------------------------------------
         self.plans: List[str] = [
             "pi1",
             "pi2",
@@ -57,10 +22,6 @@ class AutonomousDeliveryVehicleCaseStudy:
             "pi5",
         ]
 
-        # -------------------------------------------------
-        # Objective values
-        # values[plan][objective] = numeric value
-        # -------------------------------------------------
         self.values: Dict[str, Dict[str, int]] = {
             "pi1": {
                 "travel_time": 9,
@@ -99,11 +60,6 @@ class AutonomousDeliveryVehicleCaseStudy:
             },
         }
 
-        # ---------------------------------------------
-        # Plan comparison sample C
-        # Each tuple is (pi, pi_prime, r)
-        # r ∈ {1, 0, "?"}
-        # ---------------------------------------------
         self.comparisons: List[Tuple[str, str, object]] = [
             # ("pi1", "pi2", "?"),  # Trade-off between speed and efficiency
             ("pi3", "pi1", 1),    # Safety-focused dominates fast plan
@@ -112,14 +68,7 @@ class AutonomousDeliveryVehicleCaseStudy:
             ("pi2", "pi1", 1),    # Efficiency dominates speed
         ]
 
-        # ---------------------------------------------
-        # Cardinality bound for MOPP-DEC
-        # ---------------------------------------------
         self.k: int = 2
-
-    # -------------------------------------------------
-    # Helper accessors (used by solver / main)
-    # -------------------------------------------------
 
     def get_objectives(self) -> List[str]:
         """Return the list of objective names."""
@@ -145,10 +94,6 @@ class AutonomousDeliveryVehicleCaseStudy:
         """Return the number of plans."""
         return len(self.plans)
 
-    # -------------------------------------------------
-    # Pretty-printing (useful for debugging)
-    # -------------------------------------------------
-
     def describe(self):
         """Print a human-readable description of the case study."""
         print("\n=== Autonomous Delivery Vehicle Case Study ===")
@@ -169,9 +114,6 @@ class AutonomousDeliveryVehicleCaseStudy:
 
 
     def get_instance(self):
-        """
-        Build and return a MOPPInstance corresponding to this case study.
-        """
         return MOPPInstance(
             objectives=self.objectives,
             plans=self.plans,

@@ -4,7 +4,7 @@ from CaseStudies.autonomous_delivery_vehicle import AutonomousDeliveryVehicleCas
 
 def main():
     print("=" * 60)
-    print("Running MOPP-DEC SAT Solver (Car Example)")
+    print("Running MOPP-DEC SAT Solver ")
     print("=" * 60)
 
     # instance = CarPreferenceExample().get_instance()

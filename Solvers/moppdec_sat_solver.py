@@ -110,7 +110,7 @@ class MOPPDECSATSolver:
                 clause += [self.x[i] for i in Wp]
             self.cnf.append(clause)
 
-    # Cardinality constraint (sequential counter)
+    # Cardinality constraint
     def _add_cardinality_constraints(self):
         n = self.n
         k = self.k
@@ -137,13 +137,10 @@ class MOPPDECSATSolver:
         for i in range(2, n + 1):
             self.cnf.append([-self.x[i], -self.t[(i - 1, k)]])
 
-    # --------------------------------------------------
-    # Build Φ_MOPPDEC
-    # --------------------------------------------------
-
+    # Build phi_MOPPDEC
     def build_formula(self):
         """
-        MOPPDEC = phi_C ∧ phi_{≤k}
+        MOPPDEC = phi_C ∧ phi_{<=k}
         """
         for (pi, pi_p, r) in self.comparisons:
             B, W = self._compute_B_W(pi, pi_p)
@@ -165,11 +162,7 @@ class MOPPDECSATSolver:
 
     def solve(self):
         """
-        Solve the SAT instance.
-
-        Returns:
-            list of selected objective names if SAT,
-            None otherwise.
+        Solve the SAT instance
         """
         self.build_formula()
 

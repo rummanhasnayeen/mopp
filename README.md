@@ -1,19 +1,18 @@
 # MOPP-DEC via SAT
 
-This project implements the SAT formulation of the MOPP-DEC decision problem
-as described in the accompanying paper.
+This project implements the SAT formulation of the MOPP-DEC decision problem.
 
 ## Structure
 - Models/: problem instance definitions
 - CaseStudies/: example problem instances
 - Solvers/: SAT solver implementation
-- main.py: run a case study
+- main.py
 
 ## Install
 ```bash
-pip install python-sat[pblib,aiger]
+pip3 install python-sat[pblib,aiger]
 ```
 ## Run
 ```bash
-python main.py
+python3 main.py
 ```
