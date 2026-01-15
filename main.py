@@ -1,6 +1,7 @@
 from Solvers.moppdec_sat_solver import MOPPDECSATSolver
 from CaseStudies.car_example import CarPreferenceExample
 from CaseStudies.autonomous_delivery_vehicle import AutonomousDeliveryVehicleCaseStudy
+from CaseStudies.AutonomousVehicle10ObjectiveCaseStudy import AutonomousVehicle10ObjectiveCaseStudy
 
 def main():
     print("=" * 60)
@@ -8,7 +9,8 @@ def main():
     print("=" * 60)
 
     # instance = CarPreferenceExample().get_instance()
-    instance = AutonomousDeliveryVehicleCaseStudy().get_instance()
+    # instance = AutonomousDeliveryVehicleCaseStudy().get_instance()
+    instance = AutonomousVehicle10ObjectiveCaseStudy().get_instance()
 
     solver = MOPPDECSATSolver(instance)
     solution = solver.solve()
