@@ -109,24 +109,41 @@ class AutonomousVehicle10ObjectiveCaseStudy:
         #
         # And we include one r=1 comparison that is satisfied by Ω:
         #   route_balanced dominates route_budget on Ω (8>=6, 8>=6, 8>=6 and strictly >).
+        # self.comparisons = [
+        #     ("route_balanced", "route_budget", 1),   # dominance under Ω
+        #
+        #     ("route_safe", "route_fast", "?"),       # safe better safety, worse time
+        #     ("route_green", "route_safe", "?"),      # green better energy, worse safety/time
+        #     ("route_fast", "route_green", "?"),      # fast better time, worse safety/energy
+        #
+        #     ("route_balanced", "route_safe", "?"),   # balanced better energy/time, worse safety
+        #     ("route_balanced", "route_green", "?"),  # balanced better safety/time, worse energy
+        #
+        #     ("route_balanced", "route_fast", "?"),   # balanced better safety/energy, worse time
+        #     ("route_budget", "route_fast", "?"),     # budget better safety/energy, worse time
+        #
+        #     ("route_budget", "route_green", "?"),    # budget better time, worse safety/energy
+        #     ("route_safe", "route_budget", "?"),     # safe better safety, worse energy/time
+        # ]
+
         self.comparisons = [
-            ("route_balanced", "route_budget", 1),   # dominance under Ω
+            # r = 0
+            ("route_safe", "route_budget", 0),
 
-            ("route_safe", "route_fast", "?"),       # safe better safety, worse time
-            ("route_green", "route_safe", "?"),      # green better energy, worse safety/time
-            ("route_fast", "route_green", "?"),      # fast better time, worse safety/energy
+            # r = 1
+            ("route_balanced", "route_fast", 1),
+            ("route_balanced", "route_budget", 1),
+            ("route_balanced", "route_safe", 1),
 
-            ("route_balanced", "route_safe", "?"),   # balanced better energy/time, worse safety
-            ("route_balanced", "route_green", "?"),  # balanced better safety/time, worse energy
-
-            ("route_balanced", "route_fast", "?"),   # balanced better safety/energy, worse time
-            ("route_budget", "route_fast", "?"),     # budget better safety/energy, worse time
-
-            ("route_budget", "route_green", "?"),    # budget better time, worse safety/energy
-            ("route_safe", "route_budget", "?"),     # safe better safety, worse energy/time
+            # r = ?
+            ("route_safe", "route_fast", "?"),
+            ("route_green", "route_safe", "?"),
+            ("route_fast", "route_green", "?"),
+            ("route_balanced", "route_green", "?"),
+            ("route_budget", "route_fast", "?"),
+            ("route_green", "route_budget", "?"),
         ]
 
-        # k chosen so that Ω = {safety, energy_efficiency, time_efficiency} is allowed.
         self.k = 3
 
     def get_instance(self) -> MOPPInstance:
