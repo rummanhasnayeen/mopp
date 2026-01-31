@@ -19,22 +19,22 @@ def main():
     # instance = AutonomousVehicle10ObjectiveCaseStudy().get_instance()
 
     # below gives No
-    # case_study = DynamicRandomCaseStudy(
-    #     num_objectives=10,
-    #     num_plans=10,
-    #     num_comparisons=15,
-    #     k=3,
-    #     seed=42
-    # )
-
-    #below gives YES
     case_study = DynamicRandomCaseStudy(
-        num_objectives=30,
-        num_plans=50,
-        num_comparisons=35,
-        k=10,
+        num_objectives=10,
+        num_plans=10,
+        num_comparisons=15,
+        k=3,
         seed=42
     )
+
+    #below gives YES
+    # case_study = DynamicRandomCaseStudy(
+    #     num_objectives=30,
+    #     num_plans=50,
+    #     num_comparisons=35,
+    #     k=10,
+    #     seed=42
+    # )
 
     t_construct_end = time.perf_counter()
     case_study.print_summary()

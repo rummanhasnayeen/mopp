@@ -82,8 +82,7 @@ class DynamicRandomCaseStudy:
 
     def _pick_omega_star(self) -> List[str]:
         if self.k == 0:
-            # With empty Omega, you can only satisfy r=0 comparisons (everything is "equal").
-            # r=1 would be impossible. We'll still proceed, but note: not a guaranteed YES if r=1 exists.
+            # With empty Omega r=1 would be impossible
             return []
         size = min(self.k, self.num_objectives)
         # If we want "?" to be possible, we need at least 2 in Omega*.
@@ -121,6 +120,7 @@ class DynamicRandomCaseStudy:
 
     def _force_one_of_each_label(self) -> None:
         """
+        GPT v
         We hard-construct 3 comparisons consistent with Omega*:
           - one r=0 (equality on Omega*)
           - one r=1 (dominance on Omega*)
@@ -159,7 +159,7 @@ class DynamicRandomCaseStudy:
             p_inc, q_inc = self.plans[4], self.plans[5]
             o1, o2 = omega[0], omega[1]
 
-            # Make p_inc better on o1 but worse on o2 vs q_inc
+            # p_inc better on o1 but worse on o2 vs q_inc
             base1 = random.randint(4, 7)
             base2 = random.randint(4, 7)
 
@@ -171,11 +171,10 @@ class DynamicRandomCaseStudy:
 
             self.comparisons.append((p_inc, q_inc, "?"))
         else:
-            # If k<2, true incomparability under Omega* isn’t possible.
-            # We won't force "?" here (otherwise it may become UNSAT).
+            # k<2
             pass
 
-        # Remove any duplicates that might happen from low plan counts
+        # Remove duplicates
         seen = set()
         unique = []
         for (a, b, r) in self.comparisons:
@@ -192,12 +191,13 @@ class DynamicRandomCaseStudy:
         """
         omega = self._omega_star
 
+        #GPT v
         # If omega empty: only r=0 comparisons are consistent. We will fill with r=0 only.
         # Also note: if you demanded r=1 or "?" in this scenario, it can become UNSAT.
         max_attempts = 20000
         attempts = 0
 
-        # Track whether we have each label (if feasible)
+        # Track label exists
         have_0 = any(r == 0 for _, _, r in self.comparisons)
         have_1 = any(r == 1 for _, _, r in self.comparisons)
         have_q = any(r == "?" for _, _, r in self.comparisons)
@@ -207,14 +207,13 @@ class DynamicRandomCaseStudy:
             a, b = random.sample(self.plans, 2)
             r = self._relation_under_omega(a, b, omega)
 
-            # If user wants all three labels, but k<2, we cannot safely include "?"
-            # without risking UNSAT. So we only include "?" when |omega|>=2.
+            #  k<2
             if r == "?" and len(omega) < 2:
                 continue
 
-            # Try to balance labels early so you likely get 0/1/? mix (when feasible)
+            # balance labels to get 0/1/? mix
             if len(omega) >= 2:
-                # enforce at least one of each label if possible
+                # enforce at least one of each label
                 if not have_0 and r != 0:
                     continue
                 if not have_1 and r != 1:
@@ -251,12 +250,13 @@ class DynamicRandomCaseStudy:
             print(f"{p}: {self.values[p]}")
 
         print("\n--- Plan comparisons (pi, pj, r) ---")
+        print(f"\nNumber of comparisons: {len(self.comparisons)}")
         for (p1, p2, r) in self.comparisons:
             print(f"({p1}, {p2}, {r})")
 
-        # Optional (debug only)
-        if hasattr(self, "_omega_star"):
-            print(f"\n[Debug] Hidden true Ω* used for generation: {self._omega_star}")
+        # # debug
+        # if hasattr(self, "_omega_star"):
+        #     print(f"\n[Debug] Hidden true Ω* used for generation: {self._omega_star}")
 
         print("==============================================\n")
 
@@ -270,6 +270,5 @@ class DynamicRandomCaseStudy:
             k=self.k,
         )
 
-    # Optional: expose the hidden Omega* for debugging (not used by main/solver)
     def debug_true_omega(self) -> List[str]:
         return list(self._omega_star)
