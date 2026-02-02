@@ -1,6 +1,9 @@
 from pysat.formula import CNF
 from pysat.solvers import Solver
 
+import time
+import copy
+
 
 class MOPPDECSATSolver:
     """
@@ -178,3 +181,90 @@ class MOPPDECSATSolver:
                 selected.append(obj)
 
         return selected
+
+
+def solve_with_halving_k(instance, *, verbose=True):
+    """
+    Iteratively solve MOPPDEC by halving k each iteration:
+      k0 = n, k1 = floor(n/2), k2 = floor(k1/2), ...
+    Stop when the solver first returns NO after a YES.
+    Return a dict with the full iteration log and the last YES solution.
+
+    NOTE: We rebuild the solver each iteration because cardinality vars t_{i,j}
+    depend on k (your solver creates them in __init__).
+    """
+
+    n = len(instance.objectives)
+    if n == 0:
+        raise ValueError("Instance has zero objectives.")
+
+    # Halving schedule: n, n//2, n//4, ...
+    k_values = []
+    k = n
+    while k >= 1:
+        k_values.append(k)
+        next_k = k // 2
+        if next_k == k:  # safety (shouldn't happen for ints)
+            break
+        k = next_k
+
+    iteration_log = []
+    last_yes = None  # {"k": ..., "solution": [...], "solve_time": ...}
+
+    for it, k in enumerate(k_values, start=1):
+        inst_k = copy.copy(instance)
+        inst_k.k = k
+
+        if verbose:
+            print("\n" + "=" * 60)
+            print(f"[Halving-k Iteration {it}] Trying k = {k} (n = {n})")
+            print("=" * 60)
+
+        # Build + solve timing (solver.build_formula is called inside solve())
+        t_solve_start = time.perf_counter()
+        solver = MOPPDECSATSolver(inst_k)
+        solution = solver.solve()
+        t_solve_end = time.perf_counter()
+
+        solve_time = t_solve_end - t_solve_start
+
+        result = {
+            "iteration": it,
+            "k": k,
+            "is_sat": solution is not None,
+            "solution": solution,
+            "solve_time_sec": solve_time,
+        }
+        iteration_log.append(result)
+
+        if verbose:
+            print(f"SAT solver time: {solve_time:.6f} sec")
+            if solution is None:
+                print("NO: No objective subset satisfies the comparisons.")
+            else:
+                print("YES: Found consistent objective subset Ω")
+                print("Selected objectives:", solution)
+
+        # Stop condition: first NO after having seen a YES
+        if solution is None and last_yes is not None:
+            if verbose:
+                print("\n--- Transition detected: YES -> NO ---")
+                print(f"Sub-optimal (last YES) k = {last_yes['k']}")
+                print("Sub-optimal selected objectives:", last_yes["solution"])
+            break
+
+        # Update last YES if sat
+        if solution is not None:
+            last_yes = {
+                "k": k,
+                "solution": solution,
+                "solve_time_sec": solve_time,
+                "iteration": it,
+            }
+
+    return {
+        "n": n,
+        "iterations": iteration_log,
+        "last_yes": last_yes,  # None if never SAT
+        "k_schedule": k_values,
+    }
