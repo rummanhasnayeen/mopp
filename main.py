@@ -29,7 +29,7 @@ def main():
 
     #below gives YES
     case_study = DynamicRandomCaseStudy(
-        num_objectives=30,
+        num_objectives=80,
         num_plans=50,
         num_comparisons=35,
         k=10,
