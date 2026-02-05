@@ -1,6 +1,6 @@
 import time
 
-from Solvers.moppdec_sat_solver import MOPPDECSATSolver, solve_with_halving_k
+from Solvers.moppdec_sat_solver import MOPPDECSATSolver, solve_with_halving_k, solve_with_optimal_k
 from CaseStudies.car_example import CarPreferenceExample
 from CaseStudies.autonomous_delivery_vehicle import AutonomousDeliveryVehicleCaseStudy
 from CaseStudies.AutonomousVehicle10ObjectiveCaseStudy import AutonomousVehicle10ObjectiveCaseStudy
@@ -28,10 +28,18 @@ def main():
     # )
 
     #below gives YES
+    # case_study = DynamicRandomCaseStudy(
+    #     num_objectives=80,
+    #     num_plans=50,
+    #     num_comparisons=100,
+    #     k=10,
+    #     seed=42
+    # )
+
     case_study = DynamicRandomCaseStudy(
-        num_objectives=80,
-        num_plans=50,
-        num_comparisons=35,
+        num_objectives=150,
+        num_plans=100,
+        num_comparisons=200,
         k=10,
         seed=42
     )
@@ -48,7 +56,10 @@ def main():
 
     # solve without k
     t_solve_start = time.perf_counter()
-    report = solve_with_halving_k(instance, verbose=True)
+    # report = solve_with_halving_k(instance, verbose=True)
+    report = solve_with_optimal_k(instance, verbose=True)
+
+    print("Optimal:", report["optimal"])
 
     t_solve_end = time.perf_counter()
 
@@ -71,7 +82,7 @@ def main():
     #     print("YES: Found consistent objective subset Ω")
     #     print("Selected objectives:", solution)
 
-    if report["last_yes"] is None:
+    if report.get("last_yes") is None:
         print("Final result: NO for all tried k values.")
     else:
         print("Final result: Found sub-optimal (last YES before NO)")

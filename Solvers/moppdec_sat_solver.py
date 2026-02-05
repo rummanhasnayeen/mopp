@@ -210,6 +210,7 @@ def solve_with_halving_k(instance, *, verbose=True):
 
     iteration_log = []
     last_yes = None  # {"k": ..., "solution": [...], "solve_time": ...}
+    first_no = None
 
     for it, k in enumerate(k_values, start=1):
         inst_k = copy.copy(instance)
@@ -247,6 +248,11 @@ def solve_with_halving_k(instance, *, verbose=True):
 
         # Stop condition: first NO after having seen a YES
         if solution is None and last_yes is not None:
+            first_no = {  # <--- ADD THIS BLOCK
+                "k": k,
+                "solve_time_sec": solve_time,
+                "iteration": it,
+            }
             if verbose:
                 print("\n--- Transition detected: YES -> NO ---")
                 print(f"Sub-optimal (last YES) k = {last_yes['k']}")
@@ -266,5 +272,138 @@ def solve_with_halving_k(instance, *, verbose=True):
         "n": n,
         "iterations": iteration_log,
         "last_yes": last_yes,  # None if never SAT
+        "first_no": first_no,
         "k_schedule": k_values,
+    }
+
+
+def solve_with_optimal_k(instance, *, verbose=True):
+    """
+    Find the *minimal* k that yields SAT (optimal k),
+    using:
+      1) halving schedule to find a YES/NO bracket
+      2) binary search between first NO and last YES
+
+    Stops when: (k_no + 1 == k_yes) i.e. consecutive NO then YES.
+    Returns a dict with full logs and the optimal solution.
+    """
+    # 1) Get initial bracket from halving
+    halving_res = solve_with_halving_k(instance, verbose=verbose)
+
+    last_yes = halving_res["last_yes"]
+    first_no = halving_res["first_no"]
+
+    # If never SAT even at k = n, there is no solution at all
+    if last_yes is None:
+        if verbose:
+            print("\nNo SAT solution found even with k = n.")
+        return {
+            "mode": "halving+binary",
+            "halving": halving_res,
+            "binary_iterations": [],
+            "optimal": None,
+        }
+
+    # If we never hit NO in halving schedule, we only know it's SAT down to k=1 in that schedule.
+    # In that case, just test k=1 and decide.
+    if first_no is None:
+        if verbose:
+            print("\nHalving never produced NO. Refining by directly testing k=1.")
+        inst1 = copy.copy(instance)
+        inst1.k = 1
+        t0 = time.perf_counter()
+        sol1 = MOPPDECSATSolver(inst1).solve()
+        t1 = time.perf_counter()
+
+        if sol1 is not None:
+            if verbose:
+                print("YES at k=1 => optimal k = 1")
+            return {
+                "mode": "halving+binary",
+                "halving": halving_res,
+                "binary_iterations": [{
+                    "k": 1, "is_sat": True, "solution": sol1, "solve_time_sec": (t1 - t0)
+                }],
+                "optimal": {"k": 1, "solution": sol1, "solve_time_sec": (t1 - t0)},
+            }
+        else:
+            # SAT at last_yes.k but UNSAT at 1; bracket is [1, last_yes.k]
+            if verbose:
+                print("NO at k=1. Using bracket [k_no=1, k_yes=last_yes.k] for binary search.")
+            k_no = 1
+            k_yes = last_yes["k"]
+            best_sol = last_yes["solution"]
+            best_time = last_yes["solve_time_sec"]
+            binary_log = []
+    else:
+        # Normal bracket from halving: first NO is smaller, last YES is larger
+        k_no = first_no["k"]
+        k_yes = last_yes["k"]
+        best_sol = last_yes["solution"]
+        best_time = last_yes["solve_time_sec"]
+        binary_log = []
+
+    if verbose:
+        print("\n" + "=" * 60)
+        print(f"[Binary Search Refinement] Bracket: NO at k={k_no}, YES at k={k_yes}")
+        print("=" * 60)
+
+    # 2) Binary search for minimal SAT k
+    while (k_yes - k_no) > 1:
+        mid = (k_yes + k_no) // 2
+
+        inst_mid = copy.copy(instance)
+        inst_mid.k = mid
+
+        if verbose:
+            print("\n" + "-" * 60)
+            print(f"Trying mid k = {mid} (current bracket: NO={k_no}, YES={k_yes})")
+            print("-" * 60)
+
+        t0 = time.perf_counter()
+        sol_mid = MOPPDECSATSolver(inst_mid).solve()
+        t1 = time.perf_counter()
+        solve_time = t1 - t0
+
+        entry = {
+            "k": mid,
+            "is_sat": sol_mid is not None,
+            "solution": sol_mid,
+            "solve_time_sec": solve_time,
+        }
+        binary_log.append(entry)
+
+        if verbose:
+            print(f"SAT solver time: {solve_time:.6f} sec")
+            if sol_mid is None:
+                print("NO at k =", mid)
+            else:
+                print("YES at k =", mid)
+                print("Selected objectives:", sol_mid)
+
+        if sol_mid is not None:
+            # SAT: move YES boundary down
+            k_yes = mid
+            best_sol = sol_mid
+            best_time = solve_time
+        else:
+            # UNSAT: move NO boundary up
+            k_no = mid
+
+    # Now they are consecutive: NO at k_no and YES at k_yes
+    optimal = {"k": k_yes, "solution": best_sol, "solve_time_sec": best_time}
+
+    if verbose:
+        print("\n" + "=" * 60)
+        print("[Optimal k Found]")
+        print(f"NO at k = {k_no}")
+        print(f"YES at k = {k_yes}  <-- optimal (minimal SAT k)")
+        print("Optimal selected objectives:", best_sol)
+        print("=" * 60)
+
+    return {
+        "mode": "halving+binary",
+        "halving": halving_res,
+        "binary_iterations": binary_log,
+        "optimal": optimal,
     }
