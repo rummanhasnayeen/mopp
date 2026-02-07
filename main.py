@@ -1,10 +1,94 @@
 import time
+import sys
+import json
+from contextlib import contextmanager
 
 from Solvers.moppdec_sat_solver import MOPPDECSATSolver, solve_with_halving_k, solve_with_optimal_k
 from CaseStudies.car_example import CarPreferenceExample
 from CaseStudies.autonomous_delivery_vehicle import AutonomousDeliveryVehicleCaseStudy
 from CaseStudies.AutonomousVehicle10ObjectiveCaseStudy import AutonomousVehicle10ObjectiveCaseStudy
 from CaseStudies.DynamicRandomCaseStudy import DynamicRandomCaseStudy
+
+
+@contextmanager
+def tee_stdout(path: str):
+    original = sys.stdout
+    with open(path, "w") as f:
+        class Tee:
+            def write(self, s):
+                original.write(s)
+                f.write(s)
+            def flush(self):
+                original.flush()
+                f.flush()
+        sys.stdout = Tee()
+        try:
+            yield
+        finally:
+            sys.stdout = original
+
+
+def run_experiments():
+    results = []
+    base_plans = 30
+    base_k = 2
+
+    step_idx = 0
+    for n_obj in range(50, 501, 50):
+        step_idx += 1
+        n_plans = base_plans * step_idx
+        n_comp = 2 * n_plans
+        k = base_k + (step_idx - 1)
+
+        print("\n" + "#" * 70)
+        print(f"Experiment {step_idx}: n_obj={n_obj}, n_plans={n_plans}, n_comp={n_comp}, k={k}")
+        print("#" * 70)
+
+        # construction time
+        t_construct_start = time.perf_counter()
+        case_study = DynamicRandomCaseStudy(
+            num_objectives=n_obj,
+            num_plans=n_plans,
+            num_comparisons=n_comp,
+            k=k,
+            seed=42 + step_idx,
+        )
+        t_construct_end = time.perf_counter()
+
+        case_study.print_summary()
+        instance = case_study.get_instance()
+
+        # solve time
+        t_solve_start = time.perf_counter()
+        report = solve_with_optimal_k(instance, verbose=True)
+        t_solve_end = time.perf_counter()
+
+        construction_time = t_construct_end - t_construct_start
+        sat_solver_time = t_solve_end - t_solve_start
+
+        optimal = report["optimal"]
+        selected_omega = None if optimal is None else optimal["solution"]
+        optimal_k = None if optimal is None else optimal["k"]
+
+        results.append({
+            "experiment": step_idx,
+            "num_objectives": n_obj,
+            "num_plans": n_plans,
+            "num_comparisons": n_comp,
+            "k_input": k,
+            "construction_time_sec": construction_time,
+            "sat_solver_time_sec": sat_solver_time,
+            "optimal_found": optimal is not None,
+            "optimal_k": optimal_k,
+            "selected_omega": selected_omega,
+        })
+
+    with open("dynamic_random_experiments.json", "w") as f:
+        json.dump(results, f, indent=2)
+
+    print(f"\nSaved JSON: dynamic_random_experiments_{time.time()}.json")
+
+
 
 def main():
     t_total_start = time.perf_counter()
@@ -82,13 +166,15 @@ def main():
     #     print("YES: Found consistent objective subset Ω")
     #     print("Selected objectives:", solution)
 
-    if report.get("last_yes") is None:
+    last_yes = report["halving"]["last_yes"]
+    if last_yes is None:
         print("Final result: NO for all tried k values.")
     else:
-        print("Final result: Found sub-optimal (last YES before NO)")
-        print("Best k found:", report["last_yes"]["k"])
-        print("Selected objectives:", report["last_yes"]["solution"])
+        print("Best k found:", last_yes["k"])
+        print("Selected objectives:", last_yes["solution"])
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    with tee_stdout("experiment_log.txt"):
+        run_experiments()

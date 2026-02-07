@@ -255,8 +255,8 @@ class DynamicRandomCaseStudy:
             print(f"({p1}, {p2}, {r})")
 
         # # debug
-        # if hasattr(self, "_omega_star"):
-        #     print(f"\n[Debug] Hidden true Ω* used for generation: {self._omega_star}")
+        if hasattr(self, "_omega_star"):
+            print(f"\n[Debug] Hidden true Ω* used for generation: {self._omega_star}")
 
         print("==============================================\n")
 
