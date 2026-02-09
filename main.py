@@ -1,6 +1,8 @@
 import time
+import  datetime
 import sys
 import json
+import os
 from contextlib import contextmanager
 
 from Solvers.moppdec_sat_solver import MOPPDECSATSolver, solve_with_halving_k, solve_with_optimal_k
@@ -9,6 +11,17 @@ from CaseStudies.autonomous_delivery_vehicle import AutonomousDeliveryVehicleCas
 from CaseStudies.AutonomousVehicle10ObjectiveCaseStudy import AutonomousVehicle10ObjectiveCaseStudy
 from CaseStudies.DynamicRandomCaseStudy import DynamicRandomCaseStudy
 
+
+text_dir = "text"
+json_dir = "json"
+
+os.makedirs(text_dir, exist_ok=True)
+os.makedirs(json_dir, exist_ok=True)
+
+timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+
+log_file_path = os.path.join(text_dir, f"experiment_log_{timestamp}.txt")
+json_file_path = os.path.join(json_dir, f"experiment_report_{timestamp}.json")
 
 @contextmanager
 def tee_stdout(path: str):
@@ -28,13 +41,13 @@ def tee_stdout(path: str):
             sys.stdout = original
 
 
-def run_experiments():
+def run_experiments(file_ts):
     results = []
     base_plans = 30
-    base_k = 2
+    base_k = 5
 
     step_idx = 0
-    for n_obj in range(50, 501, 50):
+    for n_obj in range(50, 301, 50):
         step_idx += 1
         n_plans = base_plans * step_idx
         n_comp = 2 * n_plans
@@ -83,7 +96,7 @@ def run_experiments():
             "selected_omega": selected_omega,
         })
 
-    with open("dynamic_random_experiments.json", "w") as f:
+    with open(json_file_path, "w") as f:
         json.dump(results, f, indent=2)
 
     print(f"\nSaved JSON: dynamic_random_experiments_{time.time()}.json")
@@ -176,5 +189,6 @@ def main():
 
 if __name__ == "__main__":
     # main()
-    with tee_stdout("experiment_log.txt"):
-        run_experiments()
+    file_time_stamp = time.time()
+    with tee_stdout(log_file_path):
+        run_experiments(file_time_stamp)

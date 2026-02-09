@@ -3,7 +3,9 @@ from pysat.solvers import Solver
 
 import time
 import copy
+import threading
 
+TIME_LIMIT = 300  # 5 minutes
 
 class MOPPDECSATSolver:
     """
@@ -163,14 +165,39 @@ class MOPPDECSATSolver:
     # Solve
     # --------------------------------------------------
 
-    def solve(self):
+    def solve(self, time_limit_sec=None):
         """
         Solve the SAT instance
         """
         self.build_formula()
 
         with Solver(bootstrap_with=self.cnf) as solver:
-            if not solver.solve():
+            timed_out = False
+
+            timer = None
+            if time_limit_sec is not None:
+                def _timeout():
+                    nonlocal timed_out
+                    timed_out = True
+                    try:
+                        solver.interrupt()
+                    except Exception:
+                        pass
+
+                timer = threading.Timer(time_limit_sec, _timeout)
+                timer.daemon = True
+                timer.start()
+
+            try:
+                sat = solver.solve()
+            finally:
+                if timer is not None:
+                    timer.cancel()
+
+            if timed_out:
+                return "TIMEOUT"
+
+            if not sat:
                 return None
 
             model = solver.get_model()
@@ -224,7 +251,7 @@ def solve_with_halving_k(instance, *, verbose=True):
         # Build + solve timing (solver.build_formula is called inside solve())
         t_solve_start = time.perf_counter()
         solver = MOPPDECSATSolver(inst_k)
-        solution = solver.solve()
+        solution = solver.solve(time_limit_sec=TIME_LIMIT)
         t_solve_end = time.perf_counter()
 
         solve_time = t_solve_end - t_solve_start
@@ -361,7 +388,7 @@ def solve_with_optimal_k(instance, *, verbose=True):
             print("-" * 60)
 
         t0 = time.perf_counter()
-        sol_mid = MOPPDECSATSolver(inst_mid).solve()
+        sol_mid = MOPPDECSATSolver(inst_mid).solve(time_limit_sec=TIME_LIMIT)
         t1 = time.perf_counter()
         solve_time = t1 - t0
 

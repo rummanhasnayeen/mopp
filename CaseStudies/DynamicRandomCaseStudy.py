@@ -3,7 +3,8 @@ from dataclasses import dataclass
 from typing import Dict, List, Tuple, Union, Set
 
 ComparisonLabel = Union[int, str]  # 0, 1, "?"
-
+PLAN_VECTOR_LOWER_BOUND = 1
+PLAN_VECTOR_UPPER_BOUND = 10
 
 @dataclass
 class SimpleMOPPInstance:
@@ -71,7 +72,7 @@ class DynamicRandomCaseStudy:
 
         # Values: plan -> objective -> int in [1,10]
         self.values = {
-            p: {o: random.randint(1, 10) for o in self.objectives}
+            p: {o: random.randint(PLAN_VECTOR_LOWER_BOUND, PLAN_VECTOR_UPPER_BOUND) for o in self.objectives}
             for p in self.plans
         }
 
