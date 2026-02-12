@@ -1,0 +1,118 @@
+[
+  {
+    "experiment": 1,
+    "num_objectives": 50,
+    "num_plans": 30,
+    "num_comparisons": 60,
+    "k_input": 5,
+    "construction_time_sec": 0.9882825,
+    "sat_solver_time_sec": 0.08073808299999996,
+    "optimal_found": true,
+    "optimal_k": 4,
+    "selected_omega": [
+      "o3",
+      "o19",
+      "o45",
+      "o49"
+    ]
+  },
+  {
+    "experiment": 2,
+    "num_objectives": 100,
+    "num_plans": 60,
+    "num_comparisons": 120,
+    "k_input": 6,
+    "construction_time_sec": 1.0019440829999997,
+    "sat_solver_time_sec": 0.5552099589999999,
+    "optimal_found": true,
+    "optimal_k": 6,
+    "selected_omega": [
+      "o15",
+      "o23",
+      "o53",
+      "o67",
+      "o70",
+      "o90"
+    ]
+  },
+  {
+    "experiment": 3,
+    "num_objectives": 150,
+    "num_plans": 90,
+    "num_comparisons": 180,
+    "k_input": 7,
+    "construction_time_sec": 1.0370426249999998,
+    "sat_solver_time_sec": 1.71284925,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o21",
+      "o66",
+      "o70",
+      "o78",
+      "o87",
+      "o107",
+      "o125"
+    ]
+  },
+  {
+    "experiment": 4,
+    "num_objectives": 200,
+    "num_plans": 120,
+    "num_comparisons": 240,
+    "k_input": 8,
+    "construction_time_sec": 1.057921791,
+    "sat_solver_time_sec": 3.8447043329999993,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o11",
+      "o39",
+      "o59",
+      "o103",
+      "o133",
+      "o151",
+      "o163"
+    ]
+  },
+  {
+    "experiment": 5,
+    "num_objectives": 250,
+    "num_plans": 150,
+    "num_comparisons": 300,
+    "k_input": 9,
+    "construction_time_sec": 1.107663582999999,
+    "sat_solver_time_sec": 10.342989167,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o17",
+      "o88",
+      "o91",
+      "o111",
+      "o117",
+      "o132",
+      "o147"
+    ]
+  },
+  {
+    "experiment": 6,
+    "num_objectives": 300,
+    "num_plans": 180,
+    "num_comparisons": 360,
+    "k_input": 10,
+    "construction_time_sec": 1.1131544590000004,
+    "sat_solver_time_sec": 15.161235625,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o68",
+      "o99",
+      "o162",
+      "o224",
+      "o274",
+      "o281",
+      "o286"
+    ]
+  }
+]
