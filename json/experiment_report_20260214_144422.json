@@ -1,0 +1,399 @@
+[
+  {
+    "experiment": 1,
+    "num_objectives": 50,
+    "num_plans": 30,
+    "num_comparisons": 60,
+    "k_input": 5,
+    "construction_time_sec": 1.576941667,
+    "sat_solver_time_sec": 0.11337920899999987,
+    "optimal_found": true,
+    "optimal_k": 4,
+    "selected_omega": [
+      "o3",
+      "o19",
+      "o45",
+      "o49"
+    ]
+  },
+  {
+    "experiment": 2,
+    "num_objectives": 100,
+    "num_plans": 60,
+    "num_comparisons": 120,
+    "k_input": 6,
+    "construction_time_sec": 1.3471737080000001,
+    "sat_solver_time_sec": 1.1208107920000003,
+    "optimal_found": true,
+    "optimal_k": 6,
+    "selected_omega": [
+      "o15",
+      "o23",
+      "o53",
+      "o67",
+      "o70",
+      "o90"
+    ]
+  },
+  {
+    "experiment": 3,
+    "num_objectives": 150,
+    "num_plans": 90,
+    "num_comparisons": 180,
+    "k_input": 7,
+    "construction_time_sec": 1.6193109589999999,
+    "sat_solver_time_sec": 2.660109042,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o21",
+      "o66",
+      "o70",
+      "o78",
+      "o87",
+      "o107",
+      "o125"
+    ]
+  },
+  {
+    "experiment": 4,
+    "num_objectives": 200,
+    "num_plans": 120,
+    "num_comparisons": 240,
+    "k_input": 8,
+    "construction_time_sec": 1.8215068750000007,
+    "sat_solver_time_sec": 6.051274083000001,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o11",
+      "o39",
+      "o59",
+      "o103",
+      "o133",
+      "o151",
+      "o163"
+    ]
+  },
+  {
+    "experiment": 5,
+    "num_objectives": 250,
+    "num_plans": 150,
+    "num_comparisons": 300,
+    "k_input": 9,
+    "construction_time_sec": 1.522178125,
+    "sat_solver_time_sec": 13.451917709,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o17",
+      "o88",
+      "o91",
+      "o111",
+      "o117",
+      "o132",
+      "o147"
+    ]
+  },
+  {
+    "experiment": 6,
+    "num_objectives": 300,
+    "num_plans": 180,
+    "num_comparisons": 360,
+    "k_input": 10,
+    "construction_time_sec": 1.2638264580000005,
+    "sat_solver_time_sec": 16.541964208000003,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o68",
+      "o99",
+      "o162",
+      "o224",
+      "o274",
+      "o281",
+      "o286"
+    ]
+  },
+  {
+    "experiment": 7,
+    "num_objectives": 350,
+    "num_plans": 210,
+    "num_comparisons": 420,
+    "k_input": 11,
+    "construction_time_sec": 1.2103030830000066,
+    "sat_solver_time_sec": 23.618752208000004,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o23",
+      "o35",
+      "o57",
+      "o142",
+      "o166",
+      "o177",
+      "o284"
+    ]
+  },
+  {
+    "experiment": 8,
+    "num_objectives": 400,
+    "num_plans": 240,
+    "num_comparisons": 480,
+    "k_input": 12,
+    "construction_time_sec": 1.2830538329999968,
+    "sat_solver_time_sec": 37.797207083,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o44",
+      "o137",
+      "o163",
+      "o187",
+      "o255",
+      "o327",
+      "o355"
+    ]
+  },
+  {
+    "experiment": 9,
+    "num_objectives": 450,
+    "num_plans": 270,
+    "num_comparisons": 540,
+    "k_input": 13,
+    "construction_time_sec": 1.6734615830000052,
+    "sat_solver_time_sec": 53.31166725,
+    "optimal_found": true,
+    "optimal_k": 8,
+    "selected_omega": [
+      "o125",
+      "o126",
+      "o258",
+      "o281",
+      "o283",
+      "o421",
+      "o430",
+      "o445"
+    ]
+  },
+  {
+    "experiment": 10,
+    "num_objectives": 500,
+    "num_plans": 300,
+    "num_comparisons": 600,
+    "k_input": 14,
+    "construction_time_sec": 1.465672791000003,
+    "sat_solver_time_sec": 80.16766487500001,
+    "optimal_found": true,
+    "optimal_k": 8,
+    "selected_omega": [
+      "o72",
+      "o190",
+      "o248",
+      "o263",
+      "o372",
+      "o438",
+      "o451",
+      "o483"
+    ]
+  },
+  {
+    "experiment": 11,
+    "num_objectives": 550,
+    "num_plans": 330,
+    "num_comparisons": 660,
+    "k_input": 15,
+    "construction_time_sec": 1.4577821249999943,
+    "sat_solver_time_sec": 107.22836387499999,
+    "optimal_found": true,
+    "optimal_k": 8,
+    "selected_omega": [
+      "o38",
+      "o136",
+      "o174",
+      "o353",
+      "o370",
+      "o466",
+      "o468",
+      "o495"
+    ]
+  },
+  {
+    "experiment": 12,
+    "num_objectives": 600,
+    "num_plans": 360,
+    "num_comparisons": 720,
+    "k_input": 16,
+    "construction_time_sec": 1.9595195420000096,
+    "sat_solver_time_sec": 155.800215083,
+    "optimal_found": true,
+    "optimal_k": 8,
+    "selected_omega": [
+      "o205",
+      "o225",
+      "o390",
+      "o450",
+      "o458",
+      "o500",
+      "o508",
+      "o592"
+    ]
+  },
+  {
+    "experiment": 13,
+    "num_objectives": 650,
+    "num_plans": 390,
+    "num_comparisons": 780,
+    "k_input": 17,
+    "construction_time_sec": 1.621750499999962,
+    "sat_solver_time_sec": 193.3924437080001,
+    "optimal_found": true,
+    "optimal_k": 8,
+    "selected_omega": [
+      "o154",
+      "o310",
+      "o395",
+      "o416",
+      "o484",
+      "o516",
+      "o548",
+      "o554"
+    ]
+  },
+  {
+    "experiment": 14,
+    "num_objectives": 700,
+    "num_plans": 420,
+    "num_comparisons": 840,
+    "k_input": 18,
+    "construction_time_sec": 1.6451237500000389,
+    "sat_solver_time_sec": 264.47910575000003,
+    "optimal_found": true,
+    "optimal_k": 8,
+    "selected_omega": [
+      "o213",
+      "o237",
+      "o384",
+      "o574",
+      "o588",
+      "o634",
+      "o659",
+      "o669"
+    ]
+  },
+  {
+    "experiment": 15,
+    "num_objectives": 750,
+    "num_plans": 450,
+    "num_comparisons": 900,
+    "k_input": 19,
+    "construction_time_sec": 2.264582958999995,
+    "sat_solver_time_sec": 342.054573958,
+    "optimal_found": true,
+    "optimal_k": 8,
+    "selected_omega": [
+      "o21",
+      "o231",
+      "o298",
+      "o382",
+      "o448",
+      "o489",
+      "o619",
+      "o620"
+    ]
+  },
+  {
+    "experiment": 16,
+    "num_objectives": 800,
+    "num_plans": 480,
+    "num_comparisons": 960,
+    "k_input": 20,
+    "construction_time_sec": 1.640010957999948,
+    "sat_solver_time_sec": 397.40751516699993,
+    "optimal_found": true,
+    "optimal_k": 8,
+    "selected_omega": [
+      "o184",
+      "o198",
+      "o202",
+      "o255",
+      "o416",
+      "o502",
+      "o594",
+      "o631"
+    ]
+  },
+  {
+    "experiment": 17,
+    "num_objectives": 850,
+    "num_plans": 510,
+    "num_comparisons": 1020,
+    "k_input": 21,
+    "construction_time_sec": 1.9313122080000085,
+    "sat_solver_time_sec": 451.8732041249998,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o11",
+      "o38",
+      "o222",
+      "o230",
+      "o497",
+      "o597",
+      "o747"
+    ]
+  },
+  {
+    "experiment": 18,
+    "num_objectives": 900,
+    "num_plans": 540,
+    "num_comparisons": 1080,
+    "k_input": 22,
+    "construction_time_sec": 2.785317374999977,
+    "sat_solver_time_sec": 584.2953072089999,
+    "optimal_found": true,
+    "optimal_k": 8,
+    "selected_omega": [
+      "o236",
+      "o291",
+      "o316",
+      "o371",
+      "o592",
+      "o682",
+      "o812",
+      "o879"
+    ]
+  },
+  {
+    "experiment": 19,
+    "num_objectives": 950,
+    "num_plans": 570,
+    "num_comparisons": 1140,
+    "k_input": 23,
+    "construction_time_sec": 2.0811103340001864,
+    "sat_solver_time_sec": 712.5724044160002,
+    "optimal_found": true,
+    "optimal_k": 7,
+    "selected_omega": [
+      "o321",
+      "o343",
+      "o368",
+      "o647",
+      "o710",
+      "o765",
+      "o780"
+    ]
+  },
+  {
+    "experiment": 20,
+    "num_objectives": 1000,
+    "num_plans": 600,
+    "num_comparisons": 1200,
+    "k_input": 24,
+    "construction_time_sec": 2.3672078749996217,
+    "sat_solver_time_sec": 1921.8854768750002,
+    "optimal_found": true,
+    "optimal_k": 6,
+    "selected_omega": "TIMEOUT"
+  }
+]
