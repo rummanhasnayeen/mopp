@@ -47,7 +47,7 @@ def run_experiments(file_ts):
     base_k = 5
 
     step_idx = 0
-    for n_obj in range(50, 201, 50):
+    for n_obj in range(50, 501, 50):
         step_idx += 1
         n_plans = base_plans * step_idx
         n_comp = 2 * n_plans
