@@ -51,7 +51,8 @@ def run_experiments(file_ts):
         step_idx += 1
         n_plans = base_plans * step_idx
         n_comp = 2 * n_plans
-        k = base_k + (step_idx - 1)
+        # k = base_k + (step_idx - 1)
+        k = int(0.15 * n_obj)  # match omega_ratio
 
         print("\n" + "#" * 70)
         print(f"Experiment {step_idx}: n_obj={n_obj}, n_plans={n_plans}, n_comp={n_comp}, k={k}")
