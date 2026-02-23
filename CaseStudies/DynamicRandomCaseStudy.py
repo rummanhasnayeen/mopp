@@ -342,9 +342,43 @@ class DynamicRandomCaseStudy:
 
             attempts += 1
 
+        # ---------- Phase 2: fill remaining quota with ANY label ----------
+        while len(ones) + len(zeros) + len(qs) < num_comparisons and attempts < 400_000:
+            p, q = self.rng.sample(self.plans, 2)
+
+            if (p, q) in seen or (q, p) in seen:
+                attempts += 1
+                continue
+
+            rel = self._relation_under_omega(values, omega_star, p, q)
+
+            if rel == 1:
+                ones.append((p, q, 1));
+                seen.add((p, q))
+            elif rel == -1:
+                ones.append((q, p, 1));
+                seen.add((q, p))
+            elif rel == 0:
+                zeros.append((p, q, 0));
+                seen.add((p, q))
+            elif rel == "?":
+                qs.append((p, q, "?"));
+                seen.add((p, q))
+
+            attempts += 1
+
+        comps = ones + zeros + qs
+
+        if not ones or not zeros or not qs:
+            print("[Warn] Could not generate full mixture of (1,0,?) from current values/Ω*. "
+                  "Adjust construction to create those relations.")
+
+        self.rng.shuffle(comps)
+        return comps[:num_comparisons]
+
         # If you couldn’t fill buckets, it means your value construction didn’t create enough of some type.
         # In that case: increase the forced zero/? pairs in Step 2.3/2.4.
-        return ones + zeros + qs
+        # return ones + zeros + qs
 
     # def _pick_omega_star(self) -> List[str]:
     #     if self.k == 0:
