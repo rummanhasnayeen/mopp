@@ -87,9 +87,11 @@ class DynamicRandomCaseStudy:
         # Force at least one example of each label under Omega* (0,1,"?")--commented--
         self.comparisons = []
         self._force_one_of_each_label()
+        print(f"Generated {len(self.comparisons)} initial comparisons")
         remaining = self.num_comparisons - len(self.comparisons)
         if remaining > 0:
             extra = self._generate_comparisons_mixture(self.values, self._omega_star, remaining)
+            print(f"Generated {len(extra)} extra comparisons")
             self.comparisons.extend(extra)
 
         # self.values, self.comparisons = self._generate_graph_first_then_values()
@@ -342,7 +344,7 @@ class DynamicRandomCaseStudy:
 
             attempts += 1
 
-        # ---------- Phase 2: fill remaining quota with ANY label ----------
+        # fill num_comparison
         while len(ones) + len(zeros) + len(qs) < num_comparisons and attempts < 400_000:
             p, q = self.rng.sample(self.plans, 2)
 
@@ -370,40 +372,39 @@ class DynamicRandomCaseStudy:
         comps = ones + zeros + qs
 
         if not ones or not zeros or not qs:
-            print("[Warn] Could not generate full mixture of (1,0,?) from current values/Ω*. "
-                  "Adjust construction to create those relations.")
+            print("[Warn] Could not generate full mixture of (1,0,?) from current values. ")
 
-        self.rng.shuffle(comps)
-        return comps[:num_comparisons]
+        # self.rng.shuffle(comps)
+        return comps
 
         # If you couldn’t fill buckets, it means your value construction didn’t create enough of some type.
         # In that case: increase the forced zero/? pairs in Step 2.3/2.4.
         # return ones + zeros + qs
 
-    # def _pick_omega_star(self) -> List[str]:
-    #     if self.k == 0:
-    #         # With empty Omega r=1 would be impossible
-    #         return []
-    #     size = min(self.k, self.num_objectives)
-    #     # If we want "?" to be possible, we need at least 2 in Omega*.
-    #     if self._require_incomparability and size == 1 and self.num_objectives >= 2:
-    #         # keep Omega* size 2, but this violates k=1; can't guarantee YES with "?" required.
-    #         # We'll keep size=1 to respect k, but that means "?" can't be generated consistently.
-    #         pass
-    #     return self.rng.sample(self.objectives, size)
-
     def _pick_omega_star(self) -> List[str]:
-        # Grow Ω* with number of objectives, independent of provided k
-        # size = int(math.ceil(self.omega_ratio * self.num_objectives))
-        # size = max(self.omega_min, size)
-        # size = min(size, self.num_objectives)
-        # # grows like sqrt(n)
-        # size = max(2, int(round(0.6 * (self.num_objectives ** 0.5))))
-        # size = min(size, self.num_objectives)
-        # grows linearly with n
-        size = max(2, int(round(0.05 * self.num_objectives)))  # 5%
-        size = min(size, self.num_objectives)
+        if self.k == 0:
+            # With empty Omega r=1 would be impossible
+            return []
+        size = min(self.k, self.num_objectives)
+        # If we want "?" to be possible, we need at least 2 in Omega*.
+        if self._require_incomparability and size == 1 and self.num_objectives >= 2:
+            # keep Omega* size 2, but this violates k=1; can't guarantee YES with "?" required.
+            # We'll keep size=1 to respect k, but that means "?" can't be generated consistently.
+            pass
         return self.rng.sample(self.objectives, size)
+
+    # def _pick_omega_star(self) -> List[str]:
+    #     # Grow Ω* with number of objectives, independent of provided k
+    #     # size = int(math.ceil(self.omega_ratio * self.num_objectives))
+    #     # size = max(self.omega_min, size)
+    #     # size = min(size, self.num_objectives)
+    #     # # grows like sqrt(n)
+    #     # size = max(2, int(round(0.6 * (self.num_objectives ** 0.5))))
+    #     # size = min(size, self.num_objectives)
+    #     # grows linearly with n
+    #     size = max(2, int(round(0.05 * self.num_objectives)))  # 5%
+    #     size = min(size, self.num_objectives)
+    #     return self.rng.sample(self.objectives, size)
 
     def _relation_under_omega_self_values(self, p: str, q: str, omega: List[str]) -> ComparisonLabel:
         """
