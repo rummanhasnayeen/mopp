@@ -3,6 +3,7 @@ import  datetime
 import sys
 import json
 import os
+import traceback
 from contextlib import contextmanager
 
 from Solvers.moppdec_sat_solver import MOPPDECSATSolver, solve_with_halving_k, solve_with_optimal_k
@@ -41,67 +42,116 @@ def tee_stdout(path: str):
             sys.stdout = original
 
 
+def append_jsonl(path: str, obj: dict):
+    with open(path, "a", encoding="utf-8") as f: # without encoding crashed on university  windows pc
+        f.write(json.dumps(obj, ensure_ascii=False) + "\n")
+        f.flush()
+
+
 def run_experiments(file_ts):
     results = []
+    all_results = []
     base_plans = 30
     base_k = 5
 
+    jsonl_path = f"json/experiment_report_{file_time_stamp}_partial.jsonl"
+    final_json_path = f"json/experiment_report_{file_time_stamp}.json"
+
     step_idx = 0
     for n_obj in range(50, 1001, 50):
-        step_idx += 1
-        n_plans = base_plans * step_idx
-        n_comp = 2 * n_plans
-        k = base_k + (step_idx - 1)
-        # k = int(0.05 * n_obj)  # match numbeer of obj ratio
+        exp_record = None
 
-        print("\n" + "#" * 70)
-        print(f"Experiment {step_idx}: n_obj={n_obj}, n_plans={n_plans}, n_comp={n_comp}, k={k}")
-        print("#" * 70)
+        try:
 
-        # construction time
-        t_construct_start = time.perf_counter()
-        case_study = DynamicRandomCaseStudy(
-            num_objectives=n_obj,
-            num_plans=n_plans,
-            num_comparisons=n_comp,
-            k=k,
-            seed=42 + step_idx,
-        )
-        t_construct_end = time.perf_counter()
+            step_idx += 1
+            n_plans = base_plans * step_idx
+            n_comp = 2 * n_plans
+            k = base_k + (step_idx - 1)
+            # k = int(0.05 * n_obj)  # match numbeer of obj ratio
 
-        case_study.print_summary()
-        instance = case_study.get_instance()
+            print("\n" + "#" * 70)
+            print(f"Experiment {step_idx}: n_obj={n_obj}, n_plans={n_plans}, n_comp={n_comp}, k={k}")
+            print("#" * 70)
 
-        # solve time
-        t_solve_start = time.perf_counter()
-        report = solve_with_optimal_k(instance, verbose=True)
-        t_solve_end = time.perf_counter()
+            # construction time
+            t_construct_start = time.perf_counter()
+            case_study = DynamicRandomCaseStudy(
+                num_objectives=n_obj,
+                num_plans=n_plans,
+                num_comparisons=n_comp,
+                k=k,
+                seed=42 + step_idx,
+            )
+            t_construct_end = time.perf_counter()
 
-        construction_time = t_construct_end - t_construct_start
-        sat_solver_time = t_solve_end - t_solve_start
+            case_study.print_summary()
+            instance = case_study.get_instance()
 
-        optimal = report["optimal"]
-        selected_omega = None if optimal is None else optimal["solution"]
-        optimal_k = None if optimal is None else optimal["k"]
+            # solve time
+            t_solve_start = time.perf_counter()
+            report = solve_with_optimal_k(instance, verbose=True)
+            t_solve_end = time.perf_counter()
 
-        results.append({
-            "experiment": step_idx,
-            "num_objectives": n_obj,
-            "num_plans": n_plans,
-            "num_comparisons": n_comp,
-            "k_input": k,
-            "construction_time_sec": construction_time,
-            "sat_solver_time_sec": sat_solver_time,
-            "optimal_found": optimal is not None,
-            "optimal_k": optimal_k,
-            "selected_omega": selected_omega,
-        })
+            construction_time = t_construct_end - t_construct_start
+            sat_solver_time = t_solve_end - t_solve_start
 
-    with open(json_file_path, "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2)
+            optimal = report["optimal"]
+            selected_omega = None if optimal is None else optimal["solution"]
+            optimal_k = None if optimal is None else optimal["k"]
 
-    print(f"\nSaved JSON: dynamic_random_experiments_{time.time()}.json")
 
+
+            results.append({
+                "experiment": step_idx,
+                "num_objectives": n_obj,
+                "num_plans": n_plans,
+                "num_comparisons": n_comp,
+                "k_input": k,
+                "construction_time_sec": construction_time,
+                "sat_solver_time_sec": sat_solver_time,
+                "optimal_found": optimal is not None,
+                "optimal_k": optimal_k,
+                "selected_omega": selected_omega,
+            })
+
+            exp_record = {
+                "experiment": step_idx,
+                "num_objectives": n_obj,
+                "num_plans": n_plans,
+                "num_comparisons": n_comp,
+                "k_input": k,
+                "construction_time_sec": construction_time,
+                "sat_solver_time_sec": sat_solver_time,
+                "optimal_found": optimal is not None,
+                "optimal_k": optimal_k,
+                "selected_omega": selected_omega,
+            }
+
+            with open(json_file_path, "w", encoding="utf-8") as f:
+                json.dump(results, f, indent=2)
+
+            print(f"\nSaved JSON: dynamic_random_experiments_{time.time()}.json")
+
+            exp_record["status"] = "OK"
+
+        except Exception as e:
+            exp_record = exp_record or {}
+            exp_record["status"] = "ERROR"
+            exp_record["error"] = str(e)
+            exp_record["traceback"] = traceback.format_exc()
+
+            # (optional but recommended) capture the parameters of this iteration
+            # exp_record["params"] = {...}
+
+            # IMPORTANT: write the error record before re-raising
+            all_results.append(exp_record)
+            append_jsonl(jsonl_path, exp_record)
+
+            raise  # keep the current “crash on error” behavior, but now JSON is saved
+
+        # normal successful path:
+    all_results.append(exp_record)
+    append_jsonl(jsonl_path, exp_record)
 
 
 def main():
@@ -192,4 +242,6 @@ if __name__ == "__main__":
     # main()
     file_time_stamp = time.time()
     with tee_stdout(log_file_path):
+        os.makedirs(json_dir, exist_ok=True)
+        os.makedirs(text_dir, exist_ok=True)
         run_experiments(file_time_stamp)
