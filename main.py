@@ -60,6 +60,11 @@ def run_experiments(file_ts):
     step_idx = 0
     for n_obj in range(50, 1001, 50):
         exp_record = None
+        step_idx += 1
+        n_plans = base_plans * step_idx
+        n_comp = 2 * n_plans
+        k = base_k + (step_idx - 1)
+        # k = int(0.05 * n_obj)  # match numbeer of obj ratio
 
         try:
 
