@@ -1,0 +1,183 @@
+{
+  "timestamp": "20260325_202528",
+  "seed": 42,
+  "inputs": {
+    "total_objectives": [
+      "q1_tile",
+      "q2_carpet",
+      "q3_concrete",
+      "q4_wood",
+      "distance",
+      "time",
+      "energy",
+      "risk"
+    ],
+    "target_num_plans": 10,
+    "k": 4,
+    "max_build_attempts": 1000,
+    "random_value_min": 1,
+    "random_value_max": 100
+  },
+  "construction_metadata": {
+    "seed": 42,
+    "total_objectives": [
+      "q1_tile",
+      "q2_carpet",
+      "q3_concrete",
+      "q4_wood",
+      "distance",
+      "time",
+      "energy",
+      "risk"
+    ],
+    "selected_objectives": [
+      "q2_carpet",
+      "q1_tile",
+      "time",
+      "q3_concrete"
+    ],
+    "target_num_plans": 10,
+    "constructed_positive_count": 10,
+    "constructed_negative_count": 0,
+    "constructed_total_count": 10,
+    "discarded_count": 0,
+    "attempts": 11,
+    "max_attempts": 1000,
+    "construction_time_seconds": 0.00012862499999999333
+  },
+  "instance": {
+    "selected_objectives": [
+      "q2_carpet",
+      "q1_tile",
+      "time",
+      "q3_concrete"
+    ],
+    "positive_plans": [
+      "p_1",
+      "p_2",
+      "p_3",
+      "p_4",
+      "p_5",
+      "p_6",
+      "p_7",
+      "p_8",
+      "p_9",
+      "p_10"
+    ],
+    "negative_plans": [],
+    "plan_values_all_objectives": {
+      "p_1": {
+        "q1_tile": 32,
+        "q2_carpet": 29,
+        "q3_concrete": 18,
+        "q4_wood": 95,
+        "distance": 14,
+        "time": 87,
+        "energy": 95,
+        "risk": 70
+      },
+      "p_2": {
+        "q1_tile": 12,
+        "q2_carpet": 76,
+        "q3_concrete": 55,
+        "q4_wood": 5,
+        "distance": 4,
+        "time": 12,
+        "energy": 28,
+        "risk": 30
+      },
+      "p_3": {
+        "q1_tile": 65,
+        "q2_carpet": 78,
+        "q3_concrete": 4,
+        "q4_wood": 72,
+        "distance": 26,
+        "time": 92,
+        "energy": 84,
+        "risk": 90
+      },
+      "p_4": {
+        "q1_tile": 70,
+        "q2_carpet": 54,
+        "q3_concrete": 29,
+        "q4_wood": 58,
+        "distance": 76,
+        "time": 36,
+        "energy": 1,
+        "risk": 98
+      },
+      "p_5": {
+        "q1_tile": 21,
+        "q2_carpet": 90,
+        "q3_concrete": 55,
+        "q4_wood": 44,
+        "distance": 36,
+        "time": 20,
+        "energy": 28,
+        "risk": 98
+      },
+      "p_6": {
+        "q1_tile": 44,
+        "q2_carpet": 14,
+        "q3_concrete": 12,
+        "q4_wood": 49,
+        "distance": 13,
+        "time": 46,
+        "energy": 45,
+        "risk": 78
+      },
+      "p_7": {
+        "q1_tile": 34,
+        "q2_carpet": 6,
+        "q3_concrete": 94,
+        "q4_wood": 59,
+        "distance": 69,
+        "time": 16,
+        "energy": 49,
+        "risk": 11
+      },
+      "p_8": {
+        "q1_tile": 71,
+        "q2_carpet": 38,
+        "q3_concrete": 81,
+        "q4_wood": 80,
+        "distance": 47,
+        "time": 74,
+        "energy": 25,
+        "risk": 91
+      },
+      "p_9": {
+        "q1_tile": 9,
+        "q2_carpet": 6,
+        "q3_concrete": 85,
+        "q4_wood": 30,
+        "distance": 99,
+        "time": 38,
+        "energy": 11,
+        "risk": 30
+      },
+      "p_10": {
+        "q1_tile": 13,
+        "q2_carpet": 49,
+        "q3_concrete": 36,
+        "q4_wood": 59,
+        "distance": 82,
+        "time": 47,
+        "energy": 21,
+        "risk": 48
+      }
+    },
+    "k": 4
+  },
+  "solver": {
+    "sat": false,
+    "selected_objectives": [],
+    "cnf_variables": 364,
+    "cnf_clauses": 810
+  },
+  "timing": {
+    "construction_time_seconds": 0.00012862499999999333,
+    "execution_time_seconds": 0.001471708000000016,
+    "total_run_time_seconds": 0.0018261659999999902
+  }
+}

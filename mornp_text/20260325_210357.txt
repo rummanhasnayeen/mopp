@@ -1,0 +1,599 @@
+
+======================================================================
+FLOOR PLAN RANDOM MORNP EXPERIMENT
+======================================================================
+Timestamp: 20260325_210357
+Seed: 42
+Total objective pool: ['q1_tile', 'q2_carpet', 'q3_concrete', 'q4_wood', 'distance', 'time', 'energy', 'risk']
+Requested number of plans: 10
+k: 4
+Max build attempts: 5000
+
+Construction metadata:
+  seed: 42
+  total_objectives: ['q1_tile', 'q2_carpet', 'q3_concrete', 'q4_wood', 'distance', 'time', 'energy', 'risk']
+  selected_objectives: ['q2_carpet', 'q1_tile', 'time', 'q3_concrete']
+  target_num_plans: 10
+  constructed_positive_count: 9
+  constructed_negative_count: 1
+  constructed_total_count: 10
+  discarded_count: 0
+  attempts: 11
+  max_attempts: 5000
+  construction_time_seconds: 0.00012937500000000102
+  construction_success: True
+  failure_reason: None
+  dominated_all_count: 1
+  nondominated_count: 8
+
+Constructed MORNP instance:
+Selected objectives used in instance: ['q2_carpet', 'q1_tile', 'time', 'q3_concrete']
+Positive plans: ['p_1', 'p_3', 'p_4', 'p_5', 'p_6', 'p_7', 'p_8', 'p_9', 'p_10']
+Negative plans: ['p_2']
+k = 4
+
+Full plan values (all objectives):
+  p_1: {'q1_tile': 32, 'q2_carpet': 29, 'q3_concrete': 18, 'q4_wood': 95, 'distance': 14, 'time': 87, 'energy': 95, 'risk': 70}
+  p_2: {'q1_tile': 13, 'q2_carpet': 1, 'q3_concrete': 8, 'q4_wood': 12, 'distance': 28, 'time': 84, 'energy': 65, 'risk': 78}
+  p_3: {'q1_tile': 58, 'q2_carpet': 76, 'q3_concrete': 36, 'q4_wood': 1, 'distance': 98, 'time': 21, 'energy': 90, 'risk': 55}
+  p_4: {'q1_tile': 44, 'q2_carpet': 36, 'q3_concrete': 20, 'q4_wood': 28, 'distance': 98, 'time': 44, 'energy': 14, 'risk': 12}
+  p_5: {'q1_tile': 49, 'q2_carpet': 13, 'q3_concrete': 46, 'q4_wood': 45, 'distance': 78, 'time': 34, 'energy': 6, 'risk': 94}
+  p_6: {'q1_tile': 59, 'q2_carpet': 69, 'q3_concrete': 16, 'q4_wood': 49, 'distance': 11, 'time': 71, 'energy': 38, 'risk': 81}
+  p_7: {'q1_tile': 80, 'q2_carpet': 47, 'q3_concrete': 74, 'q4_wood': 25, 'distance': 91, 'time': 9, 'energy': 6, 'risk': 85}
+  p_8: {'q1_tile': 30, 'q2_carpet': 99, 'q3_concrete': 38, 'q4_wood': 11, 'distance': 30, 'time': 13, 'energy': 49, 'risk': 36}
+  p_9: {'q1_tile': 59, 'q2_carpet': 82, 'q3_concrete': 47, 'q4_wood': 21, 'distance': 48, 'time': 46, 'energy': 27, 'risk': 86}
+  p_10: {'q1_tile': 35, 'q2_carpet': 90, 'q3_concrete': 88, 'q4_wood': 83, 'distance': 10, 'time': 78, 'energy': 82, 'risk': 22}
+
+CNF stats:
+  #variables = 328
+  #clauses   = 729
+=== MORNP Pairwise g(pi, pi', i) constants ===
+
+Pair (pi=p_1, pi'=p_1)
+  g[p_1,p_1,q2_carpet] = 0
+  g[p_1,p_1,q1_tile] = 0
+  g[p_1,p_1,time] = 0
+  g[p_1,p_1,q3_concrete] = 0
+
+Pair (pi=p_1, pi'=p_3)
+  g[p_1,p_3,q2_carpet] = 0
+  g[p_1,p_3,q1_tile] = 0
+  g[p_1,p_3,time] = 1
+  g[p_1,p_3,q3_concrete] = 0
+
+Pair (pi=p_1, pi'=p_4)
+  g[p_1,p_4,q2_carpet] = 0
+  g[p_1,p_4,q1_tile] = 0
+  g[p_1,p_4,time] = 1
+  g[p_1,p_4,q3_concrete] = 0
+
+Pair (pi=p_1, pi'=p_5)
+  g[p_1,p_5,q2_carpet] = 1
+  g[p_1,p_5,q1_tile] = 0
+  g[p_1,p_5,time] = 1
+  g[p_1,p_5,q3_concrete] = 0
+
+Pair (pi=p_1, pi'=p_6)
+  g[p_1,p_6,q2_carpet] = 0
+  g[p_1,p_6,q1_tile] = 0
+  g[p_1,p_6,time] = 1
+  g[p_1,p_6,q3_concrete] = 1
+
+Pair (pi=p_1, pi'=p_7)
+  g[p_1,p_7,q2_carpet] = 0
+  g[p_1,p_7,q1_tile] = 0
+  g[p_1,p_7,time] = 1
+  g[p_1,p_7,q3_concrete] = 0
+
+Pair (pi=p_1, pi'=p_8)
+  g[p_1,p_8,q2_carpet] = 0
+  g[p_1,p_8,q1_tile] = 1
+  g[p_1,p_8,time] = 1
+  g[p_1,p_8,q3_concrete] = 0
+
+Pair (pi=p_1, pi'=p_9)
+  g[p_1,p_9,q2_carpet] = 0
+  g[p_1,p_9,q1_tile] = 0
+  g[p_1,p_9,time] = 1
+  g[p_1,p_9,q3_concrete] = 0
+
+Pair (pi=p_1, pi'=p_10)
+  g[p_1,p_10,q2_carpet] = 0
+  g[p_1,p_10,q1_tile] = 0
+  g[p_1,p_10,time] = 1
+  g[p_1,p_10,q3_concrete] = 0
+
+Pair (pi=p_1, pi'=p_2)
+  g[p_1,p_2,q2_carpet] = 1
+  g[p_1,p_2,q1_tile] = 1
+  g[p_1,p_2,time] = 1
+  g[p_1,p_2,q3_concrete] = 1
+
+Pair (pi=p_3, pi'=p_1)
+  g[p_3,p_1,q2_carpet] = 1
+  g[p_3,p_1,q1_tile] = 1
+  g[p_3,p_1,time] = 0
+  g[p_3,p_1,q3_concrete] = 1
+
+Pair (pi=p_3, pi'=p_3)
+  g[p_3,p_3,q2_carpet] = 0
+  g[p_3,p_3,q1_tile] = 0
+  g[p_3,p_3,time] = 0
+  g[p_3,p_3,q3_concrete] = 0
+
+Pair (pi=p_3, pi'=p_4)
+  g[p_3,p_4,q2_carpet] = 1
+  g[p_3,p_4,q1_tile] = 1
+  g[p_3,p_4,time] = 0
+  g[p_3,p_4,q3_concrete] = 1
+
+Pair (pi=p_3, pi'=p_5)
+  g[p_3,p_5,q2_carpet] = 1
+  g[p_3,p_5,q1_tile] = 1
+  g[p_3,p_5,time] = 0
+  g[p_3,p_5,q3_concrete] = 0
+
+Pair (pi=p_3, pi'=p_6)
+  g[p_3,p_6,q2_carpet] = 1
+  g[p_3,p_6,q1_tile] = 0
+  g[p_3,p_6,time] = 0
+  g[p_3,p_6,q3_concrete] = 1
+
+Pair (pi=p_3, pi'=p_7)
+  g[p_3,p_7,q2_carpet] = 1
+  g[p_3,p_7,q1_tile] = 0
+  g[p_3,p_7,time] = 1
+  g[p_3,p_7,q3_concrete] = 0
+
+Pair (pi=p_3, pi'=p_8)
+  g[p_3,p_8,q2_carpet] = 0
+  g[p_3,p_8,q1_tile] = 1
+  g[p_3,p_8,time] = 1
+  g[p_3,p_8,q3_concrete] = 0
+
+Pair (pi=p_3, pi'=p_9)
+  g[p_3,p_9,q2_carpet] = 0
+  g[p_3,p_9,q1_tile] = 0
+  g[p_3,p_9,time] = 0
+  g[p_3,p_9,q3_concrete] = 0
+
+Pair (pi=p_3, pi'=p_10)
+  g[p_3,p_10,q2_carpet] = 0
+  g[p_3,p_10,q1_tile] = 1
+  g[p_3,p_10,time] = 0
+  g[p_3,p_10,q3_concrete] = 0
+
+Pair (pi=p_3, pi'=p_2)
+  g[p_3,p_2,q2_carpet] = 1
+  g[p_3,p_2,q1_tile] = 1
+  g[p_3,p_2,time] = 0
+  g[p_3,p_2,q3_concrete] = 1
+
+Pair (pi=p_4, pi'=p_1)
+  g[p_4,p_1,q2_carpet] = 1
+  g[p_4,p_1,q1_tile] = 1
+  g[p_4,p_1,time] = 0
+  g[p_4,p_1,q3_concrete] = 1
+
+Pair (pi=p_4, pi'=p_3)
+  g[p_4,p_3,q2_carpet] = 0
+  g[p_4,p_3,q1_tile] = 0
+  g[p_4,p_3,time] = 1
+  g[p_4,p_3,q3_concrete] = 0
+
+Pair (pi=p_4, pi'=p_4)
+  g[p_4,p_4,q2_carpet] = 0
+  g[p_4,p_4,q1_tile] = 0
+  g[p_4,p_4,time] = 0
+  g[p_4,p_4,q3_concrete] = 0
+
+Pair (pi=p_4, pi'=p_5)
+  g[p_4,p_5,q2_carpet] = 1
+  g[p_4,p_5,q1_tile] = 0
+  g[p_4,p_5,time] = 1
+  g[p_4,p_5,q3_concrete] = 0
+
+Pair (pi=p_4, pi'=p_6)
+  g[p_4,p_6,q2_carpet] = 0
+  g[p_4,p_6,q1_tile] = 0
+  g[p_4,p_6,time] = 0
+  g[p_4,p_6,q3_concrete] = 1
+
+Pair (pi=p_4, pi'=p_7)
+  g[p_4,p_7,q2_carpet] = 0
+  g[p_4,p_7,q1_tile] = 0
+  g[p_4,p_7,time] = 1
+  g[p_4,p_7,q3_concrete] = 0
+
+Pair (pi=p_4, pi'=p_8)
+  g[p_4,p_8,q2_carpet] = 0
+  g[p_4,p_8,q1_tile] = 1
+  g[p_4,p_8,time] = 1
+  g[p_4,p_8,q3_concrete] = 0
+
+Pair (pi=p_4, pi'=p_9)
+  g[p_4,p_9,q2_carpet] = 0
+  g[p_4,p_9,q1_tile] = 0
+  g[p_4,p_9,time] = 0
+  g[p_4,p_9,q3_concrete] = 0
+
+Pair (pi=p_4, pi'=p_10)
+  g[p_4,p_10,q2_carpet] = 0
+  g[p_4,p_10,q1_tile] = 1
+  g[p_4,p_10,time] = 0
+  g[p_4,p_10,q3_concrete] = 0
+
+Pair (pi=p_4, pi'=p_2)
+  g[p_4,p_2,q2_carpet] = 1
+  g[p_4,p_2,q1_tile] = 1
+  g[p_4,p_2,time] = 0
+  g[p_4,p_2,q3_concrete] = 1
+
+Pair (pi=p_5, pi'=p_1)
+  g[p_5,p_1,q2_carpet] = 0
+  g[p_5,p_1,q1_tile] = 1
+  g[p_5,p_1,time] = 0
+  g[p_5,p_1,q3_concrete] = 1
+
+Pair (pi=p_5, pi'=p_3)
+  g[p_5,p_3,q2_carpet] = 0
+  g[p_5,p_3,q1_tile] = 0
+  g[p_5,p_3,time] = 1
+  g[p_5,p_3,q3_concrete] = 1
+
+Pair (pi=p_5, pi'=p_4)
+  g[p_5,p_4,q2_carpet] = 0
+  g[p_5,p_4,q1_tile] = 1
+  g[p_5,p_4,time] = 0
+  g[p_5,p_4,q3_concrete] = 1
+
+Pair (pi=p_5, pi'=p_5)
+  g[p_5,p_5,q2_carpet] = 0
+  g[p_5,p_5,q1_tile] = 0
+  g[p_5,p_5,time] = 0
+  g[p_5,p_5,q3_concrete] = 0
+
+Pair (pi=p_5, pi'=p_6)
+  g[p_5,p_6,q2_carpet] = 0
+  g[p_5,p_6,q1_tile] = 0
+  g[p_5,p_6,time] = 0
+  g[p_5,p_6,q3_concrete] = 1
+
+Pair (pi=p_5, pi'=p_7)
+  g[p_5,p_7,q2_carpet] = 0
+  g[p_5,p_7,q1_tile] = 0
+  g[p_5,p_7,time] = 1
+  g[p_5,p_7,q3_concrete] = 0
+
+Pair (pi=p_5, pi'=p_8)
+  g[p_5,p_8,q2_carpet] = 0
+  g[p_5,p_8,q1_tile] = 1
+  g[p_5,p_8,time] = 1
+  g[p_5,p_8,q3_concrete] = 1
+
+Pair (pi=p_5, pi'=p_9)
+  g[p_5,p_9,q2_carpet] = 0
+  g[p_5,p_9,q1_tile] = 0
+  g[p_5,p_9,time] = 0
+  g[p_5,p_9,q3_concrete] = 0
+
+Pair (pi=p_5, pi'=p_10)
+  g[p_5,p_10,q2_carpet] = 0
+  g[p_5,p_10,q1_tile] = 1
+  g[p_5,p_10,time] = 0
+  g[p_5,p_10,q3_concrete] = 0
+
+Pair (pi=p_5, pi'=p_2)
+  g[p_5,p_2,q2_carpet] = 1
+  g[p_5,p_2,q1_tile] = 1
+  g[p_5,p_2,time] = 0
+  g[p_5,p_2,q3_concrete] = 1
+
+Pair (pi=p_6, pi'=p_1)
+  g[p_6,p_1,q2_carpet] = 1
+  g[p_6,p_1,q1_tile] = 1
+  g[p_6,p_1,time] = 0
+  g[p_6,p_1,q3_concrete] = 0
+
+Pair (pi=p_6, pi'=p_3)
+  g[p_6,p_3,q2_carpet] = 0
+  g[p_6,p_3,q1_tile] = 1
+  g[p_6,p_3,time] = 1
+  g[p_6,p_3,q3_concrete] = 0
+
+Pair (pi=p_6, pi'=p_4)
+  g[p_6,p_4,q2_carpet] = 1
+  g[p_6,p_4,q1_tile] = 1
+  g[p_6,p_4,time] = 1
+  g[p_6,p_4,q3_concrete] = 0
+
+Pair (pi=p_6, pi'=p_5)
+  g[p_6,p_5,q2_carpet] = 1
+  g[p_6,p_5,q1_tile] = 1
+  g[p_6,p_5,time] = 1
+  g[p_6,p_5,q3_concrete] = 0
+
+Pair (pi=p_6, pi'=p_6)
+  g[p_6,p_6,q2_carpet] = 0
+  g[p_6,p_6,q1_tile] = 0
+  g[p_6,p_6,time] = 0
+  g[p_6,p_6,q3_concrete] = 0
+
+Pair (pi=p_6, pi'=p_7)
+  g[p_6,p_7,q2_carpet] = 1
+  g[p_6,p_7,q1_tile] = 0
+  g[p_6,p_7,time] = 1
+  g[p_6,p_7,q3_concrete] = 0
+
+Pair (pi=p_6, pi'=p_8)
+  g[p_6,p_8,q2_carpet] = 0
+  g[p_6,p_8,q1_tile] = 1
+  g[p_6,p_8,time] = 1
+  g[p_6,p_8,q3_concrete] = 0
+
+Pair (pi=p_6, pi'=p_9)
+  g[p_6,p_9,q2_carpet] = 0
+  g[p_6,p_9,q1_tile] = 0
+  g[p_6,p_9,time] = 1
+  g[p_6,p_9,q3_concrete] = 0
+
+Pair (pi=p_6, pi'=p_10)
+  g[p_6,p_10,q2_carpet] = 0
+  g[p_6,p_10,q1_tile] = 1
+  g[p_6,p_10,time] = 0
+  g[p_6,p_10,q3_concrete] = 0
+
+Pair (pi=p_6, pi'=p_2)
+  g[p_6,p_2,q2_carpet] = 1
+  g[p_6,p_2,q1_tile] = 1
+  g[p_6,p_2,time] = 0
+  g[p_6,p_2,q3_concrete] = 1
+
+Pair (pi=p_7, pi'=p_1)
+  g[p_7,p_1,q2_carpet] = 1
+  g[p_7,p_1,q1_tile] = 1
+  g[p_7,p_1,time] = 0
+  g[p_7,p_1,q3_concrete] = 1
+
+Pair (pi=p_7, pi'=p_3)
+  g[p_7,p_3,q2_carpet] = 0
+  g[p_7,p_3,q1_tile] = 1
+  g[p_7,p_3,time] = 0
+  g[p_7,p_3,q3_concrete] = 1
+
+Pair (pi=p_7, pi'=p_4)
+  g[p_7,p_4,q2_carpet] = 1
+  g[p_7,p_4,q1_tile] = 1
+  g[p_7,p_4,time] = 0
+  g[p_7,p_4,q3_concrete] = 1
+
+Pair (pi=p_7, pi'=p_5)
+  g[p_7,p_5,q2_carpet] = 1
+  g[p_7,p_5,q1_tile] = 1
+  g[p_7,p_5,time] = 0
+  g[p_7,p_5,q3_concrete] = 1
+
+Pair (pi=p_7, pi'=p_6)
+  g[p_7,p_6,q2_carpet] = 0
+  g[p_7,p_6,q1_tile] = 1
+  g[p_7,p_6,time] = 0
+  g[p_7,p_6,q3_concrete] = 1
+
+Pair (pi=p_7, pi'=p_7)
+  g[p_7,p_7,q2_carpet] = 0
+  g[p_7,p_7,q1_tile] = 0
+  g[p_7,p_7,time] = 0
+  g[p_7,p_7,q3_concrete] = 0
+
+Pair (pi=p_7, pi'=p_8)
+  g[p_7,p_8,q2_carpet] = 0
+  g[p_7,p_8,q1_tile] = 1
+  g[p_7,p_8,time] = 0
+  g[p_7,p_8,q3_concrete] = 1
+
+Pair (pi=p_7, pi'=p_9)
+  g[p_7,p_9,q2_carpet] = 0
+  g[p_7,p_9,q1_tile] = 1
+  g[p_7,p_9,time] = 0
+  g[p_7,p_9,q3_concrete] = 1
+
+Pair (pi=p_7, pi'=p_10)
+  g[p_7,p_10,q2_carpet] = 0
+  g[p_7,p_10,q1_tile] = 1
+  g[p_7,p_10,time] = 0
+  g[p_7,p_10,q3_concrete] = 0
+
+Pair (pi=p_7, pi'=p_2)
+  g[p_7,p_2,q2_carpet] = 1
+  g[p_7,p_2,q1_tile] = 1
+  g[p_7,p_2,time] = 0
+  g[p_7,p_2,q3_concrete] = 1
+
+Pair (pi=p_8, pi'=p_1)
+  g[p_8,p_1,q2_carpet] = 1
+  g[p_8,p_1,q1_tile] = 0
+  g[p_8,p_1,time] = 0
+  g[p_8,p_1,q3_concrete] = 1
+
+Pair (pi=p_8, pi'=p_3)
+  g[p_8,p_3,q2_carpet] = 1
+  g[p_8,p_3,q1_tile] = 0
+  g[p_8,p_3,time] = 0
+  g[p_8,p_3,q3_concrete] = 1
+
+Pair (pi=p_8, pi'=p_4)
+  g[p_8,p_4,q2_carpet] = 1
+  g[p_8,p_4,q1_tile] = 0
+  g[p_8,p_4,time] = 0
+  g[p_8,p_4,q3_concrete] = 1
+
+Pair (pi=p_8, pi'=p_5)
+  g[p_8,p_5,q2_carpet] = 1
+  g[p_8,p_5,q1_tile] = 0
+  g[p_8,p_5,time] = 0
+  g[p_8,p_5,q3_concrete] = 0
+
+Pair (pi=p_8, pi'=p_6)
+  g[p_8,p_6,q2_carpet] = 1
+  g[p_8,p_6,q1_tile] = 0
+  g[p_8,p_6,time] = 0
+  g[p_8,p_6,q3_concrete] = 1
+
+Pair (pi=p_8, pi'=p_7)
+  g[p_8,p_7,q2_carpet] = 1
+  g[p_8,p_7,q1_tile] = 0
+  g[p_8,p_7,time] = 1
+  g[p_8,p_7,q3_concrete] = 0
+
+Pair (pi=p_8, pi'=p_8)
+  g[p_8,p_8,q2_carpet] = 0
+  g[p_8,p_8,q1_tile] = 0
+  g[p_8,p_8,time] = 0
+  g[p_8,p_8,q3_concrete] = 0
+
+Pair (pi=p_8, pi'=p_9)
+  g[p_8,p_9,q2_carpet] = 1
+  g[p_8,p_9,q1_tile] = 0
+  g[p_8,p_9,time] = 0
+  g[p_8,p_9,q3_concrete] = 0
+
+Pair (pi=p_8, pi'=p_10)
+  g[p_8,p_10,q2_carpet] = 1
+  g[p_8,p_10,q1_tile] = 0
+  g[p_8,p_10,time] = 0
+  g[p_8,p_10,q3_concrete] = 0
+
+Pair (pi=p_8, pi'=p_2)
+  g[p_8,p_2,q2_carpet] = 1
+  g[p_8,p_2,q1_tile] = 1
+  g[p_8,p_2,time] = 0
+  g[p_8,p_2,q3_concrete] = 1
+
+Pair (pi=p_9, pi'=p_1)
+  g[p_9,p_1,q2_carpet] = 1
+  g[p_9,p_1,q1_tile] = 1
+  g[p_9,p_1,time] = 0
+  g[p_9,p_1,q3_concrete] = 1
+
+Pair (pi=p_9, pi'=p_3)
+  g[p_9,p_3,q2_carpet] = 1
+  g[p_9,p_3,q1_tile] = 1
+  g[p_9,p_3,time] = 1
+  g[p_9,p_3,q3_concrete] = 1
+
+Pair (pi=p_9, pi'=p_4)
+  g[p_9,p_4,q2_carpet] = 1
+  g[p_9,p_4,q1_tile] = 1
+  g[p_9,p_4,time] = 1
+  g[p_9,p_4,q3_concrete] = 1
+
+Pair (pi=p_9, pi'=p_5)
+  g[p_9,p_5,q2_carpet] = 1
+  g[p_9,p_5,q1_tile] = 1
+  g[p_9,p_5,time] = 1
+  g[p_9,p_5,q3_concrete] = 1
+
+Pair (pi=p_9, pi'=p_6)
+  g[p_9,p_6,q2_carpet] = 1
+  g[p_9,p_6,q1_tile] = 0
+  g[p_9,p_6,time] = 0
+  g[p_9,p_6,q3_concrete] = 1
+
+Pair (pi=p_9, pi'=p_7)
+  g[p_9,p_7,q2_carpet] = 1
+  g[p_9,p_7,q1_tile] = 0
+  g[p_9,p_7,time] = 1
+  g[p_9,p_7,q3_concrete] = 0
+
+Pair (pi=p_9, pi'=p_8)
+  g[p_9,p_8,q2_carpet] = 0
+  g[p_9,p_8,q1_tile] = 1
+  g[p_9,p_8,time] = 1
+  g[p_9,p_8,q3_concrete] = 1
+
+Pair (pi=p_9, pi'=p_9)
+  g[p_9,p_9,q2_carpet] = 0
+  g[p_9,p_9,q1_tile] = 0
+  g[p_9,p_9,time] = 0
+  g[p_9,p_9,q3_concrete] = 0
+
+Pair (pi=p_9, pi'=p_10)
+  g[p_9,p_10,q2_carpet] = 0
+  g[p_9,p_10,q1_tile] = 1
+  g[p_9,p_10,time] = 0
+  g[p_9,p_10,q3_concrete] = 0
+
+Pair (pi=p_9, pi'=p_2)
+  g[p_9,p_2,q2_carpet] = 1
+  g[p_9,p_2,q1_tile] = 1
+  g[p_9,p_2,time] = 0
+  g[p_9,p_2,q3_concrete] = 1
+
+Pair (pi=p_10, pi'=p_1)
+  g[p_10,p_1,q2_carpet] = 1
+  g[p_10,p_1,q1_tile] = 1
+  g[p_10,p_1,time] = 0
+  g[p_10,p_1,q3_concrete] = 1
+
+Pair (pi=p_10, pi'=p_3)
+  g[p_10,p_3,q2_carpet] = 1
+  g[p_10,p_3,q1_tile] = 0
+  g[p_10,p_3,time] = 1
+  g[p_10,p_3,q3_concrete] = 1
+
+Pair (pi=p_10, pi'=p_4)
+  g[p_10,p_4,q2_carpet] = 1
+  g[p_10,p_4,q1_tile] = 0
+  g[p_10,p_4,time] = 1
+  g[p_10,p_4,q3_concrete] = 1
+
+Pair (pi=p_10, pi'=p_5)
+  g[p_10,p_5,q2_carpet] = 1
+  g[p_10,p_5,q1_tile] = 0
+  g[p_10,p_5,time] = 1
+  g[p_10,p_5,q3_concrete] = 1
+
+Pair (pi=p_10, pi'=p_6)
+  g[p_10,p_6,q2_carpet] = 1
+  g[p_10,p_6,q1_tile] = 0
+  g[p_10,p_6,time] = 1
+  g[p_10,p_6,q3_concrete] = 1
+
+Pair (pi=p_10, pi'=p_7)
+  g[p_10,p_7,q2_carpet] = 1
+  g[p_10,p_7,q1_tile] = 0
+  g[p_10,p_7,time] = 1
+  g[p_10,p_7,q3_concrete] = 1
+
+Pair (pi=p_10, pi'=p_8)
+  g[p_10,p_8,q2_carpet] = 0
+  g[p_10,p_8,q1_tile] = 1
+  g[p_10,p_8,time] = 1
+  g[p_10,p_8,q3_concrete] = 1
+
+Pair (pi=p_10, pi'=p_9)
+  g[p_10,p_9,q2_carpet] = 1
+  g[p_10,p_9,q1_tile] = 0
+  g[p_10,p_9,time] = 1
+  g[p_10,p_9,q3_concrete] = 1
+
+Pair (pi=p_10, pi'=p_10)
+  g[p_10,p_10,q2_carpet] = 0
+  g[p_10,p_10,q1_tile] = 0
+  g[p_10,p_10,time] = 0
+  g[p_10,p_10,q3_concrete] = 0
+
+Pair (pi=p_10, pi'=p_2)
+  g[p_10,p_2,q2_carpet] = 1
+  g[p_10,p_2,q1_tile] = 1
+  g[p_10,p_2,time] = 0
+  g[p_10,p_2,q3_concrete] = 1
+
+Solve result:
+  SAT = NO
+  Selected objectives = []
+
+Timing:
+  Construction time = 0.000129 seconds
+  Execution time    = 0.001298 seconds
+  Total run time    = 0.001673 seconds

@@ -1,0 +1,281 @@
+
+======================================================================
+FLOOR PLAN RANDOM MORNP EXPERIMENT
+======================================================================
+Timestamp: 20260325_205028
+Seed: 42
+Total objective pool: ['q1_tile', 'q2_carpet', 'q3_concrete', 'q4_wood', 'distance', 'time', 'energy', 'risk']
+Requested number of plans: 10
+k: 4
+Max build attempts: 5000
+
+Construction metadata:
+  seed: 42
+  total_objectives: ['q1_tile', 'q2_carpet', 'q3_concrete', 'q4_wood', 'distance', 'time', 'energy', 'risk']
+  selected_objectives: ['q2_carpet', 'q1_tile', 'time', 'q3_concrete']
+  target_num_plans: 10
+  constructed_positive_count: 238
+  constructed_negative_count: 0
+  constructed_total_count: 238
+  discarded_count: 4762
+  attempts: 5000
+  max_attempts: 5000
+  construction_time_seconds: 0.194302417
+  construction_success: False
+  failure_reason: No negative plans were constructed within the attempt limit.
+
+Constructed MORNP instance:
+Selected objectives used in instance: ['q2_carpet', 'q1_tile', 'time', 'q3_concrete']
+Positive plans: ['p_1', 'p_2', 'p_3', 'p_4', 'p_5', 'p_6', 'p_7', 'p_8', 'p_9', 'p_10', 'p_11', 'p_12', 'p_13', 'p_14', 'p_16', 'p_17', 'p_20', 'p_21', 'p_23', 'p_24', 'p_25', 'p_28', 'p_29', 'p_30', 'p_33', 'p_34', 'p_35', 'p_36', 'p_37', 'p_41', 'p_43', 'p_47', 'p_48', 'p_49', 'p_50', 'p_51', 'p_53', 'p_55', 'p_56', 'p_58', 'p_59', 'p_63', 'p_64', 'p_68', 'p_72', 'p_74', 'p_76', 'p_80', 'p_81', 'p_82', 'p_84', 'p_86', 'p_87', 'p_88', 'p_93', 'p_95', 'p_97', 'p_98', 'p_100', 'p_102', 'p_107', 'p_108', 'p_112', 'p_123', 'p_124', 'p_127', 'p_131', 'p_133', 'p_144', 'p_147', 'p_154', 'p_158', 'p_159', 'p_161', 'p_168', 'p_178', 'p_179', 'p_180', 'p_215', 'p_219', 'p_230', 'p_242', 'p_258', 'p_263', 'p_265', 'p_285', 'p_301', 'p_310', 'p_333', 'p_339', 'p_340', 'p_341', 'p_349', 'p_351', 'p_365', 'p_371', 'p_373', 'p_393', 'p_459', 'p_482', 'p_484', 'p_487', 'p_527', 'p_541', 'p_543', 'p_544', 'p_579', 'p_606', 'p_618', 'p_627', 'p_650', 'p_681', 'p_696', 'p_708', 'p_717', 'p_718', 'p_719', 'p_735', 'p_759', 'p_802', 'p_843', 'p_847', 'p_886', 'p_888', 'p_903', 'p_924', 'p_951', 'p_954', 'p_956', 'p_967', 'p_999', 'p_1007', 'p_1009', 'p_1016', 'p_1047', 'p_1059', 'p_1068', 'p_1076', 'p_1085', 'p_1086', 'p_1106', 'p_1111', 'p_1141', 'p_1165', 'p_1185', 'p_1193', 'p_1221', 'p_1231', 'p_1258', 'p_1260', 'p_1275', 'p_1368', 'p_1411', 'p_1429', 'p_1431', 'p_1443', 'p_1487', 'p_1516', 'p_1563', 'p_1566', 'p_1574', 'p_1600', 'p_1655', 'p_1680', 'p_1696', 'p_1697', 'p_1701', 'p_1707', 'p_1717', 'p_1746', 'p_1852', 'p_1966', 'p_2023', 'p_2030', 'p_2046', 'p_2061', 'p_2075', 'p_2085', 'p_2107', 'p_2122', 'p_2153', 'p_2171', 'p_2202', 'p_2259', 'p_2280', 'p_2342', 'p_2367', 'p_2441', 'p_2504', 'p_2530', 'p_2603', 'p_2609', 'p_2640', 'p_2711', 'p_2749', 'p_2763', 'p_2847', 'p_2938', 'p_2943', 'p_2969', 'p_3019', 'p_3033', 'p_3082', 'p_3086', 'p_3087', 'p_3226', 'p_3244', 'p_3298', 'p_3382', 'p_3411', 'p_3530', 'p_3540', 'p_3786', 'p_3795', 'p_3798', 'p_3826', 'p_3844', 'p_3858', 'p_3859', 'p_3874', 'p_3895', 'p_3898', 'p_3982', 'p_4035', 'p_4057', 'p_4060', 'p_4061', 'p_4114', 'p_4241', 'p_4263', 'p_4293', 'p_4399', 'p_4606', 'p_4647', 'p_4666', 'p_4771', 'p_4787', 'p_4900']
+Negative plans: []
+k = 4
+
+Full plan values (all objectives):
+  p_1: {'q1_tile': 32, 'q2_carpet': 29, 'q3_concrete': 18, 'q4_wood': 95, 'distance': 14, 'time': 87, 'energy': 95, 'risk': 70}
+  p_2: {'q1_tile': 12, 'q2_carpet': 76, 'q3_concrete': 55, 'q4_wood': 5, 'distance': 4, 'time': 12, 'energy': 28, 'risk': 30}
+  p_3: {'q1_tile': 65, 'q2_carpet': 78, 'q3_concrete': 4, 'q4_wood': 72, 'distance': 26, 'time': 92, 'energy': 84, 'risk': 90}
+  p_4: {'q1_tile': 70, 'q2_carpet': 54, 'q3_concrete': 29, 'q4_wood': 58, 'distance': 76, 'time': 36, 'energy': 1, 'risk': 98}
+  p_5: {'q1_tile': 21, 'q2_carpet': 90, 'q3_concrete': 55, 'q4_wood': 44, 'distance': 36, 'time': 20, 'energy': 28, 'risk': 98}
+  p_6: {'q1_tile': 44, 'q2_carpet': 14, 'q3_concrete': 12, 'q4_wood': 49, 'distance': 13, 'time': 46, 'energy': 45, 'risk': 78}
+  p_7: {'q1_tile': 34, 'q2_carpet': 6, 'q3_concrete': 94, 'q4_wood': 59, 'distance': 69, 'time': 16, 'energy': 49, 'risk': 11}
+  p_8: {'q1_tile': 71, 'q2_carpet': 38, 'q3_concrete': 81, 'q4_wood': 80, 'distance': 47, 'time': 74, 'energy': 25, 'risk': 91}
+  p_9: {'q1_tile': 9, 'q2_carpet': 6, 'q3_concrete': 85, 'q4_wood': 30, 'distance': 99, 'time': 38, 'energy': 11, 'risk': 30}
+  p_10: {'q1_tile': 13, 'q2_carpet': 49, 'q3_concrete': 36, 'q4_wood': 59, 'distance': 82, 'time': 47, 'energy': 21, 'risk': 48}
+  p_11: {'q1_tile': 46, 'q2_carpet': 27, 'q3_concrete': 86, 'q4_wood': 35, 'distance': 90, 'time': 88, 'energy': 83, 'risk': 10}
+  p_12: {'q1_tile': 78, 'q2_carpet': 82, 'q3_concrete': 22, 'q4_wood': 69, 'distance': 94, 'time': 32, 'energy': 21, 'risk': 60}
+  p_13: {'q1_tile': 49, 'q2_carpet': 35, 'q3_concrete': 82, 'q4_wood': 89, 'distance': 72, 'time': 29, 'energy': 88, 'risk': 42}
+  p_14: {'q1_tile': 99, 'q2_carpet': 100, 'q3_concrete': 8, 'q4_wood': 30, 'distance': 5, 'time': 41, 'energy': 52, 'risk': 35}
+  p_16: {'q1_tile': 51, 'q2_carpet': 83, 'q3_concrete': 59, 'q4_wood': 19, 'distance': 34, 'time': 18, 'energy': 32, 'risk': 96}
+  p_17: {'q1_tile': 72, 'q2_carpet': 69, 'q3_concrete': 34, 'q4_wood': 96, 'distance': 75, 'time': 55, 'energy': 75, 'risk': 52}
+  p_20: {'q1_tile': 50, 'q2_carpet': 49, 'q3_concrete': 77, 'q4_wood': 60, 'distance': 68, 'time': 33, 'energy': 71, 'risk': 2}
+  p_21: {'q1_tile': 88, 'q2_carpet': 93, 'q3_concrete': 15, 'q4_wood': 88, 'distance': 69, 'time': 97, 'energy': 35, 'risk': 99}
+  p_23: {'q1_tile': 93, 'q2_carpet': 93, 'q3_concrete': 34, 'q4_wood': 65, 'distance': 98, 'time': 23, 'energy': 65, 'risk': 14}
+  p_24: {'q1_tile': 81, 'q2_carpet': 39, 'q3_concrete': 82, 'q4_wood': 65, 'distance': 78, 'time': 26, 'energy': 20, 'risk': 48}
+  p_25: {'q1_tile': 98, 'q2_carpet': 21, 'q3_concrete': 70, 'q4_wood': 100, 'distance': 68, 'time': 1, 'energy': 77, 'risk': 42}
+  p_28: {'q1_tile': 99, 'q2_carpet': 17, 'q3_concrete': 17, 'q4_wood': 85, 'distance': 61, 'time': 71, 'energy': 22, 'risk': 34}
+  p_29: {'q1_tile': 68, 'q2_carpet': 78, 'q3_concrete': 55, 'q4_wood': 28, 'distance': 70, 'time': 97, 'energy': 94, 'risk': 89}
+  p_30: {'q1_tile': 26, 'q2_carpet': 92, 'q3_concrete': 40, 'q4_wood': 52, 'distance': 86, 'time': 84, 'energy': 48, 'risk': 57}
+  p_33: {'q1_tile': 81, 'q2_carpet': 8, 'q3_concrete': 30, 'q4_wood': 9, 'distance': 5, 'time': 43, 'energy': 10, 'risk': 66}
+  p_34: {'q1_tile': 31, 'q2_carpet': 36, 'q3_concrete': 86, 'q4_wood': 63, 'distance': 28, 'time': 70, 'energy': 17, 'risk': 93}
+  p_35: {'q1_tile': 74, 'q2_carpet': 74, 'q3_concrete': 61, 'q4_wood': 32, 'distance': 61, 'time': 53, 'energy': 25, 'risk': 13}
+  p_36: {'q1_tile': 13, 'q2_carpet': 85, 'q3_concrete': 56, 'q4_wood': 46, 'distance': 55, 'time': 53, 'energy': 60, 'risk': 94}
+  p_37: {'q1_tile': 7, 'q2_carpet': 87, 'q3_concrete': 84, 'q4_wood': 83, 'distance': 13, 'time': 8, 'energy': 52, 'risk': 94}
+  p_41: {'q1_tile': 22, 'q2_carpet': 53, 'q3_concrete': 63, 'q4_wood': 62, 'distance': 28, 'time': 52, 'energy': 8, 'risk': 22}
+  p_43: {'q1_tile': 94, 'q2_carpet': 72, 'q3_concrete': 85, 'q4_wood': 92, 'distance': 63, 'time': 20, 'energy': 25, 'risk': 38}
+  p_47: {'q1_tile': 52, 'q2_carpet': 16, 'q3_concrete': 73, 'q4_wood': 32, 'distance': 75, 'time': 77, 'energy': 6, 'risk': 80}
+  p_48: {'q1_tile': 11, 'q2_carpet': 54, 'q3_concrete': 85, 'q4_wood': 75, 'distance': 73, 'time': 67, 'energy': 41, 'risk': 34}
+  p_49: {'q1_tile': 27, 'q2_carpet': 86, 'q3_concrete': 92, 'q4_wood': 41, 'distance': 31, 'time': 34, 'energy': 51, 'risk': 17}
+  p_50: {'q1_tile': 86, 'q2_carpet': 83, 'q3_concrete': 39, 'q4_wood': 59, 'distance': 41, 'time': 97, 'energy': 10, 'risk': 2}
+  p_51: {'q1_tile': 59, 'q2_carpet': 80, 'q3_concrete': 73, 'q4_wood': 13, 'distance': 10, 'time': 69, 'energy': 28, 'risk': 65}
+  p_53: {'q1_tile': 57, 'q2_carpet': 70, 'q3_concrete': 91, 'q4_wood': 39, 'distance': 79, 'time': 84, 'energy': 68, 'risk': 2}
+  p_55: {'q1_tile': 14, 'q2_carpet': 96, 'q3_concrete': 71, 'q4_wood': 20, 'distance': 35, 'time': 37, 'energy': 78, 'risk': 27}
+  p_56: {'q1_tile': 92, 'q2_carpet': 44, 'q3_concrete': 27, 'q4_wood': 88, 'distance': 82, 'time': 34, 'energy': 65, 'risk': 63}
+  p_58: {'q1_tile': 43, 'q2_carpet': 99, 'q3_concrete': 17, 'q4_wood': 82, 'distance': 34, 'time': 21, 'energy': 95, 'risk': 57}
+  p_59: {'q1_tile': 71, 'q2_carpet': 91, 'q3_concrete': 55, 'q4_wood': 72, 'distance': 2, 'time': 15, 'energy': 10, 'risk': 89}
+  p_63: {'q1_tile': 96, 'q2_carpet': 20, 'q3_concrete': 31, 'q4_wood': 21, 'distance': 23, 'time': 53, 'energy': 4, 'risk': 23}
+  p_64: {'q1_tile': 95, 'q2_carpet': 43, 'q3_concrete': 53, 'q4_wood': 86, 'distance': 95, 'time': 32, 'energy': 35, 'risk': 21}
+  p_68: {'q1_tile': 52, 'q2_carpet': 87, 'q3_concrete': 69, 'q4_wood': 43, 'distance': 4, 'time': 15, 'energy': 34, 'risk': 23}
+  p_72: {'q1_tile': 93, 'q2_carpet': 95, 'q3_concrete': 95, 'q4_wood': 86, 'distance': 26, 'time': 47, 'energy': 56, 'risk': 9}
+  p_74: {'q1_tile': 65, 'q2_carpet': 40, 'q3_concrete': 86, 'q4_wood': 53, 'distance': 42, 'time': 52, 'energy': 90, 'risk': 38}
+  p_76: {'q1_tile': 23, 'q2_carpet': 79, 'q3_concrete': 73, 'q4_wood': 39, 'distance': 52, 'time': 71, 'energy': 1, 'risk': 39}
+  p_80: {'q1_tile': 12, 'q2_carpet': 97, 'q3_concrete': 31, 'q4_wood': 87, 'distance': 40, 'time': 29, 'energy': 26, 'risk': 19}
+  p_81: {'q1_tile': 4, 'q2_carpet': 6, 'q3_concrete': 32, 'q4_wood': 61, 'distance': 79, 'time': 99, 'energy': 10, 'risk': 59}
+  p_82: {'q1_tile': 54, 'q2_carpet': 81, 'q3_concrete': 74, 'q4_wood': 25, 'distance': 92, 'time': 90, 'energy': 50, 'risk': 64}
+  p_84: {'q1_tile': 14, 'q2_carpet': 100, 'q3_concrete': 55, 'q4_wood': 29, 'distance': 23, 'time': 90, 'energy': 67, 'risk': 60}
+  p_86: {'q1_tile': 68, 'q2_carpet': 72, 'q3_concrete': 77, 'q4_wood': 41, 'distance': 97, 'time': 57, 'energy': 79, 'risk': 93}
+  p_87: {'q1_tile': 65, 'q2_carpet': 55, 'q3_concrete': 71, 'q4_wood': 58, 'distance': 21, 'time': 96, 'energy': 61, 'risk': 58}
+  p_88: {'q1_tile': 34, 'q2_carpet': 97, 'q3_concrete': 32, 'q4_wood': 82, 'distance': 36, 'time': 99, 'energy': 100, 'risk': 67}
+  p_93: {'q1_tile': 50, 'q2_carpet': 99, 'q3_concrete': 75, 'q4_wood': 90, 'distance': 3, 'time': 98, 'energy': 74, 'risk': 49}
+  p_95: {'q1_tile': 96, 'q2_carpet': 95, 'q3_concrete': 70, 'q4_wood': 78, 'distance': 29, 'time': 63, 'energy': 29, 'risk': 35}
+  p_97: {'q1_tile': 93, 'q2_carpet': 22, 'q3_concrete': 60, 'q4_wood': 17, 'distance': 80, 'time': 69, 'energy': 4, 'risk': 51}
+  p_98: {'q1_tile': 76, 'q2_carpet': 73, 'q3_concrete': 85, 'q4_wood': 4, 'distance': 11, 'time': 83, 'energy': 55, 'risk': 18}
+  p_100: {'q1_tile': 42, 'q2_carpet': 44, 'q3_concrete': 98, 'q4_wood': 49, 'distance': 36, 'time': 97, 'energy': 54, 'risk': 33}
+  p_102: {'q1_tile': 84, 'q2_carpet': 9, 'q3_concrete': 100, 'q4_wood': 84, 'distance': 6, 'time': 97, 'energy': 4, 'risk': 32}
+  p_107: {'q1_tile': 51, 'q2_carpet': 92, 'q3_concrete': 26, 'q4_wood': 10, 'distance': 76, 'time': 89, 'energy': 81, 'risk': 32}
+  p_108: {'q1_tile': 14, 'q2_carpet': 90, 'q3_concrete': 99, 'q4_wood': 39, 'distance': 88, 'time': 77, 'energy': 16, 'risk': 73}
+  p_112: {'q1_tile': 84, 'q2_carpet': 35, 'q3_concrete': 79, 'q4_wood': 69, 'distance': 100, 'time': 62, 'energy': 60, 'risk': 56}
+  p_123: {'q1_tile': 98, 'q2_carpet': 89, 'q3_concrete': 24, 'q4_wood': 25, 'distance': 28, 'time': 95, 'energy': 62, 'risk': 36}
+  p_124: {'q1_tile': 93, 'q2_carpet': 76, 'q3_concrete': 98, 'q4_wood': 68, 'distance': 77, 'time': 37, 'energy': 13, 'risk': 25}
+  p_127: {'q1_tile': 82, 'q2_carpet': 97, 'q3_concrete': 63, 'q4_wood': 14, 'distance': 2, 'time': 74, 'energy': 37, 'risk': 61}
+  p_131: {'q1_tile': 98, 'q2_carpet': 54, 'q3_concrete': 78, 'q4_wood': 77, 'distance': 80, 'time': 29, 'energy': 100, 'risk': 67}
+  p_133: {'q1_tile': 80, 'q2_carpet': 8, 'q3_concrete': 79, 'q4_wood': 95, 'distance': 13, 'time': 98, 'energy': 27, 'risk': 81}
+  p_144: {'q1_tile': 98, 'q2_carpet': 97, 'q3_concrete': 23, 'q4_wood': 61, 'distance': 67, 'time': 84, 'energy': 57, 'risk': 36}
+  p_147: {'q1_tile': 89, 'q2_carpet': 64, 'q3_concrete': 37, 'q4_wood': 85, 'distance': 52, 'time': 98, 'energy': 71, 'risk': 5}
+  p_154: {'q1_tile': 60, 'q2_carpet': 16, 'q3_concrete': 83, 'q4_wood': 20, 'distance': 64, 'time': 92, 'energy': 38, 'risk': 66}
+  p_158: {'q1_tile': 93, 'q2_carpet': 39, 'q3_concrete': 76, 'q4_wood': 75, 'distance': 85, 'time': 63, 'energy': 20, 'risk': 58}
+  p_159: {'q1_tile': 69, 'q2_carpet': 62, 'q3_concrete': 45, 'q4_wood': 43, 'distance': 71, 'time': 98, 'energy': 70, 'risk': 49}
+  p_161: {'q1_tile': 100, 'q2_carpet': 53, 'q3_concrete': 6, 'q4_wood': 41, 'distance': 96, 'time': 61, 'energy': 91, 'risk': 49}
+  p_168: {'q1_tile': 96, 'q2_carpet': 12, 'q3_concrete': 56, 'q4_wood': 13, 'distance': 98, 'time': 82, 'energy': 91, 'risk': 13}
+  p_178: {'q1_tile': 88, 'q2_carpet': 100, 'q3_concrete': 96, 'q4_wood': 7, 'distance': 78, 'time': 96, 'energy': 64, 'risk': 37}
+  p_179: {'q1_tile': 100, 'q2_carpet': 30, 'q3_concrete': 78, 'q4_wood': 46, 'distance': 29, 'time': 82, 'energy': 25, 'risk': 80}
+  p_180: {'q1_tile': 33, 'q2_carpet': 87, 'q3_concrete': 97, 'q4_wood': 93, 'distance': 99, 'time': 85, 'energy': 88, 'risk': 18}
+  p_215: {'q1_tile': 86, 'q2_carpet': 16, 'q3_concrete': 53, 'q4_wood': 46, 'distance': 86, 'time': 97, 'energy': 55, 'risk': 93}
+  p_219: {'q1_tile': 99, 'q2_carpet': 80, 'q3_concrete': 79, 'q4_wood': 87, 'distance': 83, 'time': 72, 'energy': 4, 'risk': 78}
+  p_230: {'q1_tile': 99, 'q2_carpet': 18, 'q3_concrete': 98, 'q4_wood': 33, 'distance': 38, 'time': 42, 'energy': 16, 'risk': 1}
+  p_242: {'q1_tile': 98, 'q2_carpet': 75, 'q3_concrete': 58, 'q4_wood': 88, 'distance': 73, 'time': 83, 'energy': 82, 'risk': 80}
+  p_258: {'q1_tile': 47, 'q2_carpet': 40, 'q3_concrete': 24, 'q4_wood': 28, 'distance': 44, 'time': 99, 'energy': 63, 'risk': 25}
+  p_263: {'q1_tile': 93, 'q2_carpet': 31, 'q3_concrete': 57, 'q4_wood': 79, 'distance': 37, 'time': 97, 'energy': 96, 'risk': 58}
+  p_265: {'q1_tile': 74, 'q2_carpet': 57, 'q3_concrete': 60, 'q4_wood': 99, 'distance': 37, 'time': 100, 'energy': 49, 'risk': 65}
+  p_285: {'q1_tile': 92, 'q2_carpet': 100, 'q3_concrete': 59, 'q4_wood': 5, 'distance': 38, 'time': 26, 'energy': 6, 'risk': 26}
+  p_301: {'q1_tile': 100, 'q2_carpet': 34, 'q3_concrete': 91, 'q4_wood': 58, 'distance': 28, 'time': 79, 'energy': 37, 'risk': 89}
+  p_310: {'q1_tile': 45, 'q2_carpet': 17, 'q3_concrete': 100, 'q4_wood': 71, 'distance': 82, 'time': 76, 'energy': 24, 'risk': 99}
+  p_333: {'q1_tile': 72, 'q2_carpet': 47, 'q3_concrete': 97, 'q4_wood': 19, 'distance': 26, 'time': 78, 'energy': 66, 'risk': 52}
+  p_339: {'q1_tile': 93, 'q2_carpet': 89, 'q3_concrete': 81, 'q4_wood': 4, 'distance': 77, 'time': 61, 'energy': 34, 'risk': 84}
+  p_340: {'q1_tile': 100, 'q2_carpet': 75, 'q3_concrete': 74, 'q4_wood': 30, 'distance': 93, 'time': 7, 'energy': 75, 'risk': 62}
+  p_341: {'q1_tile': 22, 'q2_carpet': 68, 'q3_concrete': 81, 'q4_wood': 93, 'distance': 80, 'time': 100, 'energy': 49, 'risk': 19}
+  p_349: {'q1_tile': 99, 'q2_carpet': 37, 'q3_concrete': 91, 'q4_wood': 27, 'distance': 89, 'time': 91, 'energy': 63, 'risk': 41}
+  p_351: {'q1_tile': 87, 'q2_carpet': 70, 'q3_concrete': 49, 'q4_wood': 51, 'distance': 45, 'time': 99, 'energy': 19, 'risk': 38}
+  p_365: {'q1_tile': 73, 'q2_carpet': 87, 'q3_concrete': 97, 'q4_wood': 25, 'distance': 23, 'time': 79, 'energy': 82, 'risk': 52}
+  p_371: {'q1_tile': 99, 'q2_carpet': 40, 'q3_concrete': 89, 'q4_wood': 16, 'distance': 82, 'time': 38, 'energy': 48, 'risk': 79}
+  p_373: {'q1_tile': 48, 'q2_carpet': 54, 'q3_concrete': 90, 'q4_wood': 71, 'distance': 61, 'time': 97, 'energy': 69, 'risk': 86}
+  p_393: {'q1_tile': 74, 'q2_carpet': 77, 'q3_concrete': 99, 'q4_wood': 87, 'distance': 42, 'time': 31, 'energy': 39, 'risk': 19}
+  p_459: {'q1_tile': 96, 'q2_carpet': 67, 'q3_concrete': 72, 'q4_wood': 75, 'distance': 89, 'time': 74, 'energy': 29, 'risk': 58}
+  p_482: {'q1_tile': 37, 'q2_carpet': 22, 'q3_concrete': 100, 'q4_wood': 59, 'distance': 73, 'time': 96, 'energy': 99, 'risk': 99}
+  p_484: {'q1_tile': 70, 'q2_carpet': 47, 'q3_concrete': 70, 'q4_wood': 97, 'distance': 6, 'time': 98, 'energy': 93, 'risk': 57}
+  p_487: {'q1_tile': 100, 'q2_carpet': 31, 'q3_concrete': 27, 'q4_wood': 95, 'distance': 76, 'time': 89, 'energy': 45, 'risk': 91}
+  p_527: {'q1_tile': 95, 'q2_carpet': 85, 'q3_concrete': 95, 'q4_wood': 23, 'distance': 16, 'time': 2, 'energy': 91, 'risk': 18}
+  p_541: {'q1_tile': 76, 'q2_carpet': 64, 'q3_concrete': 99, 'q4_wood': 100, 'distance': 26, 'time': 94, 'energy': 70, 'risk': 98}
+  p_543: {'q1_tile': 82, 'q2_carpet': 89, 'q3_concrete': 2, 'q4_wood': 43, 'distance': 1, 'time': 98, 'energy': 85, 'risk': 49}
+  p_544: {'q1_tile': 95, 'q2_carpet': 94, 'q3_concrete': 40, 'q4_wood': 14, 'distance': 27, 'time': 68, 'energy': 31, 'risk': 54}
+  p_579: {'q1_tile': 94, 'q2_carpet': 56, 'q3_concrete': 82, 'q4_wood': 63, 'distance': 84, 'time': 41, 'energy': 23, 'risk': 91}
+  p_606: {'q1_tile': 74, 'q2_carpet': 87, 'q3_concrete': 80, 'q4_wood': 19, 'distance': 16, 'time': 97, 'energy': 58, 'risk': 23}
+  p_618: {'q1_tile': 96, 'q2_carpet': 57, 'q3_concrete': 100, 'q4_wood': 42, 'distance': 35, 'time': 94, 'energy': 54, 'risk': 78}
+  p_627: {'q1_tile': 21, 'q2_carpet': 74, 'q3_concrete': 100, 'q4_wood': 28, 'distance': 29, 'time': 83, 'energy': 29, 'risk': 87}
+  p_650: {'q1_tile': 74, 'q2_carpet': 98, 'q3_concrete': 21, 'q4_wood': 63, 'distance': 98, 'time': 100, 'energy': 12, 'risk': 17}
+  p_681: {'q1_tile': 91, 'q2_carpet': 87, 'q3_concrete': 68, 'q4_wood': 99, 'distance': 96, 'time': 74, 'energy': 93, 'risk': 73}
+  p_696: {'q1_tile': 92, 'q2_carpet': 96, 'q3_concrete': 93, 'q4_wood': 53, 'distance': 14, 'time': 33, 'energy': 79, 'risk': 26}
+  p_708: {'q1_tile': 89, 'q2_carpet': 82, 'q3_concrete': 42, 'q4_wood': 91, 'distance': 15, 'time': 98, 'energy': 46, 'risk': 72}
+  p_717: {'q1_tile': 26, 'q2_carpet': 80, 'q3_concrete': 100, 'q4_wood': 57, 'distance': 29, 'time': 82, 'energy': 91, 'risk': 91}
+  p_718: {'q1_tile': 83, 'q2_carpet': 48, 'q3_concrete': 97, 'q4_wood': 76, 'distance': 70, 'time': 95, 'energy': 78, 'risk': 26}
+  p_719: {'q1_tile': 100, 'q2_carpet': 93, 'q3_concrete': 25, 'q4_wood': 38, 'distance': 58, 'time': 23, 'energy': 88, 'risk': 10}
+  p_735: {'q1_tile': 100, 'q2_carpet': 56, 'q3_concrete': 83, 'q4_wood': 10, 'distance': 96, 'time': 88, 'energy': 20, 'risk': 4}
+  p_759: {'q1_tile': 81, 'q2_carpet': 4, 'q3_concrete': 75, 'q4_wood': 75, 'distance': 52, 'time': 99, 'energy': 76, 'risk': 28}
+  p_802: {'q1_tile': 67, 'q2_carpet': 37, 'q3_concrete': 92, 'q4_wood': 77, 'distance': 8, 'time': 100, 'energy': 23, 'risk': 82}
+  p_843: {'q1_tile': 78, 'q2_carpet': 83, 'q3_concrete': 51, 'q4_wood': 35, 'distance': 57, 'time': 100, 'energy': 47, 'risk': 96}
+  p_847: {'q1_tile': 7, 'q2_carpet': 4, 'q3_concrete': 99, 'q4_wood': 51, 'distance': 68, 'time': 98, 'energy': 11, 'risk': 14}
+  p_886: {'q1_tile': 94, 'q2_carpet': 24, 'q3_concrete': 3, 'q4_wood': 80, 'distance': 47, 'time': 100, 'energy': 80, 'risk': 31}
+  p_888: {'q1_tile': 88, 'q2_carpet': 64, 'q3_concrete': 99, 'q4_wood': 71, 'distance': 20, 'time': 79, 'energy': 37, 'risk': 42}
+  p_903: {'q1_tile': 31, 'q2_carpet': 73, 'q3_concrete': 70, 'q4_wood': 28, 'distance': 49, 'time': 99, 'energy': 71, 'risk': 96}
+  p_924: {'q1_tile': 42, 'q2_carpet': 45, 'q3_concrete': 77, 'q4_wood': 84, 'distance': 4, 'time': 99, 'energy': 40, 'risk': 22}
+  p_951: {'q1_tile': 11, 'q2_carpet': 89, 'q3_concrete': 100, 'q4_wood': 62, 'distance': 18, 'time': 65, 'energy': 78, 'risk': 61}
+  p_954: {'q1_tile': 53, 'q2_carpet': 29, 'q3_concrete': 96, 'q4_wood': 86, 'distance': 26, 'time': 97, 'energy': 27, 'risk': 9}
+  p_956: {'q1_tile': 55, 'q2_carpet': 52, 'q3_concrete': 100, 'q4_wood': 6, 'distance': 78, 'time': 95, 'energy': 49, 'risk': 93}
+  p_967: {'q1_tile': 91, 'q2_carpet': 58, 'q3_concrete': 82, 'q4_wood': 47, 'distance': 11, 'time': 68, 'energy': 91, 'risk': 50}
+  p_999: {'q1_tile': 97, 'q2_carpet': 40, 'q3_concrete': 91, 'q4_wood': 41, 'distance': 91, 'time': 5, 'energy': 35, 'risk': 53}
+  p_1007: {'q1_tile': 85, 'q2_carpet': 96, 'q3_concrete': 40, 'q4_wood': 3, 'distance': 74, 'time': 98, 'energy': 40, 'risk': 82}
+  p_1009: {'q1_tile': 99, 'q2_carpet': 57, 'q3_concrete': 86, 'q4_wood': 16, 'distance': 35, 'time': 20, 'energy': 21, 'risk': 36}
+  p_1016: {'q1_tile': 26, 'q2_carpet': 92, 'q3_concrete': 98, 'q4_wood': 86, 'distance': 69, 'time': 11, 'energy': 97, 'risk': 98}
+  p_1047: {'q1_tile': 94, 'q2_carpet': 68, 'q3_concrete': 97, 'q4_wood': 100, 'distance': 36, 'time': 60, 'energy': 67, 'risk': 11}
+  p_1059: {'q1_tile': 77, 'q2_carpet': 20, 'q3_concrete': 64, 'q4_wood': 97, 'distance': 53, 'time': 99, 'energy': 50, 'risk': 31}
+  p_1068: {'q1_tile': 94, 'q2_carpet': 87, 'q3_concrete': 76, 'q4_wood': 99, 'distance': 25, 'time': 67, 'energy': 44, 'risk': 87}
+  p_1076: {'q1_tile': 89, 'q2_carpet': 86, 'q3_concrete': 99, 'q4_wood': 99, 'distance': 42, 'time': 33, 'energy': 21, 'risk': 100}
+  p_1085: {'q1_tile': 94, 'q2_carpet': 100, 'q3_concrete': 9, 'q4_wood': 70, 'distance': 29, 'time': 1, 'energy': 50, 'risk': 89}
+  p_1086: {'q1_tile': 100, 'q2_carpet': 62, 'q3_concrete': 16, 'q4_wood': 73, 'distance': 69, 'time': 46, 'energy': 43, 'risk': 88}
+  p_1106: {'q1_tile': 84, 'q2_carpet': 76, 'q3_concrete': 37, 'q4_wood': 54, 'distance': 89, 'time': 99, 'energy': 61, 'risk': 89}
+  p_1111: {'q1_tile': 98, 'q2_carpet': 70, 'q3_concrete': 65, 'q4_wood': 29, 'distance': 60, 'time': 99, 'energy': 81, 'risk': 85}
+  p_1141: {'q1_tile': 62, 'q2_carpet': 95, 'q3_concrete': 97, 'q4_wood': 75, 'distance': 90, 'time': 27, 'energy': 97, 'risk': 96}
+  p_1165: {'q1_tile': 83, 'q2_carpet': 25, 'q3_concrete': 75, 'q4_wood': 68, 'distance': 29, 'time': 99, 'energy': 36, 'risk': 26}
+  p_1185: {'q1_tile': 66, 'q2_carpet': 25, 'q3_concrete': 99, 'q4_wood': 81, 'distance': 24, 'time': 98, 'energy': 13, 'risk': 77}
+  p_1193: {'q1_tile': 77, 'q2_carpet': 67, 'q3_concrete': 98, 'q4_wood': 44, 'distance': 23, 'time': 91, 'energy': 39, 'risk': 4}
+  p_1221: {'q1_tile': 80, 'q2_carpet': 13, 'q3_concrete': 98, 'q4_wood': 10, 'distance': 85, 'time': 97, 'energy': 67, 'risk': 99}
+  p_1231: {'q1_tile': 47, 'q2_carpet': 45, 'q3_concrete': 95, 'q4_wood': 75, 'distance': 4, 'time': 98, 'energy': 81, 'risk': 44}
+  p_1258: {'q1_tile': 86, 'q2_carpet': 75, 'q3_concrete': 100, 'q4_wood': 68, 'distance': 33, 'time': 64, 'energy': 12, 'risk': 31}
+  p_1260: {'q1_tile': 96, 'q2_carpet': 96, 'q3_concrete': 31, 'q4_wood': 55, 'distance': 28, 'time': 19, 'energy': 14, 'risk': 23}
+  p_1275: {'q1_tile': 92, 'q2_carpet': 99, 'q3_concrete': 84, 'q4_wood': 98, 'distance': 17, 'time': 77, 'energy': 88, 'risk': 53}
+  p_1368: {'q1_tile': 57, 'q2_carpet': 90, 'q3_concrete': 45, 'q4_wood': 84, 'distance': 52, 'time': 100, 'energy': 26, 'risk': 39}
+  p_1411: {'q1_tile': 98, 'q2_carpet': 72, 'q3_concrete': 84, 'q4_wood': 17, 'distance': 39, 'time': 73, 'energy': 53, 'risk': 58}
+  p_1429: {'q1_tile': 91, 'q2_carpet': 78, 'q3_concrete': 27, 'q4_wood': 1, 'distance': 26, 'time': 82, 'energy': 51, 'risk': 15}
+  p_1431: {'q1_tile': 95, 'q2_carpet': 73, 'q3_concrete': 87, 'q4_wood': 88, 'distance': 78, 'time': 73, 'energy': 23, 'risk': 9}
+  p_1443: {'q1_tile': 100, 'q2_carpet': 77, 'q3_concrete': 80, 'q4_wood': 57, 'distance': 98, 'time': 13, 'energy': 81, 'risk': 58}
+  p_1487: {'q1_tile': 39, 'q2_carpet': 96, 'q3_concrete': 99, 'q4_wood': 88, 'distance': 36, 'time': 25, 'energy': 91, 'risk': 78}
+  p_1516: {'q1_tile': 65, 'q2_carpet': 99, 'q3_concrete': 100, 'q4_wood': 42, 'distance': 53, 'time': 58, 'energy': 22, 'risk': 33}
+  p_1563: {'q1_tile': 97, 'q2_carpet': 93, 'q3_concrete': 45, 'q4_wood': 66, 'distance': 91, 'time': 63, 'energy': 82, 'risk': 89}
+  p_1566: {'q1_tile': 90, 'q2_carpet': 86, 'q3_concrete': 83, 'q4_wood': 19, 'distance': 34, 'time': 78, 'energy': 59, 'risk': 88}
+  p_1574: {'q1_tile': 100, 'q2_carpet': 90, 'q3_concrete': 54, 'q4_wood': 68, 'distance': 54, 'time': 84, 'energy': 37, 'risk': 94}
+  p_1600: {'q1_tile': 95, 'q2_carpet': 93, 'q3_concrete': 49, 'q4_wood': 84, 'distance': 83, 'time': 72, 'energy': 56, 'risk': 30}
+  p_1655: {'q1_tile': 91, 'q2_carpet': 100, 'q3_concrete': 32, 'q4_wood': 87, 'distance': 78, 'time': 54, 'energy': 91, 'risk': 59}
+  p_1680: {'q1_tile': 98, 'q2_carpet': 100, 'q3_concrete': 52, 'q4_wood': 65, 'distance': 93, 'time': 95, 'energy': 50, 'risk': 17}
+  p_1696: {'q1_tile': 88, 'q2_carpet': 71, 'q3_concrete': 99, 'q4_wood': 17, 'distance': 43, 'time': 47, 'energy': 95, 'risk': 47}
+  p_1697: {'q1_tile': 96, 'q2_carpet': 100, 'q3_concrete': 76, 'q4_wood': 68, 'distance': 78, 'time': 48, 'energy': 31, 'risk': 84}
+  p_1701: {'q1_tile': 93, 'q2_carpet': 61, 'q3_concrete': 98, 'q4_wood': 26, 'distance': 69, 'time': 93, 'energy': 20, 'risk': 6}
+  p_1707: {'q1_tile': 57, 'q2_carpet': 97, 'q3_concrete': 66, 'q4_wood': 50, 'distance': 72, 'time': 100, 'energy': 50, 'risk': 52}
+  p_1717: {'q1_tile': 100, 'q2_carpet': 100, 'q3_concrete': 75, 'q4_wood': 14, 'distance': 93, 'time': 96, 'energy': 89, 'risk': 49}
+  p_1746: {'q1_tile': 100, 'q2_carpet': 89, 'q3_concrete': 96, 'q4_wood': 29, 'distance': 90, 'time': 12, 'energy': 31, 'risk': 47}
+  p_1852: {'q1_tile': 10, 'q2_carpet': 74, 'q3_concrete': 83, 'q4_wood': 54, 'distance': 88, 'time': 97, 'energy': 56, 'risk': 41}
+  p_1966: {'q1_tile': 79, 'q2_carpet': 90, 'q3_concrete': 98, 'q4_wood': 5, 'distance': 45, 'time': 10, 'energy': 54, 'risk': 77}
+  p_2023: {'q1_tile': 64, 'q2_carpet': 81, 'q3_concrete': 99, 'q4_wood': 26, 'distance': 24, 'time': 59, 'energy': 2, 'risk': 22}
+  p_2030: {'q1_tile': 97, 'q2_carpet': 62, 'q3_concrete': 90, 'q4_wood': 18, 'distance': 94, 'time': 24, 'energy': 93, 'risk': 99}
+  p_2046: {'q1_tile': 59, 'q2_carpet': 81, 'q3_concrete': 95, 'q4_wood': 66, 'distance': 87, 'time': 100, 'energy': 10, 'risk': 91}
+  p_2061: {'q1_tile': 8, 'q2_carpet': 72, 'q3_concrete': 99, 'q4_wood': 42, 'distance': 34, 'time': 87, 'energy': 41, 'risk': 53}
+  p_2075: {'q1_tile': 96, 'q2_carpet': 70, 'q3_concrete': 78, 'q4_wood': 20, 'distance': 13, 'time': 95, 'energy': 76, 'risk': 51}
+  p_2085: {'q1_tile': 93, 'q2_carpet': 73, 'q3_concrete': 98, 'q4_wood': 30, 'distance': 8, 'time': 99, 'energy': 64, 'risk': 33}
+  p_2107: {'q1_tile': 95, 'q2_carpet': 79, 'q3_concrete': 86, 'q4_wood': 61, 'distance': 27, 'time': 22, 'energy': 1, 'risk': 30}
+  p_2122: {'q1_tile': 96, 'q2_carpet': 83, 'q3_concrete': 97, 'q4_wood': 70, 'distance': 14, 'time': 5, 'energy': 48, 'risk': 4}
+  p_2153: {'q1_tile': 77, 'q2_carpet': 90, 'q3_concrete': 68, 'q4_wood': 26, 'distance': 73, 'time': 97, 'energy': 18, 'risk': 17}
+  p_2171: {'q1_tile': 63, 'q2_carpet': 84, 'q3_concrete': 86, 'q4_wood': 52, 'distance': 55, 'time': 99, 'energy': 7, 'risk': 39}
+  p_2202: {'q1_tile': 98, 'q2_carpet': 3, 'q3_concrete': 97, 'q4_wood': 37, 'distance': 72, 'time': 96, 'energy': 63, 'risk': 31}
+  p_2259: {'q1_tile': 82, 'q2_carpet': 88, 'q3_concrete': 69, 'q4_wood': 24, 'distance': 25, 'time': 100, 'energy': 14, 'risk': 98}
+  p_2280: {'q1_tile': 99, 'q2_carpet': 58, 'q3_concrete': 96, 'q4_wood': 28, 'distance': 24, 'time': 42, 'energy': 60, 'risk': 30}
+  p_2342: {'q1_tile': 94, 'q2_carpet': 79, 'q3_concrete': 77, 'q4_wood': 9, 'distance': 8, 'time': 97, 'energy': 53, 'risk': 18}
+  p_2367: {'q1_tile': 99, 'q2_carpet': 71, 'q3_concrete': 83, 'q4_wood': 42, 'distance': 95, 'time': 52, 'energy': 97, 'risk': 45}
+  p_2441: {'q1_tile': 99, 'q2_carpet': 25, 'q3_concrete': 99, 'q4_wood': 27, 'distance': 93, 'time': 41, 'energy': 6, 'risk': 73}
+  p_2504: {'q1_tile': 1, 'q2_carpet': 84, 'q3_concrete': 88, 'q4_wood': 33, 'distance': 37, 'time': 97, 'energy': 21, 'risk': 9}
+  p_2530: {'q1_tile': 99, 'q2_carpet': 36, 'q3_concrete': 92, 'q4_wood': 19, 'distance': 47, 'time': 100, 'energy': 8, 'risk': 61}
+  p_2603: {'q1_tile': 97, 'q2_carpet': 69, 'q3_concrete': 99, 'q4_wood': 13, 'distance': 55, 'time': 89, 'energy': 76, 'risk': 80}
+  p_2609: {'q1_tile': 76, 'q2_carpet': 87, 'q3_concrete': 100, 'q4_wood': 4, 'distance': 65, 'time': 57, 'energy': 9, 'risk': 65}
+  p_2640: {'q1_tile': 97, 'q2_carpet': 89, 'q3_concrete': 76, 'q4_wood': 89, 'distance': 72, 'time': 88, 'energy': 78, 'risk': 77}
+  p_2711: {'q1_tile': 94, 'q2_carpet': 93, 'q3_concrete': 82, 'q4_wood': 35, 'distance': 19, 'time': 19, 'energy': 98, 'risk': 26}
+  p_2749: {'q1_tile': 97, 'q2_carpet': 73, 'q3_concrete': 90, 'q4_wood': 24, 'distance': 1, 'time': 22, 'energy': 33, 'risk': 54}
+  p_2763: {'q1_tile': 65, 'q2_carpet': 94, 'q3_concrete': 99, 'q4_wood': 82, 'distance': 40, 'time': 99, 'energy': 77, 'risk': 85}
+  p_2847: {'q1_tile': 93, 'q2_carpet': 93, 'q3_concrete': 27, 'q4_wood': 47, 'distance': 81, 'time': 97, 'energy': 98, 'risk': 39}
+  p_2938: {'q1_tile': 83, 'q2_carpet': 78, 'q3_concrete': 98, 'q4_wood': 77, 'distance': 96, 'time': 94, 'energy': 87, 'risk': 87}
+  p_2943: {'q1_tile': 100, 'q2_carpet': 19, 'q3_concrete': 100, 'q4_wood': 56, 'distance': 52, 'time': 73, 'energy': 72, 'risk': 8}
+  p_2969: {'q1_tile': 73, 'q2_carpet': 90, 'q3_concrete': 78, 'q4_wood': 9, 'distance': 99, 'time': 100, 'energy': 34, 'risk': 3}
+  p_3019: {'q1_tile': 88, 'q2_carpet': 88, 'q3_concrete': 42, 'q4_wood': 24, 'distance': 69, 'time': 98, 'energy': 44, 'risk': 93}
+  p_3033: {'q1_tile': 14, 'q2_carpet': 37, 'q3_concrete': 99, 'q4_wood': 12, 'distance': 5, 'time': 100, 'energy': 46, 'risk': 23}
+  p_3082: {'q1_tile': 95, 'q2_carpet': 93, 'q3_concrete': 91, 'q4_wood': 48, 'distance': 86, 'time': 66, 'energy': 46, 'risk': 24}
+  p_3086: {'q1_tile': 27, 'q2_carpet': 94, 'q3_concrete': 74, 'q4_wood': 12, 'distance': 3, 'time': 100, 'energy': 20, 'risk': 83}
+  p_3087: {'q1_tile': 74, 'q2_carpet': 22, 'q3_concrete': 100, 'q4_wood': 94, 'distance': 76, 'time': 96, 'energy': 45, 'risk': 85}
+  p_3226: {'q1_tile': 72, 'q2_carpet': 89, 'q3_concrete': 97, 'q4_wood': 30, 'distance': 65, 'time': 42, 'energy': 33, 'risk': 47}
+  p_3244: {'q1_tile': 88, 'q2_carpet': 84, 'q3_concrete': 97, 'q4_wood': 93, 'distance': 86, 'time': 42, 'energy': 31, 'risk': 83}
+  p_3298: {'q1_tile': 83, 'q2_carpet': 90, 'q3_concrete': 97, 'q4_wood': 8, 'distance': 12, 'time': 15, 'energy': 74, 'risk': 48}
+  p_3382: {'q1_tile': 6, 'q2_carpet': 100, 'q3_concrete': 98, 'q4_wood': 17, 'distance': 65, 'time': 12, 'energy': 54, 'risk': 43}
+  p_3411: {'q1_tile': 93, 'q2_carpet': 99, 'q3_concrete': 82, 'q4_wood': 43, 'distance': 26, 'time': 47, 'energy': 31, 'risk': 56}
+  p_3530: {'q1_tile': 94, 'q2_carpet': 97, 'q3_concrete': 98, 'q4_wood': 21, 'distance': 26, 'time': 26, 'energy': 18, 'risk': 67}
+  p_3540: {'q1_tile': 75, 'q2_carpet': 95, 'q3_concrete': 99, 'q4_wood': 3, 'distance': 12, 'time': 59, 'energy': 92, 'risk': 21}
+  p_3786: {'q1_tile': 98, 'q2_carpet': 68, 'q3_concrete': 99, 'q4_wood': 26, 'distance': 51, 'time': 78, 'energy': 94, 'risk': 81}
+  p_3795: {'q1_tile': 74, 'q2_carpet': 99, 'q3_concrete': 100, 'q4_wood': 73, 'distance': 12, 'time': 16, 'energy': 33, 'risk': 16}
+  p_3798: {'q1_tile': 59, 'q2_carpet': 95, 'q3_concrete': 75, 'q4_wood': 87, 'distance': 69, 'time': 99, 'energy': 74, 'risk': 94}
+  p_3826: {'q1_tile': 99, 'q2_carpet': 94, 'q3_concrete': 97, 'q4_wood': 34, 'distance': 40, 'time': 49, 'energy': 93, 'risk': 6}
+  p_3844: {'q1_tile': 79, 'q2_carpet': 64, 'q3_concrete': 100, 'q4_wood': 26, 'distance': 70, 'time': 71, 'energy': 11, 'risk': 68}
+  p_3858: {'q1_tile': 6, 'q2_carpet': 100, 'q3_concrete': 96, 'q4_wood': 14, 'distance': 81, 'time': 97, 'energy': 50, 'risk': 20}
+  p_3859: {'q1_tile': 98, 'q2_carpet': 46, 'q3_concrete': 88, 'q4_wood': 92, 'distance': 79, 'time': 97, 'energy': 7, 'risk': 93}
+  p_3874: {'q1_tile': 78, 'q2_carpet': 86, 'q3_concrete': 98, 'q4_wood': 49, 'distance': 71, 'time': 46, 'energy': 59, 'risk': 34}
+  p_3895: {'q1_tile': 95, 'q2_carpet': 48, 'q3_concrete': 99, 'q4_wood': 36, 'distance': 55, 'time': 99, 'energy': 60, 'risk': 60}
+  p_3898: {'q1_tile': 97, 'q2_carpet': 84, 'q3_concrete': 62, 'q4_wood': 69, 'distance': 83, 'time': 97, 'energy': 30, 'risk': 62}
+  p_3982: {'q1_tile': 100, 'q2_carpet': 22, 'q3_concrete': 47, 'q4_wood': 40, 'distance': 28, 'time': 100, 'energy': 82, 'risk': 41}
+  p_4035: {'q1_tile': 36, 'q2_carpet': 100, 'q3_concrete': 11, 'q4_wood': 79, 'distance': 3, 'time': 99, 'energy': 66, 'risk': 58}
+  p_4057: {'q1_tile': 89, 'q2_carpet': 87, 'q3_concrete': 95, 'q4_wood': 10, 'distance': 60, 'time': 93, 'energy': 69, 'risk': 15}
+  p_4060: {'q1_tile': 75, 'q2_carpet': 97, 'q3_concrete': 98, 'q4_wood': 7, 'distance': 14, 'time': 49, 'energy': 84, 'risk': 33}
+  p_4061: {'q1_tile': 99, 'q2_carpet': 75, 'q3_concrete': 93, 'q4_wood': 85, 'distance': 19, 'time': 84, 'energy': 66, 'risk': 12}
+  p_4114: {'q1_tile': 20, 'q2_carpet': 97, 'q3_concrete': 98, 'q4_wood': 84, 'distance': 94, 'time': 83, 'energy': 99, 'risk': 38}
+  p_4241: {'q1_tile': 88, 'q2_carpet': 57, 'q3_concrete': 80, 'q4_wood': 35, 'distance': 73, 'time': 100, 'energy': 50, 'risk': 25}
+  p_4263: {'q1_tile': 46, 'q2_carpet': 97, 'q3_concrete': 99, 'q4_wood': 49, 'distance': 97, 'time': 89, 'energy': 63, 'risk': 39}
+  p_4293: {'q1_tile': 98, 'q2_carpet': 92, 'q3_concrete': 81, 'q4_wood': 50, 'distance': 22, 'time': 52, 'energy': 71, 'risk': 27}
+  p_4399: {'q1_tile': 90, 'q2_carpet': 89, 'q3_concrete': 90, 'q4_wood': 53, 'distance': 17, 'time': 98, 'energy': 82, 'risk': 99}
+  p_4606: {'q1_tile': 84, 'q2_carpet': 65, 'q3_concrete': 50, 'q4_wood': 26, 'distance': 1, 'time': 100, 'energy': 78, 'risk': 8}
+  p_4647: {'q1_tile': 100, 'q2_carpet': 59, 'q3_concrete': 90, 'q4_wood': 33, 'distance': 99, 'time': 59, 'energy': 1, 'risk': 45}
+  p_4666: {'q1_tile': 38, 'q2_carpet': 16, 'q3_concrete': 99, 'q4_wood': 57, 'distance': 14, 'time': 100, 'energy': 50, 'risk': 43}
+  p_4771: {'q1_tile': 89, 'q2_carpet': 97, 'q3_concrete': 87, 'q4_wood': 65, 'distance': 65, 'time': 54, 'energy': 97, 'risk': 19}
+  p_4787: {'q1_tile': 100, 'q2_carpet': 91, 'q3_concrete': 77, 'q4_wood': 15, 'distance': 85, 'time': 83, 'energy': 22, 'risk': 62}
+  p_4900: {'q1_tile': 27, 'q2_carpet': 84, 'q3_concrete': 100, 'q4_wood': 27, 'distance': 8, 'time': 80, 'energy': 76, 'risk': 8}
+
+Construction status:
+  Construction failed to produce a meaningful MORNP instance.
+  Reason: No negative plans were constructed within the attempt limit.
+  Solver execution skipped.
+
+Timing:
+  Construction time = 0.194302 seconds
+  Execution time    = 0.000000 seconds
+  Total run time    = 0.194946 seconds
