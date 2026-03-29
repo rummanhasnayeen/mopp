@@ -401,7 +401,26 @@ def run_floorplan_random_experiment(
 
             solver.print_pairwise_debug()
 
-            result = solver.solve()
+            # result = solver.solve()
+            result = solver.solve_and_verify()
+
+            if result["sat"] and result.get("verification") is not None:
+                verification = result["verification"]
+
+                print("\nCertificate verification:")
+                print("  Verified =", verification["verified"])
+                print("  Cardinality OK =", verification["cardinality_ok"])
+                print("  Non-dominance OK =", verification["nondominance_ok"])
+                print("  Verifier time complexity =", verification["time_complexity"])
+
+                if not verification["verified"]:
+                    print("  Reason =", verification["reason"])
+                    print("  Violations:")
+                    for violation in verification["violations"]:
+                        print(
+                            f"    {violation['dominating_plan']} dominates "
+                            f"{violation['positive_plan']}"
+                        )
 
             execution_end = time.perf_counter()
             execution_time = execution_end - execution_start
@@ -416,25 +435,6 @@ def run_floorplan_random_experiment(
             else:
                 print("  SAT = NO")
                 print("  Selected objectives = []")
-
-        # print("\nCNF stats:")
-        # print("  #variables =", solver.vpool.top)
-        # print("  #clauses   =", len(solver.cnf.clauses))
-        #
-        # solver.print_pairwise_debug()
-        #
-        # result = solver.solve()
-        #
-        # execution_end = time.perf_counter()
-        # execution_time = execution_end - execution_start
-        #
-        # print("\nSolve result:")
-        # if result["sat"]:
-        #     print("  SAT = YES")
-        #     print("  Selected objectives =", result["selected_objectives"])
-        # else:
-        #     print("  SAT = NO")
-        #     print("  Selected objectives = []")
 
         total_end = time.perf_counter()
         total_time = total_end - total_start
@@ -471,6 +471,7 @@ def run_floorplan_random_experiment(
             "selected_objectives": result["selected_objectives"],
             "cnf_variables": cnf_variables,
             "cnf_clauses": cnf_clauses,
+            "verification": result.get("verification"),
         },
         "timing": {
             "construction_time_seconds": construction_meta["construction_time_seconds"],

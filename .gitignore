@@ -1,2 +1,6 @@
 .idea/
 .DS_Store
+/json/
+/text/
+/mornp_text/
+/mornp_json/

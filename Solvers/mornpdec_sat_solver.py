@@ -52,7 +52,6 @@ class MORNPDECSATSolver:
         v_pi_prime = self.instance.plan_values[pi_prime][obj]
         return 1 if v_pi > v_pi_prime else 0
 
-
     def build_formula(self) -> None:
         #  Phi_S AND Phi_<=k
         self._add_pairwise_mornp_constraints()
@@ -118,7 +117,7 @@ class MORNPDECSATSolver:
             self.cnf.append([-x_at(i), -self._t(i - 1, k)])
 
     def solve(self) -> Dict:
-        with Minisat22(bootstrap_with=self.cnf.clauses) as solver: # Minisat because its lightweight(gemini)
+        with Minisat22(bootstrap_with=self.cnf.clauses) as solver:  # Minisat because its lightweight(gemini)
             sat = solver.solve()
             if not sat:
                 return {
@@ -181,3 +180,97 @@ class MORNPDECSATSolver:
                 val = 1 if t_var in model_set else 0
                 row.append(f"t({i},{j})={val}")
             print("  " + ", ".join(row))
+
+    def _dominates_under_objectives(
+        self,
+        plan_a: str,
+        plan_b: str,
+        selected_objectives: List[str],
+    ) -> bool:
+        """
+        Return True iff plan_a Pareto-dominates plan_b
+        under the selected objectives.
+        """
+        if not selected_objectives:
+            return False
+
+        values = self.instance.plan_values
+
+        all_ge = all(
+            values[plan_a][obj] >= values[plan_b][obj]
+            for obj in selected_objectives
+        )
+        one_gt = any(
+            values[plan_a][obj] > values[plan_b][obj]
+            for obj in selected_objectives
+        )
+        return all_ge and one_gt
+
+    def verify_certificate(self, selected_objectives: List[str]) -> Dict:
+        """
+        Verify the MORNP-DEC certificate Ω in polynomial time.
+
+        Checks:
+          1. |Ω| <= k
+          2. For every pi in P+, no pi' in P+ U P- dominates pi under Ω
+        """
+        unknown = [obj for obj in selected_objectives if obj not in self.objectives]
+        if unknown:
+            return {
+                "verified": False,
+                "cardinality_ok": False,
+                "nondominance_ok": False,
+                "reason": f"Unknown objectives in certificate: {unknown}",
+                "violations": [],
+                "time_complexity": "O(1) early reject",
+            }
+
+        if len(selected_objectives) > self.k:
+            return {
+                "verified": False,
+                "cardinality_ok": False,
+                "nondominance_ok": False,
+                "reason": f"Certificate size {len(selected_objectives)} exceeds k={self.k}",
+                "violations": [],
+                "time_complexity": "O(1)",
+            }
+
+        violations = []
+
+        for pi in self.positive_plans:
+            for pi_prime in self.sample_plans:
+                if pi == pi_prime:
+                    continue
+
+                if self._dominates_under_objectives(pi_prime, pi, selected_objectives):
+                    violations.append({
+                        "positive_plan": pi,
+                        "dominating_plan": pi_prime,
+                    })
+
+        nondominance_ok = len(violations) == 0
+
+        return {
+            "verified": nondominance_ok,
+            "cardinality_ok": True,
+            "nondominance_ok": nondominance_ok,
+            "reason": None if nondominance_ok else "Some positive plan is dominated under the returned certificate.",
+            "violations": violations,
+            "time_complexity": "O(|P+| * |P+ U P-| * |O|)",
+        }
+
+    def solve_and_verify(self) -> Dict:
+        """
+        Solve first, then verify the returned certificate.
+        Returns everything solve() returns, plus 'verification'.
+        """
+        result = self.solve()
+
+        if not result["sat"]:
+            result["verification"] = None
+            return result
+
+        result["verification"] = self.verify_certificate(
+            result["selected_objectives"]
+        )
+        return result
