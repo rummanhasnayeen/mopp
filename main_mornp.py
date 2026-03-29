@@ -480,7 +480,7 @@ def run_floorplan_random_experiment(
         },
     }
 
-    text_path, json_path = save_experiment_outputs(timestamp_str, text_log, json_data)
+    text_path, json_path = save_experiment_outputs("single_instance_" + timestamp_str, text_log, json_data)
 
     print(f"Text log saved to: {text_path}")
     print(f"JSON stats saved to: {json_path}")
@@ -717,5 +717,5 @@ if __name__ == "__main__":
     # inst2 = build_small_example_equality_unsat()
     # run_instance(inst2, "Example 2: equality UNSAT")
 
-    # run_floorplan_experiment()
-    run_default_stress_test_experiment()
+    run_floorplan_experiment()
+    # run_default_stress_test_experiment()
