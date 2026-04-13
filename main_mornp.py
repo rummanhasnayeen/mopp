@@ -22,6 +22,7 @@ NEGATIVE_BIAS_PROBABILITY = 0.5
 
 TEXT_LOG_DIR = "mornp_text"
 JSON_LOG_DIR = "mornp_json"
+SUMMARY_LOG_DIR = "mornp_summary"
 
 # stress test constants
 STRESS_OBJECTIVE_INCREMENT = 15
@@ -173,6 +174,7 @@ def generate_negative_biased_plan_values(
 def ensure_output_dirs() -> None:
     os.makedirs(TEXT_LOG_DIR, exist_ok=True)
     os.makedirs(JSON_LOG_DIR, exist_ok=True)
+    os.makedirs(SUMMARY_LOG_DIR, exist_ok=True)
 
 
 def build_random_floorplan_mornp_instance(
@@ -330,6 +332,55 @@ def save_experiment_outputs(timestamp_str: str, text_log: str, json_data: dict) 
     return text_path, json_path
 
 
+def build_experiment_summary(json_data: dict) -> dict:
+    construction_meta = json_data["construction_metadata"]
+    instance_data = json_data["instance"]
+    solver_data = json_data["solver"]
+    timing_data = json_data["timing"]
+
+    verification = solver_data.get("verification")
+
+    return {
+        "timestamp": json_data["timestamp"],
+        "seed": json_data["seed"],
+        "objective_count": len(json_data["inputs"]["total_objectives"]),
+        "selected_objective_count": len(instance_data["selected_objectives"]),
+        "target_num_plans": json_data["inputs"]["target_num_plans"],
+        "k": json_data["inputs"]["k"],
+        "constructed_positive_count": construction_meta["constructed_positive_count"],
+        "constructed_negative_count": construction_meta["constructed_negative_count"],
+        "constructed_total_count": construction_meta["constructed_total_count"],
+        "discarded_count": construction_meta["discarded_count"],
+        "attempts": construction_meta["attempts"],
+        "construction_success": construction_meta["construction_success"],
+        "failure_reason": construction_meta["failure_reason"],
+        "dominated_all_count": construction_meta.get("dominated_all_count"),
+        "nondominated_count": construction_meta.get("nondominated_count"),
+        "sat": solver_data["sat"],
+        "selected_objectives": solver_data["selected_objectives"],
+        "cnf_variables": solver_data["cnf_variables"],
+        "cnf_clauses": solver_data["cnf_clauses"],
+        "verification_verified": None if verification is None else verification["verified"],
+        "verification_cardinality_ok": None if verification is None else verification["cardinality_ok"],
+        "verification_nondominance_ok": None if verification is None else verification["nondominance_ok"],
+        "construction_time_seconds": timing_data["construction_time_seconds"],
+        "execution_time_seconds": timing_data["execution_time_seconds"],
+        "total_run_time_seconds": timing_data["total_run_time_seconds"],
+    }
+
+
+def save_summary_output(timestamp_str: str, summary_data: dict, prefix: str = "") -> str:
+    ensure_output_dirs()
+
+    filename = f"{prefix}{timestamp_str}.json" if prefix else f"{timestamp_str}.json"
+    summary_path = os.path.join(SUMMARY_LOG_DIR, filename)
+
+    with open(summary_path, "w", encoding="utf-8") as f:
+        json.dump(summary_data, f, indent=2)
+
+    return summary_path
+
+
 def run_floorplan_random_experiment(
         total_objectives: list[str],
         target_num_plans: int,
@@ -485,11 +536,35 @@ def run_floorplan_random_experiment(
     print(f"Text log saved to: {text_path}")
     print(f"JSON stats saved to: {json_path}")
 
+    summary_data = build_experiment_summary(json_data)
+    summary_path = save_summary_output("single_instance_" + timestamp_str, summary_data)
+
+    print(f"Summary log saved to: {summary_path}")
+
     return {
         "text_path": text_path,
         "json_path": json_path,
+        "summary_path": summary_path,
         "text_log": text_log,
         "json_data": json_data,
+        "summary_data": summary_data,
+    }
+
+
+def build_stress_test_summary(
+    stress_timestamp: str,
+    status: str,
+    successful_iterations: list[dict],
+    exception_type: str | None = None,
+    exception_message: str | None = None,
+) -> dict:
+    return {
+        "stress_test_timestamp": stress_timestamp,
+        "status": status,
+        "iteration_count": len(successful_iterations),
+        "iterations": successful_iterations,
+        "exception_type": exception_type,
+        "exception_message": exception_message,
     }
 
 def extend_objective_pool(base_objectives: list[str], target_count: int) -> list[str]:
@@ -589,6 +664,7 @@ def run_stress_test_experiment(initial_config: dict) -> None:
 
     combined_text_parts: list[str] = []
     combined_json_runs: list[dict] = []
+    combined_summary_runs: list[dict] = []
 
     base_total_objectives = list(initial_config["total_objectives"])
     current_target_objective_count = len(base_total_objectives)
@@ -651,6 +727,19 @@ def run_stress_test_experiment(initial_config: dict) -> None:
                 "run_output": run_output["json_data"],
             })
 
+            combined_summary_runs.append({
+                "iteration_index": iteration_index,
+                "iteration_inputs": {
+                    "objective_count": len(total_objectives_for_iteration),
+                    "target_num_plans": current_target_num_plans,
+                    "k": current_k,
+                    "seed": current_seed,
+                    "min_negative_plans_required": MIN_NEGATIVE_PLANS_REQUIRED,
+                    "min_positive_plans_required": MIN_POSITIVE_PLANS_REQUIRED,
+                },
+                "run_summary": run_output["summary_data"],
+            })
+
             # next iteration increments
             current_target_objective_count += STRESS_OBJECTIVE_INCREMENT
             current_target_num_plans += STRESS_PLAN_INCREMENT
@@ -676,12 +765,24 @@ def run_stress_test_experiment(initial_config: dict) -> None:
             "successful_iterations": combined_json_runs,
         }
 
+        stress_summary_data = build_stress_test_summary(
+            stress_timestamp=stress_timestamp,
+            status="terminated_unexpectedly",
+            successful_iterations=combined_summary_runs,
+            exception_type=type(exc).__name__,
+            exception_message=str(exc),
+        )
+
         combined_text_log = "\n".join(combined_text_parts)
         text_path, json_path = save_stress_test_outputs(
             stress_timestamp,
             combined_text_log,
             combined_json_data,
         )
+
+        summary_path = save_summary_output(f"stress_{stress_timestamp}", stress_summary_data)
+
+        print(f"Combined stress summary log saved to: {summary_path}")
 
         print(f"Stress test terminated unexpectedly.")
         print(f"Combined stress text log saved to: {text_path}")
@@ -698,12 +799,22 @@ def run_stress_test_experiment(initial_config: dict) -> None:
         "successful_iterations": combined_json_runs,
     }
 
+    stress_summary_data = build_stress_test_summary(
+        stress_timestamp=stress_timestamp,
+        status="completed",
+        successful_iterations=combined_summary_runs,
+    )
+
     combined_text_log = "\n".join(combined_text_parts)
     text_path, json_path = save_stress_test_outputs(
         stress_timestamp,
         combined_text_log,
         combined_json_data,
     )
+
+    summary_path = save_summary_output(f"stress_{stress_timestamp}", stress_summary_data)
+
+    print(f"Combined stress summary log saved to: {summary_path}")
 
     print(f"Stress test completed.")
     print(f"Combined stress text log saved to: {text_path}")
@@ -717,5 +828,5 @@ if __name__ == "__main__":
     # inst2 = build_small_example_equality_unsat()
     # run_instance(inst2, "Example 2: equality UNSAT")
 
-    run_floorplan_experiment()
-    # run_default_stress_test_experiment()
+    # run_floorplan_experiment()
+    run_default_stress_test_experiment()
