@@ -17,7 +17,7 @@ RANDOM_VALUE_MIN = 1
 RANDOM_VALUE_MAX = 100
 MAX_PLAN_BUILD_ATTEMPTS = 5000
 MIN_NEGATIVE_PLANS_REQUIRED = 5
-MIN_POSITIVE_PLANS_REQUIRED = 1
+MIN_POSITIVE_PLANS_REQUIRED = 5
 NEGATIVE_BIAS_PROBABILITY = 0.5
 
 TEXT_LOG_DIR = "mornp_text"
@@ -613,7 +613,7 @@ def run_floorplan_experiment() -> None:
         "risk",
     ]
 
-    target_num_plans = 10
+    target_num_plans = 12
     k = 4
     seed = 42
 
@@ -828,5 +828,5 @@ if __name__ == "__main__":
     # inst2 = build_small_example_equality_unsat()
     # run_instance(inst2, "Example 2: equality UNSAT")
 
-    # run_floorplan_experiment()
-    run_default_stress_test_experiment()
+    run_floorplan_experiment()
+    # run_default_stress_test_experiment()
