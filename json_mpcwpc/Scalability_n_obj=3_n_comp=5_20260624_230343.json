@@ -1,0 +1,46 @@
+{
+  "timestamp": "20260624_230343",
+  "title": "Scalability n_obj=3 n_comp=5",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 3,
+    "objectives": [
+      "o_1",
+      "o_2",
+      "o_3"
+    ],
+    "num_plans": 10,
+    "num_comparisons": 5
+  },
+  "model_stats": {
+    "num_variables": 114,
+    "num_constraints": 330
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 1.0,
+    "preorder_size": 1,
+    "preorder_edges": [
+      [
+        "o_2",
+        "o_3"
+      ]
+    ]
+  },
+  "timing": {
+    "construction_time_sec": 0.026344875000000004,
+    "solver_time_sec": 0.009036666999999998,
+    "total_time_sec": 0.03563487500000001,
+    "detailed_intervals": {
+      "variable_creation": 0.018978374999999992,
+      "transitivity_constraints": 0.0009984580000000076,
+      "y_computation_constraints": 0.003926541999999991,
+      "comparison_constraints": 0.0007240000000000024,
+      "constraint_addition": 0.005649833000000007,
+      "total_build": 0.026326915999999992,
+      "solver_time": 0.008920167000000007
+    }
+  }
+}

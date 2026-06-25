@@ -1,0 +1,47 @@
+
+======================================================================
+Scalability n_obj=3 n_comp=5
+======================================================================
+Timestamp: 20260624_230213
+Mode: Big-M
+Objectives (3): ['o_1', 'o_2', 'o_3']
+Plans: ['pi_1', 'pi_2', 'pi_3', 'pi_4', 'pi_5', 'pi_6', 'pi_7', 'pi_8', 'pi_9', 'pi_10']
+Comparisons (5):
+  (pi_1, pi_2, ?) [incomparable]
+  (pi_3, pi_4, 1) [preferred]
+  (pi_5, pi_6, ?) [incomparable]
+  (pi_7, pi_8, ?) [incomparable]
+  (pi_9, pi_10, ?) [incomparable]
+
+Plan values:
+  pi_1: {'o_1': 32, 'o_2': 29, 'o_3': 18}
+  pi_2: {'o_1': 95, 'o_2': 14, 'o_3': 87}
+  pi_3: {'o_1': 95, 'o_2': 70, 'o_3': 12}
+  pi_4: {'o_1': 76, 'o_2': 55, 'o_3': 5}
+  pi_5: {'o_1': 4, 'o_2': 12, 'o_3': 28}
+  pi_6: {'o_1': 30, 'o_2': 65, 'o_3': 78}
+  pi_7: {'o_1': 4, 'o_2': 72, 'o_3': 26}
+  pi_8: {'o_1': 92, 'o_2': 84, 'o_3': 90}
+  pi_9: {'o_1': 70, 'o_2': 54, 'o_3': 29}
+  pi_10: {'o_1': 58, 'o_2': 76, 'o_3': 36}
+
+Model built in 0.016315 sec
+  Variables: 123
+  Constraints: 342
+
+Solver finished in 0.005350 sec
+  Status: INFEASIBLE
+  Feasible: False
+  Optimal: False
+
+Timing:
+  Construction time: 0.016315 sec
+  Solver time:       0.005350 sec
+  Total time:        0.022163 sec
+  comparison_constraints: 0.000939 sec
+  constraint_addition: 0.006255 sec
+  solver_time: 0.005325 sec
+  total_build: 0.016298 sec
+  transitivity_constraints: 0.000895 sec
+  variable_creation: 0.008450 sec
+  y_computation_constraints: 0.004419 sec
