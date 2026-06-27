@@ -1,0 +1,59 @@
+{
+  "timestamp": "20260626_183811",
+  "title": "Coloring Gadget",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 6,
+    "objectives": [
+      "o_A",
+      "o_B",
+      "o_C",
+      "o_R",
+      "o_G",
+      "o_Bl"
+    ],
+    "num_plans": 39,
+    "num_comparisons": 24,
+    "k": 3
+  },
+  "model_stats": {
+    "num_variables": 1704,
+    "num_constraints": 5638
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 3.0,
+    "preorder_size": 3,
+    "preorder_edges": [
+      [
+        "o_A",
+        "o_R"
+      ],
+      [
+        "o_B",
+        "o_Bl"
+      ],
+      [
+        "o_C",
+        "o_G"
+      ]
+    ]
+  },
+  "timing": {
+    "construction_time_sec": 0.09775724999999999,
+    "solver_time_sec": 0.018842333000000044,
+    "total_time_sec": 0.11672462499999997,
+    "detailed_intervals": {
+      "variable_creation": 0.008081625000000009,
+      "transitivity_constraints": 0.0015055840000000043,
+      "y_computation_constraints": 0.07634099999999999,
+      "comparison_constraints": 0.010507457999999997,
+      "budget_constraint": 1.8542000000010272e-05,
+      "constraint_addition": 0.088374334,
+      "total_build": 0.09772545900000001,
+      "solver_time": 0.01854866700000002
+    }
+  }
+}

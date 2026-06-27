@@ -1,0 +1,52 @@
+{
+  "timestamp": "20260626_183103",
+  "title": "Paper Hasse Diagram Example (3 objectives)",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 3,
+    "objectives": [
+      "o1",
+      "o2",
+      "o3"
+    ],
+    "num_plans": 2,
+    "num_comparisons": 1,
+    "k": 3
+  },
+  "model_stats": {
+    "num_variables": 27,
+    "num_constraints": 71
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 2.0,
+    "preorder_size": 2,
+    "preorder_edges": [
+      [
+        "o1",
+        "o2"
+      ],
+      [
+        "o3",
+        "o2"
+      ]
+    ]
+  },
+  "timing": {
+    "construction_time_sec": 0.010616457999999995,
+    "solver_time_sec": 0.006927333999999993,
+    "total_time_sec": 0.017687999999999995,
+    "detailed_intervals": {
+      "variable_creation": 0.007543458000000003,
+      "transitivity_constraints": 0.0008976670000000048,
+      "y_computation_constraints": 0.0005049579999999998,
+      "comparison_constraints": 7.883399999999985e-05,
+      "budget_constraint": 8.332999999999258e-06,
+      "constraint_addition": 0.001490333999999996,
+      "total_build": 0.010609125000000011,
+      "solver_time": 0.006746874999999999
+    }
+  }
+}

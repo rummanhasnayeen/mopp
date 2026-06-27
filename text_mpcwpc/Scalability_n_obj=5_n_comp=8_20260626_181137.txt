@@ -1,0 +1,60 @@
+
+======================================================================
+Scalability n_obj=5 n_comp=8
+======================================================================
+Timestamp: 20260626_181137
+Mode: Big-M
+Objectives (5): ['o_1', 'o_2', 'o_3', 'o_4', 'o_5']
+Plans: ['pi_1', 'pi_2', 'pi_3', 'pi_4', 'pi_5', 'pi_6', 'pi_7', 'pi_8', 'pi_9', 'pi_10', 'pi_12', 'pi_11', 'pi_13', 'pi_14', 'pi_15', 'pi_16']
+Comparisons (8):
+  (pi_1, pi_2, ?) [incomparable]
+  (pi_3, pi_4, ?) [incomparable]
+  (pi_5, pi_6, ?) [incomparable]
+  (pi_7, pi_8, ?) [incomparable]
+  (pi_9, pi_10, ?) [incomparable]
+  (pi_12, pi_11, 1) [preferred]
+  (pi_13, pi_14, ?) [incomparable]
+  (pi_15, pi_16, ?) [incomparable]
+
+Plan values:
+  pi_1: {'o_1': 51, 'o_2': 23, 'o_3': 8, 'o_4': 14, 'o_5': 16}
+  pi_2: {'o_1': 49, 'o_2': 20, 'o_3': 13, 'o_4': 21, 'o_5': 66}
+  pi_3: {'o_1': 64, 'o_2': 17, 'o_3': 99, 'o_4': 50, 'o_5': 77}
+  pi_4: {'o_1': 65, 'o_2': 35, 'o_3': 74, 'o_4': 24, 'o_5': 49}
+  pi_5: {'o_1': 9, 'o_2': 7, 'o_3': 75, 'o_4': 8, 'o_5': 24}
+  pi_6: {'o_1': 8, 'o_2': 22, 'o_3': 38, 'o_4': 36, 'o_5': 10}
+  pi_7: {'o_1': 67, 'o_2': 80, 'o_3': 14, 'o_4': 75, 'o_5': 84}
+  pi_8: {'o_1': 84, 'o_2': 87, 'o_3': 8, 'o_4': 13, 'o_5': 80}
+  pi_9: {'o_1': 59, 'o_2': 83, 'o_3': 93, 'o_4': 43, 'o_5': 43}
+  pi_10: {'o_1': 68, 'o_2': 86, 'o_3': 90, 'o_4': 57, 'o_5': 22}
+  pi_11: {'o_1': 17, 'o_2': 11, 'o_3': 100, 'o_4': 41, 'o_5': 7}
+  pi_12: {'o_1': 76, 'o_2': 35, 'o_3': 48, 'o_4': 94, 'o_5': 24}
+  pi_13: {'o_1': 87, 'o_2': 78, 'o_3': 10, 'o_4': 71, 'o_5': 85}
+  pi_14: {'o_1': 15, 'o_2': 39, 'o_3': 64, 'o_4': 100, 'o_5': 94}
+  pi_15: {'o_1': 47, 'o_2': 92, 'o_3': 56, 'o_4': 6, 'o_5': 61}
+  pi_16: {'o_1': 54, 'o_2': 78, 'o_3': 100, 'o_4': 11, 'o_5': 46}
+
+Model built in 0.017273 sec
+  Variables: 495
+  Constraints: 1591
+
+Solver finished in 0.005780 sec
+  Status: OPTIMAL
+  Feasible: True
+  Optimal: True
+  Objective value (preorder size): 1.0
+  Preorder edges (1):
+    o_4 >= o_3
+
+Timing:
+  Construction time: 0.017273 sec
+  Solver time:       0.005780 sec
+  Total time:        0.023119 sec
+  budget_constraint: 0.000015 sec
+  comparison_constraints: 0.001693 sec
+  constraint_addition: 0.015634 sec
+  solver_time: 0.005655 sec
+  total_build: 0.017262 sec
+  transitivity_constraints: 0.000661 sec
+  variable_creation: 0.001267 sec
+  y_computation_constraints: 0.013264 sec

@@ -1,0 +1,101 @@
+
+======================================================================
+3-Coloring Gadget (A-B-C triangle)
+======================================================================
+Timestamp: 20260626_181209
+Mode: Big-M
+Objectives (6): ['o_A', 'o_B', 'o_C', 'o_R', 'o_G', 'o_Bl']
+Plans: ['plan_1', 'plan_2', 'plan_3', 'plan_4', 'plan_5', 'plan_6', 'plan_7', 'plan_8', 'plan_9', 'plan_10', 'plan_11', 'plan_12', 'plan_13', 'plan_14', 'plan_15', 'plan_16', 'plan_17', 'plan_18', 'plan_19', 'plan_20', 'plan_21', 'plan_22', 'plan_23', 'plan_24', 'plan_25', 'plan_26', 'plan_27', 'plan_29', 'plan_28', 'plan_30', 'plan_31', 'plan_33', 'plan_32', 'plan_34', 'plan_35', 'plan_37', 'plan_36', 'plan_38', 'plan_39']
+Comparisons (24):
+  (plan_1, plan_2, ?) [incomparable]
+  (plan_3, plan_4, ?) [incomparable]
+  (plan_5, plan_6, ?) [incomparable]
+  (plan_7, plan_8, ?) [incomparable]
+  (plan_9, plan_10, ?) [incomparable]
+  (plan_11, plan_12, ?) [incomparable]
+  (plan_13, plan_14, ?) [incomparable]
+  (plan_15, plan_16, ?) [incomparable]
+  (plan_17, plan_18, ?) [incomparable]
+  (plan_19, plan_20, 1) [preferred]
+  (plan_19, plan_21, ?) [incomparable]
+  (plan_22, plan_23, 1) [preferred]
+  (plan_22, plan_24, ?) [incomparable]
+  (plan_25, plan_26, 1) [preferred]
+  (plan_25, plan_27, ?) [incomparable]
+  (plan_29, plan_28, ?) [incomparable]
+  (plan_30, plan_28, ?) [incomparable]
+  (plan_31, plan_28, ?) [incomparable]
+  (plan_33, plan_32, ?) [incomparable]
+  (plan_34, plan_32, ?) [incomparable]
+  (plan_35, plan_32, ?) [incomparable]
+  (plan_37, plan_36, ?) [incomparable]
+  (plan_38, plan_36, ?) [incomparable]
+  (plan_39, plan_36, ?) [incomparable]
+
+Plan values:
+  plan_1: {'o_A': 1, 'o_B': 1, 'o_C': 1, 'o_R': 0, 'o_G': 1, 'o_Bl': 1}
+  plan_2: {'o_A': 0, 'o_B': 0, 'o_C': 0, 'o_R': 1, 'o_G': 0, 'o_Bl': 0}
+  plan_3: {'o_A': 1, 'o_B': 1, 'o_C': 1, 'o_R': 1, 'o_G': 0, 'o_Bl': 1}
+  plan_4: {'o_A': 0, 'o_B': 0, 'o_C': 0, 'o_R': 0, 'o_G': 1, 'o_Bl': 0}
+  plan_5: {'o_A': 1, 'o_B': 1, 'o_C': 1, 'o_R': 1, 'o_G': 1, 'o_Bl': 0}
+  plan_6: {'o_A': 0, 'o_B': 0, 'o_C': 0, 'o_R': 0, 'o_G': 0, 'o_Bl': 1}
+  plan_7: {'o_A': 0, 'o_B': 1, 'o_C': 0, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_8: {'o_A': 1, 'o_B': 0, 'o_C': -1000, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_9: {'o_A': 0, 'o_B': 0, 'o_C': 1, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_10: {'o_A': 1, 'o_B': -1000, 'o_C': 0, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_11: {'o_A': 1, 'o_B': 0, 'o_C': 0, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_12: {'o_A': 0, 'o_B': 1, 'o_C': -1000, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_13: {'o_A': 0, 'o_B': 0, 'o_C': 1, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_14: {'o_A': -1000, 'o_B': 1, 'o_C': 0, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_15: {'o_A': 1, 'o_B': 0, 'o_C': 0, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_16: {'o_A': 0, 'o_B': -1000, 'o_C': 1, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_17: {'o_A': 0, 'o_B': 1, 'o_C': 0, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_18: {'o_A': -1000, 'o_B': 0, 'o_C': 1, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_19: {'o_A': 0, 'o_B': 1000, 'o_C': 1000, 'o_R': 1, 'o_G': 1, 'o_Bl': 1}
+  plan_20: {'o_A': 1, 'o_B': 1000, 'o_C': 1000, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_21: {'o_A': 2, 'o_B': 1000, 'o_C': 1000, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_22: {'o_A': 1000, 'o_B': 0, 'o_C': 1000, 'o_R': 1, 'o_G': 1, 'o_Bl': 1}
+  plan_23: {'o_A': 1000, 'o_B': 1, 'o_C': 1000, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_24: {'o_A': 1000, 'o_B': 2, 'o_C': 1000, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_25: {'o_A': 1000, 'o_B': 1000, 'o_C': 0, 'o_R': 1, 'o_G': 1, 'o_Bl': 1}
+  plan_26: {'o_A': 1000, 'o_B': 1000, 'o_C': 1, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_27: {'o_A': 1000, 'o_B': 1000, 'o_C': 2, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_28: {'o_A': 1, 'o_B': 1, 'o_C': 1000, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_29: {'o_A': 0, 'o_B': 0, 'o_C': 1000, 'o_R': 1, 'o_G': 0, 'o_Bl': 0}
+  plan_30: {'o_A': 0, 'o_B': 0, 'o_C': 1000, 'o_R': 0, 'o_G': 1, 'o_Bl': 0}
+  plan_31: {'o_A': 0, 'o_B': 0, 'o_C': 1000, 'o_R': 0, 'o_G': 0, 'o_Bl': 1}
+  plan_32: {'o_A': 1000, 'o_B': 1, 'o_C': 1, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_33: {'o_A': 1000, 'o_B': 0, 'o_C': 0, 'o_R': 1, 'o_G': 0, 'o_Bl': 0}
+  plan_34: {'o_A': 1000, 'o_B': 0, 'o_C': 0, 'o_R': 0, 'o_G': 1, 'o_Bl': 0}
+  plan_35: {'o_A': 1000, 'o_B': 0, 'o_C': 0, 'o_R': 0, 'o_G': 0, 'o_Bl': 1}
+  plan_36: {'o_A': 1, 'o_B': 1000, 'o_C': 1, 'o_R': 0, 'o_G': 0, 'o_Bl': 0}
+  plan_37: {'o_A': 0, 'o_B': 1000, 'o_C': 0, 'o_R': 1, 'o_G': 0, 'o_Bl': 0}
+  plan_38: {'o_A': 0, 'o_B': 1000, 'o_C': 0, 'o_R': 0, 'o_G': 1, 'o_Bl': 0}
+  plan_39: {'o_A': 0, 'o_B': 1000, 'o_C': 0, 'o_R': 0, 'o_G': 0, 'o_Bl': 1}
+
+Model built in 0.052476 sec
+  Variables: 1704
+  Constraints: 5638
+
+Solver finished in 0.014282 sec
+  Status: OPTIMAL
+  Feasible: True
+  Optimal: True
+  Objective value (preorder size): 3.0
+  Preorder edges (3):
+    o_R >= o_A
+    o_Bl >= o_B
+    o_G >= o_C
+
+Timing:
+  Construction time: 0.052476 sec
+  Solver time:       0.014282 sec
+  Total time:        0.066863 sec
+  budget_constraint: 0.000019 sec
+  comparison_constraints: 0.005206 sec
+  constraint_addition: 0.049004 sec
+  solver_time: 0.014042 sec
+  total_build: 0.052447 sec
+  transitivity_constraints: 0.001061 sec
+  variable_creation: 0.002545 sec
+  y_computation_constraints: 0.042716 sec

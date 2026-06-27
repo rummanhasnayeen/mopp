@@ -128,6 +128,10 @@ class MPCwPCILPSolver:
         self._record_ts("comparison_done")
         self._record_interval("comparison_constraints", "y_computation_done", "comparison_done")
 
+        self._add_budget_constraint()
+        self._record_ts("budget_done")
+        self._record_interval("budget_constraint", "comparison_done", "budget_done")
+
     def _add_transitivity_constraints(self):
         objs = self.objectives
         for o in objs:
@@ -289,6 +293,16 @@ class MPCwPCILPSolver:
         self.model.addConstr(
             gp.quicksum(self.g_vars[o_p, pi_p, pi] for o_p in objs) >= 1,
             name=f"inc_rev_exists_{pi_p}_{pi}")
+
+    def _add_budget_constraint(self):
+        k = self.instance.k
+        if k is None:
+            return
+        self.model.addConstr(
+            gp.quicksum(self.x_vars[o, o_p]
+                        for o in self.objectives
+                        for o_p in self.objectives if o != o_p) <= k,
+            name="budget_k")
 
     def _set_objective(self):
         self.model.setObjective(

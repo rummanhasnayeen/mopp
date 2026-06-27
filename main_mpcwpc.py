@@ -21,17 +21,6 @@ def ensure_output_dirs():
     os.makedirs(JSON_LOG_DIR, exist_ok=True)
 
 def build_paper_hasse_example() -> MPCwPCInstance:
-    """
-    Simple Hasse diagram example from Section III of the paper.
-
-    Objectives: o1, o2, o3
-    Ground-truth preorder (Hasse edges): o2 >= o1, o2 >= o3
-    Weak-stochastic objectives: {o1}^up = {o1, o2}, {o2}^up = {o2}, {o3}^up = {o3, o2}
-    Plans:
-        pi:  V = (4, 2, 6)  => lifted = (6, 2, 8)
-        pi': V = (2, 5, 3)  => lifted = (7, 5, 8)
-    pi' dominates pi under weak-stochastic => comparison (pi', pi, 1)
-    """
     objectives = ["o1", "o2", "o3"]
 
     plan_values = {
@@ -47,6 +36,51 @@ def build_paper_hasse_example() -> MPCwPCInstance:
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
+        k=3,
+    )
+
+
+def build_autonomous_vehicle_example() -> MPCwPCInstance:
+    objectives = [
+        "safety", "energy", "time", "comfort", "cost",
+        "legal", "robust", "emissions", "maint", "payload",
+    ]
+
+    plan_values = {
+        "route_fast":     {"safety": 5, "energy": 4, "time": 9, "comfort": 6, "cost": 5, "legal": 8, "robust": 6, "emissions": 4, "maint": 6, "payload": 7},
+        "route_safe":     {"safety": 9, "energy": 5, "time": 5, "comfort": 7, "cost": 6, "legal": 9, "robust": 8, "emissions": 6, "maint": 7, "payload": 6},
+        "route_green":    {"safety": 7, "energy": 9, "time": 4, "comfort": 6, "cost": 7, "legal": 8, "robust": 7, "emissions": 9, "maint": 6, "payload": 5},
+        "route_balanced": {"safety": 8, "energy": 8, "time": 8, "comfort": 8, "cost": 7, "legal": 9, "robust": 8, "emissions": 7, "maint": 8, "payload": 7},
+        "route_budget":   {"safety": 6, "energy": 6, "time": 6, "comfort": 5, "cost": 9, "legal": 7, "robust": 6, "emissions": 6, "maint": 7, "payload": 6},
+    }
+
+    comparisons = [
+        ("route_safe",     "route_fast",   1),
+        ("route_fast",     "route_green",  '?'),
+        ("route_balanced", "route_fast",   1),
+        ("route_fast",     "route_budget", '?'),
+        ("route_safe",     "route_green",  '?'),
+        ("route_safe",     "route_balanced",'?'),
+        ("route_safe",     "route_budget",  1),
+        ("route_green",    "route_balanced",'?'),
+        ("route_green",    "route_budget",  '?'),
+        ("route_balanced", "route_budget",  1),
+    ]
+
+    return MPCwPCInstance(
+        objectives=objectives,
+        plan_values=plan_values,
+        comparisons=comparisons,
+        k=10,
+    )
+
+
+def run_autonomous_vehicle_example():
+    instance = build_autonomous_vehicle_example()
+    run_single_experiment(
+        instance,
+        title="Autonomous Vehicle (10 objectives, 5 plans)",
+        use_big_m=True,
     )
 
 
@@ -152,6 +186,7 @@ def build_coloring_gadget_example() -> MPCwPCInstance:
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
+        k=len(vertices),
     )
 
 
@@ -225,6 +260,7 @@ def _determine_comparison_label(
 def build_random_instance(
     num_objectives: int,
     num_comparisons: int,
+    k: int,
     num_preorder_edges: int = None,
     value_range: Tuple[int, int] = (1, 100),
     seed: int = 42,
@@ -266,6 +302,7 @@ def build_random_instance(
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
+        k=k,
     )
 
 
@@ -278,7 +315,6 @@ def run_single_experiment(
     time_limit: float = 300.0,
     verbose_gurobi: bool = False,
 ) -> dict:
-    """Run solver on a single instance, return full result dict with timing."""
     total_start = time.perf_counter()
     ts_str = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -290,6 +326,7 @@ def run_single_experiment(
         print("=" * 70)
         print(f"Timestamp: {ts_str}")
         print(f"Mode: {'Big-M' if use_big_m else 'Indicator Constraints'}")
+        print(f"k (budget): {instance.k}")
         print(f"Objectives ({len(instance.objectives)}): {instance.objectives}")
         print(f"Plans: {instance.plans}")
         print(f"Comparisons ({len(instance.comparisons)}):")
@@ -358,6 +395,7 @@ def run_single_experiment(
             "objectives": instance.objectives,
             "num_plans": len(instance.plans),
             "num_comparisons": len(instance.comparisons),
+            "k": instance.k,
         },
         "model_stats": {
             "num_variables": result["num_variables"],
@@ -415,6 +453,7 @@ def run_coloring_example():
 
 def run_scalability_experiments(
     objective_range: List[int] = None,
+    k_base: int = 3,
     comparisons_per_step: int = 5,
     use_big_m: bool = True,
     time_limit: float = 300.0,
@@ -428,9 +467,11 @@ def run_scalability_experiments(
 
     for step_idx, n_obj in enumerate(objective_range):
         n_comp = max(3, n_obj * comparisons_per_step // 3)
+        k = k_base + step_idx
         instance = build_random_instance(
             num_objectives=n_obj,
             num_comparisons=n_comp,
+            k=k,
             seed=seed_base + step_idx,
         )
 
@@ -452,6 +493,7 @@ def run_scalability_experiments(
                 "num_objectives": r["inputs"]["num_objectives"],
                 "num_comparisons": r["inputs"]["num_comparisons"],
                 "num_plans": r["inputs"]["num_plans"],
+                "k": r["inputs"]["k"],
                 "num_variables": r["model_stats"]["num_variables"],
                 "num_constraints": r["model_stats"]["num_constraints"],
                 "status": r["result"]["status"],

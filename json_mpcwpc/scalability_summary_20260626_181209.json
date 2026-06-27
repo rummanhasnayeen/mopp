@@ -1,0 +1,66 @@
+{
+  "timestamp": "20260626_181209",
+  "mode": "big_m",
+  "experiments": [
+    {
+      "num_objectives": 3,
+      "num_comparisons": 5,
+      "num_plans": 10,
+      "num_variables": 114,
+      "num_constraints": 331,
+      "status": "OPTIMAL",
+      "preorder_size": 1,
+      "construction_time_sec": 0.003996458000000008,
+      "solver_time_sec": 0.0016989580000000004,
+      "total_time_sec": 0.005736167000000014
+    },
+    {
+      "num_objectives": 5,
+      "num_comparisons": 8,
+      "num_plans": 16,
+      "num_variables": 495,
+      "num_constraints": 1591,
+      "status": "OPTIMAL",
+      "preorder_size": 1,
+      "construction_time_sec": 0.015314042,
+      "solver_time_sec": 0.005338207999999983,
+      "total_time_sec": 0.02070525000000001
+    },
+    {
+      "num_objectives": 8,
+      "num_comparisons": 13,
+      "num_plans": 26,
+      "num_variables": 1928,
+      "num_constraints": 6811,
+      "status": "OPTIMAL",
+      "preorder_size": 0,
+      "construction_time_sec": 0.06293279199999999,
+      "solver_time_sec": 0.019092417000000028,
+      "total_time_sec": 0.08210049999999999
+    },
+    {
+      "num_objectives": 10,
+      "num_comparisons": 16,
+      "num_plans": 32,
+      "num_variables": 3610,
+      "num_constraints": 13233,
+      "status": "OPTIMAL",
+      "preorder_size": 0,
+      "construction_time_sec": 0.12482354200000001,
+      "solver_time_sec": 0.032734417000000016,
+      "total_time_sec": 0.157657084
+    },
+    {
+      "num_objectives": 15,
+      "num_comparisons": 25,
+      "num_plans": 50,
+      "num_variables": 12210,
+      "num_constraints": 47031,
+      "status": "OPTIMAL",
+      "preorder_size": 0,
+      "construction_time_sec": 0.43744720800000003,
+      "solver_time_sec": 0.12528812499999997,
+      "total_time_sec": 0.5628994170000001
+    }
+  ]
+}

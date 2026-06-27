@@ -1,0 +1,48 @@
+{
+  "timestamp": "20260626_183811",
+  "title": "Random n=8",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 8,
+    "objectives": [
+      "o_1",
+      "o_2",
+      "o_3",
+      "o_4",
+      "o_5",
+      "o_6",
+      "o_7",
+      "o_8"
+    ],
+    "num_plans": 26,
+    "num_comparisons": 13,
+    "k": 5
+  },
+  "model_stats": {
+    "num_variables": 1928,
+    "num_constraints": 6811
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 0.0,
+    "preorder_size": 0,
+    "preorder_edges": []
+  },
+  "timing": {
+    "construction_time_sec": 0.10488249999999999,
+    "solver_time_sec": 0.030037166000000004,
+    "total_time_sec": 0.13503549999999997,
+    "detailed_intervals": {
+      "variable_creation": 0.007977332999999975,
+      "transitivity_constraints": 0.003353875000000006,
+      "y_computation_constraints": 0.08481033300000002,
+      "comparison_constraints": 0.00762716699999999,
+      "budget_constraint": 2.862500000000434e-05,
+      "constraint_addition": 0.09582141700000002,
+      "total_build": 0.10486075,
+      "solver_time": 0.02966200000000002
+    }
+  }
+}

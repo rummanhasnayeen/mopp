@@ -1,0 +1,52 @@
+{
+  "timestamp": "20260626_183811",
+  "title": "Paper Hasse",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 3,
+    "objectives": [
+      "o1",
+      "o2",
+      "o3"
+    ],
+    "num_plans": 2,
+    "num_comparisons": 1,
+    "k": 3
+  },
+  "model_stats": {
+    "num_variables": 27,
+    "num_constraints": 71
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 2.0,
+    "preorder_size": 2,
+    "preorder_edges": [
+      [
+        "o1",
+        "o2"
+      ],
+      [
+        "o3",
+        "o2"
+      ]
+    ]
+  },
+  "timing": {
+    "construction_time_sec": 0.01677920799999999,
+    "solver_time_sec": 0.008548874999999984,
+    "total_time_sec": 0.025593875000000016,
+    "detailed_intervals": {
+      "variable_creation": 0.013376125000000016,
+      "transitivity_constraints": 0.0008665840000000036,
+      "y_computation_constraints": 0.0006602909999999795,
+      "comparison_constraints": 8.712500000002121e-05,
+      "budget_constraint": 9.95899999997607e-06,
+      "constraint_addition": 0.0016250419999999932,
+      "total_build": 0.016752292000000002,
+      "solver_time": 0.00832387499999998
+    }
+  }
+}

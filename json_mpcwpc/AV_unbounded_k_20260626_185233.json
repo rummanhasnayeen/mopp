@@ -1,0 +1,50 @@
+{
+  "timestamp": "20260626_185233",
+  "title": "AV unbounded k",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 10,
+    "objectives": [
+      "safety",
+      "energy",
+      "time",
+      "comfort",
+      "cost",
+      "legal",
+      "robust",
+      "emissions",
+      "maint",
+      "payload"
+    ],
+    "num_plans": 5,
+    "num_comparisons": 10,
+    "k": null
+  },
+  "model_stats": {
+    "num_variables": 740,
+    "num_constraints": 2925
+  },
+  "result": {
+    "status": "INFEASIBLE",
+    "feasible": false,
+    "optimal": false,
+    "objective_value": null,
+    "preorder_size": 0,
+    "preorder_edges": []
+  },
+  "timing": {
+    "construction_time_sec": 0.0363325,
+    "solver_time_sec": 0.030934540999999996,
+    "total_time_sec": 0.06751254200000001,
+    "detailed_intervals": {
+      "variable_creation": 0.008103833000000005,
+      "transitivity_constraints": 0.006533999999999998,
+      "y_computation_constraints": 0.01670733299999999,
+      "comparison_constraints": 0.0029706250000000045,
+      "budget_constraint": 1.5839999999989196e-06,
+      "constraint_addition": 0.026214499999999988,
+      "total_build": 0.036321833,
+      "solver_time": 0.03088779200000001
+    }
+  }
+}

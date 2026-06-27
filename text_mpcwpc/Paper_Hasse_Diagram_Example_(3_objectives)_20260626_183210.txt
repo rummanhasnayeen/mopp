@@ -1,0 +1,41 @@
+
+======================================================================
+Paper Hasse Diagram Example (3 objectives)
+======================================================================
+Timestamp: 20260626_183210
+Mode: Big-M
+k (budget): 3
+Objectives (3): ['o1', 'o2', 'o3']
+Plans: ['pi_prime', 'pi']
+Comparisons (1):
+  (pi_prime, pi, 1) [preferred]
+
+Plan values:
+  pi: {'o1': 4, 'o2': 2, 'o3': 6}
+  pi_prime: {'o1': 2, 'o2': 5, 'o3': 3}
+
+Model built in 0.013075 sec
+  Variables: 27
+  Constraints: 71
+
+Solver finished in 0.007325 sec
+  Status: OPTIMAL
+  Feasible: True
+  Optimal: True
+  Objective value (preorder size): 2.0
+  Preorder edges (2):
+    o2 >= o1
+    o2 >= o3
+
+Timing:
+  Construction time: 0.013075 sec
+  Solver time:       0.007325 sec
+  Total time:        0.020667 sec
+  budget_constraint: 0.000008 sec
+  comparison_constraints: 0.000082 sec
+  constraint_addition: 0.001849 sec
+  solver_time: 0.007152 sec
+  total_build: 0.013068 sec
+  transitivity_constraints: 0.001220 sec
+  variable_creation: 0.009396 sec
+  y_computation_constraints: 0.000538 sec

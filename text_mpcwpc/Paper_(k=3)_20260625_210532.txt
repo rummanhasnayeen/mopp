@@ -1,0 +1,40 @@
+
+======================================================================
+Paper (k=3)
+======================================================================
+Timestamp: 20260625_210532
+Mode: Big-M
+Objectives (3): ['o1', 'o2', 'o3']
+Plans: ['pi_prime', 'pi']
+Comparisons (1):
+  (pi_prime, pi, 1) [preferred]
+
+Plan values:
+  pi: {'o1': 4, 'o2': 2, 'o3': 6}
+  pi_prime: {'o1': 2, 'o2': 5, 'o3': 3}
+
+Model built in 0.018580 sec
+  Variables: 27
+  Constraints: 71
+
+Solver finished in 0.008800 sec
+  Status: OPTIMAL
+  Feasible: True
+  Optimal: True
+  Objective value (preorder size): 2.0
+  Preorder edges (2):
+    o2 >= o1
+    o2 >= o3
+
+Timing:
+  Construction time: 0.018580 sec
+  Solver time:       0.008800 sec
+  Total time:        0.027685 sec
+  budget_constraint: 0.000014 sec
+  comparison_constraints: 0.000136 sec
+  constraint_addition: 0.003044 sec
+  solver_time: 0.008581 sec
+  total_build: 0.018568 sec
+  transitivity_constraints: 0.001832 sec
+  variable_creation: 0.013231 sec
+  y_computation_constraints: 0.001062 sec
