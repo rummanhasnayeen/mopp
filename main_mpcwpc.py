@@ -71,7 +71,7 @@ def build_autonomous_vehicle_example() -> MPCwPCInstance:
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
-        k=10,
+        k=5,
     )
 
 
@@ -512,6 +512,7 @@ def run_scalability_experiments(
 
 
 if __name__ == "__main__":
-    run_paper_example()
+    run_autonomous_vehicle_example()
+    # run_paper_example()
     # run_scalability_experiments(objective_range=[3, 5, 8, 10, 15, 20])
     # run_coloring_example()
