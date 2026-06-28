@@ -631,13 +631,6 @@ def _build_scalability_instance(
     value_range: Tuple[int, int] = (1, 10),
     seed: int = 42,
 ) -> MPCwPCInstance:
-    """
-    Build a scalability test instance using a star preorder (o_1 at top).
-
-    Uses a star-shaped ground-truth preorder where the first objective is
-    preferred over all others. This structure produces a mix of preference
-    and incomparability comparisons, making the ILP non-trivial to solve.
-    """
     rng = random.Random(seed)
     objectives = [f"o_{i+1}" for i in range(num_objectives)]
 
@@ -680,14 +673,6 @@ def run_scalability_experiments(
     time_limit: float = 300.0,
     seed_base: int = 42,
 ):
-    """
-    Scalability test with increasing problem size.
-
-    Uses star preorder instances. Objectives increase per the given range,
-    comparisons = objectives * comparisons_multiplier.
-    Each iteration records construction time, solver time, and whether
-    the solver reached the time limit.
-    """
     if objective_range is None:
         objective_range = list(range(10, 101, 5))
 
