@@ -1,0 +1,68 @@
+{
+  "timestamp": "20260627_165640",
+  "title": "Autonomous Vehicle Hierarchy (10 objectives, 5 plans, deep preorder)",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 10,
+    "objectives": [
+      "safety",
+      "energy",
+      "time",
+      "comfort",
+      "cost",
+      "legal",
+      "robust",
+      "emissions",
+      "maint",
+      "payload"
+    ],
+    "num_plans": 5,
+    "num_comparisons": 10
+  },
+  "model_stats": {
+    "num_variables": 760,
+    "num_constraints": 2957
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 3.0,
+    "preorder_size": 3,
+    "preorder_edges": [
+      [
+        "safety",
+        "comfort"
+      ],
+      [
+        "time",
+        "comfort"
+      ],
+      [
+        "cost",
+        "comfort"
+      ]
+    ]
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 3,
+    "num_comparisons_checked": 10,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 0.02930787500000001,
+    "solver_time_sec": 0.015913749999999977,
+    "total_time_sec": 0.045285958000000015,
+    "detailed_intervals": {
+      "variable_creation": 0.0015842500000000093,
+      "transitivity_constraints": 0.005639959,
+      "y_computation_constraints": 0.01759250000000001,
+      "comparison_constraints": 0.003974166000000001,
+      "constraint_addition": 0.027208417000000013,
+      "total_build": 0.029298084000000002,
+      "solver_time": 0.015766625000000006
+    }
+  }
+}

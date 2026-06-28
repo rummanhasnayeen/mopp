@@ -1,0 +1,167 @@
+{
+  "timestamp": "20260628_095530",
+  "title": "Scalability n_obj=25 n_comp=75",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 25,
+    "objectives": [
+      "o_1",
+      "o_2",
+      "o_3",
+      "o_4",
+      "o_5",
+      "o_6",
+      "o_7",
+      "o_8",
+      "o_9",
+      "o_10",
+      "o_11",
+      "o_12",
+      "o_13",
+      "o_14",
+      "o_15",
+      "o_16",
+      "o_17",
+      "o_18",
+      "o_19",
+      "o_20",
+      "o_21",
+      "o_22",
+      "o_23",
+      "o_24",
+      "o_25"
+    ],
+    "num_plans": 150,
+    "num_comparisons": 75
+  },
+  "model_stats": {
+    "num_variables": 97900,
+    "num_constraints": 384992
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 24.0,
+    "preorder_size": 24,
+    "preorder_edges": [
+      [
+        "o_2",
+        "o_1"
+      ],
+      [
+        "o_3",
+        "o_1"
+      ],
+      [
+        "o_4",
+        "o_1"
+      ],
+      [
+        "o_5",
+        "o_1"
+      ],
+      [
+        "o_6",
+        "o_1"
+      ],
+      [
+        "o_7",
+        "o_1"
+      ],
+      [
+        "o_8",
+        "o_1"
+      ],
+      [
+        "o_9",
+        "o_1"
+      ],
+      [
+        "o_10",
+        "o_1"
+      ],
+      [
+        "o_11",
+        "o_25"
+      ],
+      [
+        "o_12",
+        "o_1"
+      ],
+      [
+        "o_13",
+        "o_1"
+      ],
+      [
+        "o_14",
+        "o_1"
+      ],
+      [
+        "o_15",
+        "o_1"
+      ],
+      [
+        "o_16",
+        "o_1"
+      ],
+      [
+        "o_17",
+        "o_1"
+      ],
+      [
+        "o_18",
+        "o_1"
+      ],
+      [
+        "o_19",
+        "o_1"
+      ],
+      [
+        "o_20",
+        "o_1"
+      ],
+      [
+        "o_21",
+        "o_1"
+      ],
+      [
+        "o_22",
+        "o_1"
+      ],
+      [
+        "o_23",
+        "o_1"
+      ],
+      [
+        "o_24",
+        "o_1"
+      ],
+      [
+        "o_25",
+        "o_11"
+      ]
+    ]
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 24,
+    "num_comparisons_checked": 75,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 4.557618042,
+    "solver_time_sec": 3.4313847499999994,
+    "total_time_sec": 7.989797791999999,
+    "detailed_intervals": {
+      "variable_creation": 0.1877436250000004,
+      "transitivity_constraints": 0.15365079199999965,
+      "y_computation_constraints": 4.071311082999999,
+      "comparison_constraints": 0.0781837920000008,
+      "constraint_addition": 4.303148791999999,
+      "total_build": 4.557368792,
+      "solver_time": 3.425918124999999
+    }
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "timestamp": "20260628_095552",
+  "title": "Scalability n_obj=35 n_comp=105",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 35,
+    "objectives": [
+      "o_1",
+      "o_2",
+      "o_3",
+      "o_4",
+      "o_5",
+      "o_6",
+      "o_7",
+      "o_8",
+      "o_9",
+      "o_10",
+      "o_11",
+      "o_12",
+      "o_13",
+      "o_14",
+      "o_15",
+      "o_16",
+      "o_17",
+      "o_18",
+      "o_19",
+      "o_20",
+      "o_21",
+      "o_22",
+      "o_23",
+      "o_24",
+      "o_25",
+      "o_26",
+      "o_27",
+      "o_28",
+      "o_29",
+      "o_30",
+      "o_31",
+      "o_32",
+      "o_33",
+      "o_34",
+      "o_35"
+    ],
+    "num_plans": 210,
+    "num_comparisons": 105
+  },
+  "model_stats": {
+    "num_variables": 265475,
+    "num_constraints": 1060806
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 34.0,
+    "preorder_size": 34,
+    "preorder_edges": [
+      [
+        "o_2",
+        "o_1"
+      ],
+      [
+        "o_3",
+        "o_1"
+      ],
+      [
+        "o_4",
+        "o_1"
+      ],
+      [
+        "o_5",
+        "o_1"
+      ],
+      [
+        "o_6",
+        "o_1"
+      ],
+      [
+        "o_7",
+        "o_1"
+      ],
+      [
+        "o_8",
+        "o_1"
+      ],
+      [
+        "o_9",
+        "o_34"
+      ],
+      [
+        "o_10",
+        "o_1"
+      ],
+      [
+        "o_11",
+        "o_1"
+      ],
+      [
+        "o_12",
+        "o_1"
+      ],
+      [
+        "o_13",
+        "o_1"
+      ],
+      [
+        "o_14",
+        "o_1"
+      ],
+      [
+        "o_15",
+        "o_1"
+      ],
+      [
+        "o_16",
+        "o_1"
+      ],
+      [
+        "o_17",
+        "o_1"
+      ],
+      [
+        "o_18",
+        "o_1"
+      ],
+      [
+        "o_19",
+        "o_1"
+      ],
+      [
+        "o_20",
+        "o_1"
+      ],
+      [
+        "o_21",
+        "o_1"
+      ],
+      [
+        "o_22",
+        "o_1"
+      ],
+      [
+        "o_23",
+        "o_1"
+      ],
+      [
+        "o_24",
+        "o_1"
+      ],
+      [
+        "o_25",
+        "o_1"
+      ],
+      [
+        "o_26",
+        "o_1"
+      ],
+      [
+        "o_27",
+        "o_1"
+      ],
+      [
+        "o_28",
+        "o_1"
+      ],
+      [
+        "o_29",
+        "o_1"
+      ],
+      [
+        "o_30",
+        "o_1"
+      ],
+      [
+        "o_31",
+        "o_1"
+      ],
+      [
+        "o_32",
+        "o_1"
+      ],
+      [
+        "o_33",
+        "o_1"
+      ],
+      [
+        "o_34",
+        "o_9"
+      ],
+      [
+        "o_35",
+        "o_1"
+      ]
+    ]
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 34,
+    "num_comparisons_checked": 105,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 14.482394874999997,
+    "solver_time_sec": 13.456528708,
+    "total_time_sec": 27.943335167,
+    "detailed_intervals": {
+      "variable_creation": 0.4447834999999998,
+      "transitivity_constraints": 0.42572237499999943,
+      "y_computation_constraints": 12.932596042,
+      "comparison_constraints": 0.17814795800000383,
+      "constraint_addition": 13.537913750000001,
+      "total_build": 14.481891583,
+      "solver_time": 13.448301875000006
+    }
+  }
+}

@@ -128,10 +128,6 @@ class MPCwPCILPSolver:
         self._record_ts("comparison_done")
         self._record_interval("comparison_constraints", "y_computation_done", "comparison_done")
 
-        self._add_budget_constraint()
-        self._record_ts("budget_done")
-        self._record_interval("budget_constraint", "comparison_done", "budget_done")
-
     def _add_transitivity_constraints(self):
         objs = self.objectives
         for o in objs:
@@ -294,16 +290,6 @@ class MPCwPCILPSolver:
             gp.quicksum(self.g_vars[o_p, pi_p, pi] for o_p in objs) >= 1,
             name=f"inc_rev_exists_{pi_p}_{pi}")
 
-    def _add_budget_constraint(self):
-        k = self.instance.k
-        if k is None:
-            return
-        self.model.addConstr(
-            gp.quicksum(self.x_vars[o, o_p]
-                        for o in self.objectives
-                        for o_p in self.objectives if o != o_p) <= k,
-            name="budget_k")
-
     def _set_objective(self):
         self.model.setObjective(
             gp.quicksum(self.x_vars[o, o_p]
@@ -355,6 +341,80 @@ class MPCwPCILPSolver:
             result["y_values"] = y_vals
 
         return result
+
+    def verify(self, result: dict) -> dict:
+        """
+        Verify that the solver's preorder satisfies all comparisons
+        under weak-stochastic dominance.
+
+        Steps:
+          1. Compute transitive closure of the recovered preorder edges
+          2. Compute lifted values for all plans
+          3. Check each comparison label against Pareto dominance on lifted values
+        """
+        if not result["feasible"]:
+            return {"verified": False, "reason": "No feasible solution to verify"}
+
+        edges = result["preorder_edges"]
+        objs = self.objectives
+
+        upper = {o: {o} for o in objs}
+        for o, o_p in edges:
+            upper[o].add(o_p)
+        changed = True
+        while changed:
+            changed = False
+            for o in objs:
+                new = set()
+                for o_p in list(upper[o]):
+                    new |= upper.get(o_p, set())
+                if not new.issubset(upper[o]):
+                    upper[o] |= new
+                    changed = True
+
+        lifted = {}
+        for pi in self.all_plans:
+            lifted[pi] = {}
+            for o in objs:
+                lifted[pi][o] = sum(self.plan_values[pi][o_p] for o_p in upper[o])
+
+        violations = []
+        for pi, pi_p, r in self.comparisons:
+            l_pi = lifted[pi]
+            l_pip = lifted[pi_p]
+
+            pi_ge = all(l_pi[o] >= l_pip[o] for o in objs)
+            pi_gt = any(l_pi[o] > l_pip[o] for o in objs)
+            pip_ge = all(l_pip[o] >= l_pi[o] for o in objs)
+            pip_gt = any(l_pip[o] > l_pi[o] for o in objs)
+
+            if r == 1:
+                ok = pi_ge and pi_gt
+            elif r == 0:
+                ok = pi_ge and pip_ge and not pi_gt and not pip_gt
+            elif r == '?':
+                ok = not (pi_ge and pi_gt) and not (pip_ge and pip_gt)
+            else:
+                ok = False
+
+            if not ok:
+                pi_wins = [o for o in objs if l_pi[o] > l_pip[o]]
+                pip_wins = [o for o in objs if l_pip[o] > l_pi[o]]
+                violations.append({
+                    "comparison": (pi, pi_p, r),
+                    "expected_label": r,
+                    "left_wins_on": pi_wins,
+                    "right_wins_on": pip_wins,
+                })
+
+        verified = len(violations) == 0
+        return {
+            "verified": verified,
+            "preorder_size": len(edges),
+            "num_comparisons_checked": len(self.comparisons),
+            "violations": violations,
+            "num_violations": len(violations),
+        }
 
     @staticmethod
     def _status_name(status: int) -> str:

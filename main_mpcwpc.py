@@ -36,7 +36,6 @@ def build_paper_hasse_example() -> MPCwPCInstance:
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
-        k=3,
     )
 
 
@@ -71,7 +70,137 @@ def build_autonomous_vehicle_example() -> MPCwPCInstance:
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
-        k=5,
+    )
+
+
+def build_autonomous_vehicle_hierarchy_example() -> MPCwPCInstance:
+    objectives = [
+        "safety", "energy", "time", "comfort", "cost",
+        "legal", "robust", "emissions", "maint", "payload",
+    ]
+
+    plan_values = {
+        "route_fast":     {"safety": 5, "energy": 4, "time": 9, "comfort": 6, "cost": 5, "legal": 8, "robust": 6, "emissions": 4, "maint": 6, "payload": 7},
+        "route_safe":     {"safety": 9, "energy": 5, "time": 5, "comfort": 7, "cost": 6, "legal": 9, "robust": 8, "emissions": 6, "maint": 7, "payload": 6},
+        "route_green":    {"safety": 7, "energy": 9, "time": 4, "comfort": 6, "cost": 7, "legal": 8, "robust": 7, "emissions": 9, "maint": 6, "payload": 5},
+        "route_balanced": {"safety": 8, "energy": 8, "time": 8, "comfort": 8, "cost": 7, "legal": 9, "robust": 8, "emissions": 7, "maint": 8, "payload": 7},
+        "route_budget":   {"safety": 6, "energy": 6, "time": 6, "comfort": 5, "cost": 9, "legal": 7, "robust": 6, "emissions": 6, "maint": 7, "payload": 6},
+    }
+
+    hasse_edges = [
+        ("legal", "safety"),
+        ("emissions", "safety"),
+        ("time", "safety"),
+        ( "maint", "safety"),
+
+        ("payload", "cost"),
+        ("emissions", "cost"),
+
+        ("energy", "emissions"),
+
+        ("cost", "time"),
+
+        ("robust", "maint"),
+
+        ("comfort", "maint"),
+    ]
+
+    preorder_edges = _generate_transitive_closure(objectives, hasse_edges)
+
+    plans = list(plan_values.keys())
+    comparisons = []
+    from itertools import combinations
+    for pi, pip in combinations(plans, 2):
+        lifted_pi = _compute_lifted_values(objectives, plan_values[pi], preorder_edges)
+        lifted_pip = _compute_lifted_values(objectives, plan_values[pip], preorder_edges)
+        r, swap = _determine_comparison_label(lifted_pi, lifted_pip, objectives)
+        if swap:
+            comparisons.append((pip, pi, r))
+        else:
+            comparisons.append((pi, pip, r))
+
+    return MPCwPCInstance(
+        objectives=objectives,
+        plan_values=plan_values,
+        comparisons=comparisons,
+    )
+
+
+def build_drone_delivery_example() -> MPCwPCInstance:
+    """
+    Drone delivery fleet case study.
+
+    A drone delivery company operates in an urban area. Each plan represents
+    a different delivery route policy with tradeoffs across 8 objectives.
+
+    Ground-truth preorder (Hasse diagram):
+
+            airspace_compliance
+                    |
+              flight_safety
+               /         \\
+      cargo_integrity   weather_resilience
+                            |
+                        battery_life
+                         /        \\
+               delivery_speed   maintenance_cost
+                                    |
+                              noise_pollution
+
+    7 Hasse edges, 21 after transitive closure.
+    Comparisons derived programmatically via weak-stochastic dominance.
+    """
+    objectives = [
+        "flight_safety", "battery_life", "delivery_speed", "noise_pollution",
+        "weather_resilience", "cargo_integrity", "airspace_compliance", "maintenance_cost",
+    ]
+
+    plan_values = {
+        "route_highway":     {"flight_safety": 9, "battery_life": 10, "delivery_speed": 9, "noise_pollution": 9, "weather_resilience": 10, "cargo_integrity": 5, "airspace_compliance": 4, "maintenance_cost": 10},
+        "route_residential": {"flight_safety": 9, "battery_life": 4,  "delivery_speed": 3, "noise_pollution": 9, "weather_resilience": 6,  "cargo_integrity": 4, "airspace_compliance": 3, "maintenance_cost": 10},
+        "route_park":        {"flight_safety": 2, "battery_life": 8,  "delivery_speed": 9, "noise_pollution": 4, "weather_resilience": 2,  "cargo_integrity": 10,"airspace_compliance": 3, "maintenance_cost": 2},
+        "route_direct":      {"flight_safety": 2, "battery_life": 5,  "delivery_speed": 5, "noise_pollution": 2, "weather_resilience": 9,  "cargo_integrity": 7, "airspace_compliance": 9, "maintenance_cost": 5},
+        "route_cautious":    {"flight_safety": 10,"battery_life": 5,  "delivery_speed": 6, "noise_pollution": 9, "weather_resilience": 2,  "cargo_integrity": 3, "airspace_compliance": 9, "maintenance_cost": 6},
+        "route_express":     {"flight_safety": 8, "battery_life": 10, "delivery_speed": 3, "noise_pollution": 6, "weather_resilience": 7,  "cargo_integrity": 5, "airspace_compliance": 10,"maintenance_cost": 6},
+    }
+
+    hasse_edges = [
+        ("flight_safety", "airspace_compliance"),
+        ("cargo_integrity", "flight_safety"),
+        ("weather_resilience", "flight_safety"),
+        ("battery_life", "weather_resilience"),
+        ("delivery_speed", "battery_life"),
+        ("maintenance_cost", "battery_life"),
+        ("noise_pollution", "maintenance_cost"),
+    ]
+
+    preorder_edges = _generate_transitive_closure(objectives, hasse_edges)
+
+    plans = list(plan_values.keys())
+    comparisons = []
+    from itertools import combinations
+    for pi, pip in combinations(plans, 2):
+        lifted_pi = _compute_lifted_values(objectives, plan_values[pi], preorder_edges)
+        lifted_pip = _compute_lifted_values(objectives, plan_values[pip], preorder_edges)
+        r, swap = _determine_comparison_label(lifted_pi, lifted_pip, objectives)
+        if swap:
+            comparisons.append((pip, pi, r))
+        else:
+            comparisons.append((pi, pip, r))
+
+    return MPCwPCInstance(
+        objectives=objectives,
+        plan_values=plan_values,
+        comparisons=comparisons,
+    )
+
+
+def run_drone_delivery_example():
+    instance = build_drone_delivery_example()
+    run_single_experiment(
+        instance,
+        title="Drone Delivery Fleet (8 objectives, 6 plans)",
+        use_big_m=True,
     )
 
 
@@ -80,6 +209,40 @@ def run_autonomous_vehicle_example():
     run_single_experiment(
         instance,
         title="Autonomous Vehicle (10 objectives, 5 plans)",
+        use_big_m=True,
+    )
+
+
+def _generate_transitive_closure(
+    objectives: List[str],
+    hasse_edges: List[Tuple[str, str]],
+) -> List[Tuple[str, str]]:
+    reachable = {o: {o} for o in objectives}
+    for o, o_p in hasse_edges:
+        reachable[o].add(o_p)
+    changed = True
+    while changed:
+        changed = False
+        for o in objectives:
+            new = set()
+            for o_p in list(reachable[o]):
+                new |= reachable.get(o_p, set())
+            if not new.issubset(reachable[o]):
+                reachable[o] |= new
+                changed = True
+    all_edges = []
+    for o in objectives:
+        for o_p in reachable[o]:
+            if o_p != o:
+                all_edges.append((o, o_p))
+    return all_edges
+
+
+def run_autonomous_vehicle_hierarchy_example():
+    instance = build_autonomous_vehicle_hierarchy_example()
+    run_single_experiment(
+        instance,
+        title="Autonomous Vehicle Hierarchy (10 objectives, 5 plans, deep preorder)",
         use_big_m=True,
     )
 
@@ -186,7 +349,6 @@ def build_coloring_gadget_example() -> MPCwPCInstance:
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
-        k=len(vertices),
     )
 
 
@@ -260,7 +422,6 @@ def _determine_comparison_label(
 def build_random_instance(
     num_objectives: int,
     num_comparisons: int,
-    k: int,
     num_preorder_edges: int = None,
     value_range: Tuple[int, int] = (1, 100),
     seed: int = 42,
@@ -302,7 +463,6 @@ def build_random_instance(
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
-        k=k,
     )
 
 
@@ -326,7 +486,6 @@ def run_single_experiment(
         print("=" * 70)
         print(f"Timestamp: {ts_str}")
         print(f"Mode: {'Big-M' if use_big_m else 'Indicator Constraints'}")
-        print(f"k (budget): {instance.k}")
         print(f"Objectives ({len(instance.objectives)}): {instance.objectives}")
         print(f"Plans: {instance.plans}")
         print(f"Comparisons ({len(instance.comparisons)}):")
@@ -375,6 +534,21 @@ def run_single_experiment(
             for o, o_p in result['preorder_edges']:
                 print(f"    {o_p} >= {o}")
 
+        verification = None
+        if result['feasible']:
+            verification = solver.verify(result)
+            print(f"\nVerification:")
+            print(f"  Verified: {verification['verified']}")
+            print(f"  Comparisons checked: {verification['num_comparisons_checked']}")
+            print(f"  Violations: {verification['num_violations']}")
+            if not verification['verified']:
+                for v in verification['violations']:
+                    pi, pip, r = v['comparison']
+                    label = {0: 'indifferent', 1: 'preferred', '?': 'incomparable'}[r]
+                    print(f"    FAIL: ({pi}, {pip}, {r}) [{label}]")
+                    print(f"      Left wins on: {v['left_wins_on']}")
+                    print(f"      Right wins on: {v['right_wins_on']}")
+
         print(f"\nTiming:")
         print(f"  Construction time: {construction_time:.6f} sec")
         print(f"  Solver time:       {solver_time:.6f} sec")
@@ -395,7 +569,6 @@ def run_single_experiment(
             "objectives": instance.objectives,
             "num_plans": len(instance.plans),
             "num_comparisons": len(instance.comparisons),
-            "k": instance.k,
         },
         "model_stats": {
             "num_variables": result["num_variables"],
@@ -409,6 +582,7 @@ def run_single_experiment(
             "preorder_size": result["preorder_size"],
             "preorder_edges": result["preorder_edges"],
         },
+        "verification": verification,
         "timing": {
             "construction_time_sec": construction_time,
             "solver_time_sec": solver_time,
@@ -451,29 +625,86 @@ def run_coloring_example():
     )
 
 
+def _build_scalability_instance(
+    num_objectives: int,
+    num_comparisons: int,
+    value_range: Tuple[int, int] = (1, 10),
+    seed: int = 42,
+) -> MPCwPCInstance:
+    """
+    Build a scalability test instance using a star preorder (o_1 at top).
+
+    Uses a star-shaped ground-truth preorder where the first objective is
+    preferred over all others. This structure produces a mix of preference
+    and incomparability comparisons, making the ILP non-trivial to solve.
+    """
+    rng = random.Random(seed)
+    objectives = [f"o_{i+1}" for i in range(num_objectives)]
+
+    hasse_edges = [(objectives[i], objectives[0]) for i in range(1, num_objectives)]
+    preorder_edges = _generate_transitive_closure(objectives, hasse_edges)
+
+    plan_values = {}
+    comparisons = []
+    plan_counter = 0
+
+    for _ in range(num_comparisons):
+        plan_counter += 1
+        pi_name = f"pi_{plan_counter}"
+        plan_counter += 1
+        pip_name = f"pi_{plan_counter}"
+
+        plan_values[pi_name] = {o: rng.randint(*value_range) for o in objectives}
+        plan_values[pip_name] = {o: rng.randint(*value_range) for o in objectives}
+
+        lifted_pi = _compute_lifted_values(objectives, plan_values[pi_name], preorder_edges)
+        lifted_pip = _compute_lifted_values(objectives, plan_values[pip_name], preorder_edges)
+        r, swap = _determine_comparison_label(lifted_pi, lifted_pip, objectives)
+
+        if swap:
+            comparisons.append((pip_name, pi_name, r))
+        else:
+            comparisons.append((pi_name, pip_name, r))
+
+    return MPCwPCInstance(
+        objectives=objectives,
+        plan_values=plan_values,
+        comparisons=comparisons,
+    )
+
+
 def run_scalability_experiments(
     objective_range: List[int] = None,
-    k_base: int = 3,
-    comparisons_per_step: int = 5,
+    comparisons_multiplier: int = 3,
     use_big_m: bool = True,
     time_limit: float = 300.0,
     seed_base: int = 42,
 ):
+    """
+    Scalability test with increasing problem size.
+
+    Uses star preorder instances. Objectives increase per the given range,
+    comparisons = objectives * comparisons_multiplier.
+    Each iteration records construction time, solver time, and whether
+    the solver reached the time limit.
+    """
     if objective_range is None:
-        objective_range = [3, 5, 8, 10, 15]
+        objective_range = list(range(10, 101, 5))
 
     all_results = []
     ts_str = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     for step_idx, n_obj in enumerate(objective_range):
-        n_comp = max(3, n_obj * comparisons_per_step // 3)
-        k = k_base + step_idx
-        instance = build_random_instance(
+        n_comp = n_obj * comparisons_multiplier
+        instance = _build_scalability_instance(
             num_objectives=n_obj,
             num_comparisons=n_comp,
-            k=k,
             seed=seed_base + step_idx,
         )
+
+        counts = {0: 0, 1: 0, '?': 0}
+        for _, _, r in instance.comparisons:
+            counts[r] += 1
 
         result = run_single_experiment(
             instance,
@@ -481,26 +712,49 @@ def run_scalability_experiments(
             use_big_m=use_big_m,
             time_limit=time_limit,
         )
+
+        result["comparison_distribution"] = {
+            "preferred": counts[1],
+            "incomparable": counts['?'],
+            "indifferent": counts[0],
+        }
         all_results.append(result)
+
+        status = result["result"]["status"]
+        build_t = result["timing"]["construction_time_sec"]
+        solve_t = result["timing"]["solver_time_sec"]
+        preorder = result["result"]["preorder_size"]
+        verified = result.get("verification", {}).get("verified", "N/A")
+        print(f"  >> n={n_obj} comp={n_comp} pref={counts[1]} incomp={counts['?']} "
+              f"build={build_t:.1f}s solve={solve_t:.1f}s preorder={preorder} "
+              f"verified={verified} status={status}")
+
+        if status == "TIME_LIMIT":
+            print(f"  >> Time limit reached at n_obj={n_obj}. Stopping.")
+            break
 
     ensure_output_dirs()
     summary_path = os.path.join(JSON_LOG_DIR, f"scalability_summary_{ts_str}.json")
     summary = {
         "timestamp": ts_str,
         "mode": "big_m" if use_big_m else "indicator",
+        "time_limit_sec": time_limit,
         "experiments": [
             {
                 "num_objectives": r["inputs"]["num_objectives"],
                 "num_comparisons": r["inputs"]["num_comparisons"],
                 "num_plans": r["inputs"]["num_plans"],
-                "k": r["inputs"]["k"],
                 "num_variables": r["model_stats"]["num_variables"],
                 "num_constraints": r["model_stats"]["num_constraints"],
                 "status": r["result"]["status"],
                 "preorder_size": r["result"]["preorder_size"],
+                "preferred_count": r["comparison_distribution"]["preferred"],
+                "incomparable_count": r["comparison_distribution"]["incomparable"],
+                "indifferent_count": r["comparison_distribution"]["indifferent"],
                 "construction_time_sec": r["timing"]["construction_time_sec"],
                 "solver_time_sec": r["timing"]["solver_time_sec"],
                 "total_time_sec": r["timing"]["total_time_sec"],
+                "verified": r.get("verification", {}).get("verified"),
             }
             for r in all_results
         ],
@@ -512,7 +766,6 @@ def run_scalability_experiments(
 
 
 if __name__ == "__main__":
-    run_autonomous_vehicle_example()
-    # run_paper_example()
+    run_drone_delivery_example()
     # run_scalability_experiments(objective_range=[3, 5, 8, 10, 15, 20])
     # run_coloring_example()

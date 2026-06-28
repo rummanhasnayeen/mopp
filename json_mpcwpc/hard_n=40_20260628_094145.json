@@ -1,0 +1,85 @@
+{
+  "timestamp": "20260628_094145",
+  "title": "hard n=40",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 40,
+    "objectives": [
+      "o_1",
+      "o_2",
+      "o_3",
+      "o_4",
+      "o_5",
+      "o_6",
+      "o_7",
+      "o_8",
+      "o_9",
+      "o_10",
+      "o_11",
+      "o_12",
+      "o_13",
+      "o_14",
+      "o_15",
+      "o_16",
+      "o_17",
+      "o_18",
+      "o_19",
+      "o_20",
+      "o_21",
+      "o_22",
+      "o_23",
+      "o_24",
+      "o_25",
+      "o_26",
+      "o_27",
+      "o_28",
+      "o_29",
+      "o_30",
+      "o_31",
+      "o_32",
+      "o_33",
+      "o_34",
+      "o_35",
+      "o_36",
+      "o_37",
+      "o_38",
+      "o_39",
+      "o_40"
+    ],
+    "num_plans": 240,
+    "num_comparisons": 120
+  },
+  "model_stats": {
+    "num_variables": 395160,
+    "num_constraints": 1585920
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 0.0,
+    "preorder_size": 0,
+    "preorder_edges": []
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 0,
+    "num_comparisons_checked": 120,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 15.898994833,
+    "solver_time_sec": 9.404275625,
+    "total_time_sec": 25.305090708999998,
+    "detailed_intervals": {
+      "variable_creation": 0.5394164999999997,
+      "transitivity_constraints": 0.4940608330000007,
+      "y_computation_constraints": 14.366784917,
+      "comparison_constraints": 0.1869792910000001,
+      "constraint_addition": 15.047827125,
+      "total_build": 15.898521291000002,
+      "solver_time": 9.394630124999999
+    }
+  }
+}

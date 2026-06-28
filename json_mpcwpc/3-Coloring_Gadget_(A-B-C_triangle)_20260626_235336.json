@@ -1,0 +1,57 @@
+{
+  "timestamp": "20260626_235336",
+  "title": "3-Coloring Gadget (A-B-C triangle)",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 6,
+    "objectives": [
+      "o_A",
+      "o_B",
+      "o_C",
+      "o_R",
+      "o_G",
+      "o_Bl"
+    ],
+    "num_plans": 39,
+    "num_comparisons": 24
+  },
+  "model_stats": {
+    "num_variables": 1704,
+    "num_constraints": 5637
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 3.0,
+    "preorder_size": 3,
+    "preorder_edges": [
+      [
+        "o_A",
+        "o_R"
+      ],
+      [
+        "o_B",
+        "o_Bl"
+      ],
+      [
+        "o_C",
+        "o_G"
+      ]
+    ]
+  },
+  "timing": {
+    "construction_time_sec": 0.08720624999999999,
+    "solver_time_sec": 0.017239000000000004,
+    "total_time_sec": 0.104596833,
+    "detailed_intervals": {
+      "variable_creation": 0.0036202909999999977,
+      "transitivity_constraints": 0.0015024169999999781,
+      "y_computation_constraints": 0.07189675000000001,
+      "comparison_constraints": 0.008756708000000002,
+      "constraint_addition": 0.08215729199999999,
+      "total_build": 0.08716475000000001,
+      "solver_time": 0.01686500000000002
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "timestamp": "20260628_095524",
+  "title": "Scalability n_obj=15 n_comp=45",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 15,
+    "objectives": [
+      "o_1",
+      "o_2",
+      "o_3",
+      "o_4",
+      "o_5",
+      "o_6",
+      "o_7",
+      "o_8",
+      "o_9",
+      "o_10",
+      "o_11",
+      "o_12",
+      "o_13",
+      "o_14",
+      "o_15"
+    ],
+    "num_plans": 90,
+    "num_comparisons": 45
+  },
+  "model_stats": {
+    "num_variables": 21660,
+    "num_constraints": 82310
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 14.0,
+    "preorder_size": 14,
+    "preorder_edges": [
+      [
+        "o_2",
+        "o_1"
+      ],
+      [
+        "o_3",
+        "o_1"
+      ],
+      [
+        "o_4",
+        "o_1"
+      ],
+      [
+        "o_5",
+        "o_1"
+      ],
+      [
+        "o_6",
+        "o_1"
+      ],
+      [
+        "o_7",
+        "o_1"
+      ],
+      [
+        "o_8",
+        "o_1"
+      ],
+      [
+        "o_9",
+        "o_1"
+      ],
+      [
+        "o_10",
+        "o_1"
+      ],
+      [
+        "o_11",
+        "o_1"
+      ],
+      [
+        "o_12",
+        "o_1"
+      ],
+      [
+        "o_13",
+        "o_1"
+      ],
+      [
+        "o_14",
+        "o_1"
+      ],
+      [
+        "o_15",
+        "o_1"
+      ]
+    ]
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 14,
+    "num_comparisons_checked": 45,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 1.038350334,
+    "solver_time_sec": 0.6274390409999999,
+    "total_time_sec": 1.66617525,
+    "detailed_intervals": {
+      "variable_creation": 0.029127082999999998,
+      "transitivity_constraints": 0.026498208000000023,
+      "y_computation_constraints": 0.928010542,
+      "comparison_constraints": 0.03490087499999994,
+      "constraint_addition": 0.989413125,
+      "total_build": 1.0382326659999999,
+      "solver_time": 0.6255822090000001
+    }
+  }
+}

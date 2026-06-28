@@ -1,0 +1,55 @@
+{
+  "timestamp": "20260626_234520",
+  "title": "Autonomous Vehicle Hierarchy (10 objectives, 5 plans, deep preorder)",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 10,
+    "objectives": [
+      "safety",
+      "energy",
+      "time",
+      "comfort",
+      "cost",
+      "legal",
+      "robust",
+      "emissions",
+      "maint",
+      "payload"
+    ],
+    "num_plans": 5,
+    "num_comparisons": 10,
+    "k": 22
+  },
+  "model_stats": {
+    "num_variables": 780,
+    "num_constraints": 2980
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 1.0,
+    "preorder_size": 1,
+    "preorder_edges": [
+      [
+        "time",
+        "maint"
+      ]
+    ]
+  },
+  "timing": {
+    "construction_time_sec": 0.067544084,
+    "solver_time_sec": 0.034060458000000016,
+    "total_time_sec": 0.101782208,
+    "detailed_intervals": {
+      "variable_creation": 0.020745,
+      "transitivity_constraints": 0.0107965,
+      "y_computation_constraints": 0.027282708000000017,
+      "comparison_constraints": 0.0059477089999999955,
+      "budget_constraint": 5.5749999999993305e-05,
+      "constraint_addition": 0.044084250000000005,
+      "total_build": 0.067527375,
+      "solver_time": 0.03362933300000001
+    }
+  }
+}

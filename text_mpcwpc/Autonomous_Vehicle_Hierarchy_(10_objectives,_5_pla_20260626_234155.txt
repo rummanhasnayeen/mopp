@@ -1,0 +1,52 @@
+
+======================================================================
+Autonomous Vehicle Hierarchy (10 objectives, 5 plans, deep preorder)
+======================================================================
+Timestamp: 20260626_234155
+Mode: Big-M
+k (budget): 22
+Objectives (10): ['safety', 'energy', 'time', 'comfort', 'cost', 'legal', 'robust', 'emissions', 'maint', 'payload']
+Plans: ['route_fast', 'route_safe', 'route_green', 'route_balanced', 'route_budget']
+Comparisons (10):
+  (route_fast, route_safe, ?) [incomparable]
+  (route_fast, route_green, ?) [incomparable]
+  (route_balanced, route_fast, 1) [preferred]
+  (route_fast, route_budget, ?) [incomparable]
+  (route_safe, route_green, ?) [incomparable]
+  (route_safe, route_balanced, ?) [incomparable]
+  (route_safe, route_budget, ?) [incomparable]
+  (route_green, route_balanced, ?) [incomparable]
+  (route_green, route_budget, ?) [incomparable]
+  (route_balanced, route_budget, ?) [incomparable]
+
+Plan values:
+  route_fast: {'safety': 5, 'energy': 4, 'time': 9, 'comfort': 6, 'cost': 5, 'legal': 8, 'robust': 6, 'emissions': 4, 'maint': 6, 'payload': 7}
+  route_safe: {'safety': 9, 'energy': 5, 'time': 5, 'comfort': 7, 'cost': 6, 'legal': 9, 'robust': 8, 'emissions': 6, 'maint': 7, 'payload': 6}
+  route_green: {'safety': 7, 'energy': 9, 'time': 4, 'comfort': 6, 'cost': 7, 'legal': 8, 'robust': 7, 'emissions': 9, 'maint': 6, 'payload': 5}
+  route_balanced: {'safety': 8, 'energy': 8, 'time': 8, 'comfort': 8, 'cost': 7, 'legal': 9, 'robust': 8, 'emissions': 7, 'maint': 8, 'payload': 7}
+  route_budget: {'safety': 6, 'energy': 6, 'time': 6, 'comfort': 5, 'cost': 9, 'legal': 7, 'robust': 6, 'emissions': 6, 'maint': 7, 'payload': 6}
+
+Model built in 0.063329 sec
+  Variables: 780
+  Constraints: 2980
+
+Solver finished in 0.039191 sec
+  Status: OPTIMAL
+  Feasible: True
+  Optimal: True
+  Objective value (preorder size): 1.0
+  Preorder edges (1):
+    maint >= time
+
+Timing:
+  Construction time: 0.063329 sec
+  Solver time:       0.039191 sec
+  Total time:        0.103128 sec
+  budget_constraint: 0.000068 sec
+  comparison_constraints: 0.006784 sec
+  constraint_addition: 0.046446 sec
+  solver_time: 0.038784 sec
+  total_build: 0.063311 sec
+  transitivity_constraints: 0.011021 sec
+  variable_creation: 0.013603 sec
+  y_computation_constraints: 0.028570 sec

@@ -1,0 +1,71 @@
+
+======================================================================
+Drone Delivery Fleet (8 objectives, 6 plans)
+======================================================================
+Timestamp: 20260627_171041
+Mode: Big-M
+Objectives (8): ['flight_safety', 'battery_life', 'delivery_speed', 'noise_pollution', 'weather_resilience', 'cargo_integrity', 'airspace_compliance', 'maintenance_cost']
+Plans: ['route_highway', 'route_residential', 'route_park', 'route_direct', 'route_cautious', 'route_express']
+Comparisons (15):
+  (route_highway, route_residential, 1) [preferred]
+  (route_highway, route_park, 1) [preferred]
+  (route_highway, route_direct, ?) [incomparable]
+  (route_highway, route_cautious, ?) [incomparable]
+  (route_highway, route_express, ?) [incomparable]
+  (route_residential, route_park, 1) [preferred]
+  (route_residential, route_direct, ?) [incomparable]
+  (route_cautious, route_residential, 1) [preferred]
+  (route_express, route_residential, 1) [preferred]
+  (route_direct, route_park, 1) [preferred]
+  (route_cautious, route_park, 1) [preferred]
+  (route_express, route_park, 1) [preferred]
+  (route_cautious, route_direct, 1) [preferred]
+  (route_express, route_direct, 1) [preferred]
+  (route_cautious, route_express, ?) [incomparable]
+
+Plan values:
+  route_highway: {'flight_safety': 9, 'battery_life': 10, 'delivery_speed': 9, 'noise_pollution': 9, 'weather_resilience': 10, 'cargo_integrity': 5, 'airspace_compliance': 4, 'maintenance_cost': 10}
+  route_residential: {'flight_safety': 9, 'battery_life': 4, 'delivery_speed': 3, 'noise_pollution': 9, 'weather_resilience': 6, 'cargo_integrity': 4, 'airspace_compliance': 3, 'maintenance_cost': 10}
+  route_park: {'flight_safety': 2, 'battery_life': 8, 'delivery_speed': 9, 'noise_pollution': 4, 'weather_resilience': 2, 'cargo_integrity': 10, 'airspace_compliance': 3, 'maintenance_cost': 2}
+  route_direct: {'flight_safety': 2, 'battery_life': 5, 'delivery_speed': 5, 'noise_pollution': 2, 'weather_resilience': 9, 'cargo_integrity': 7, 'airspace_compliance': 9, 'maintenance_cost': 5}
+  route_cautious: {'flight_safety': 10, 'battery_life': 5, 'delivery_speed': 6, 'noise_pollution': 9, 'weather_resilience': 2, 'cargo_integrity': 3, 'airspace_compliance': 9, 'maintenance_cost': 6}
+  route_express: {'flight_safety': 8, 'battery_life': 10, 'delivery_speed': 3, 'noise_pollution': 6, 'weather_resilience': 7, 'cargo_integrity': 5, 'airspace_compliance': 10, 'maintenance_cost': 6}
+
+Model built in 0.033743 sec
+  Variables: 600
+  Constraints: 2148
+
+Solver finished in 0.062567 sec
+  Status: OPTIMAL
+  Feasible: True
+  Optimal: True
+  Objective value (preorder size): 11.0
+  Preorder edges (11):
+    airspace_compliance >= flight_safety
+    airspace_compliance >= battery_life
+    maintenance_cost >= battery_life
+    airspace_compliance >= delivery_speed
+    maintenance_cost >= delivery_speed
+    airspace_compliance >= noise_pollution
+    noise_pollution >= weather_resilience
+    airspace_compliance >= weather_resilience
+    flight_safety >= cargo_integrity
+    airspace_compliance >= cargo_integrity
+    airspace_compliance >= maintenance_cost
+
+Verification:
+  Verified: True
+  Comparisons checked: 15
+  Violations: 0
+
+Timing:
+  Construction time: 0.033743 sec
+  Solver time:       0.062567 sec
+  Total time:        0.096731 sec
+  comparison_constraints: 0.003342 sec
+  constraint_addition: 0.020002 sec
+  solver_time: 0.062110 sec
+  total_build: 0.033730 sec
+  transitivity_constraints: 0.004040 sec
+  variable_creation: 0.010875 sec
+  y_computation_constraints: 0.012620 sec

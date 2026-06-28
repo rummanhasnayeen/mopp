@@ -7,7 +7,6 @@ class MPCwPCInstance:
     objectives: List[str]
     plan_values: Dict[str, Dict[str, float]]
     comparisons: List[Tuple[str, str, object]]
-    k: int = None
 
     @property
     def plans(self) -> List[str]:

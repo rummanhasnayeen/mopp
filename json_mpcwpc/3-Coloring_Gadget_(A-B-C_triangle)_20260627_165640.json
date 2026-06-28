@@ -1,0 +1,64 @@
+{
+  "timestamp": "20260627_165640",
+  "title": "3-Coloring Gadget (A-B-C triangle)",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 6,
+    "objectives": [
+      "o_A",
+      "o_B",
+      "o_C",
+      "o_R",
+      "o_G",
+      "o_Bl"
+    ],
+    "num_plans": 39,
+    "num_comparisons": 24
+  },
+  "model_stats": {
+    "num_variables": 1704,
+    "num_constraints": 5637
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 3.0,
+    "preorder_size": 3,
+    "preorder_edges": [
+      [
+        "o_A",
+        "o_R"
+      ],
+      [
+        "o_B",
+        "o_Bl"
+      ],
+      [
+        "o_C",
+        "o_G"
+      ]
+    ]
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 3,
+    "num_comparisons_checked": 24,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 0.056132499999999974,
+    "solver_time_sec": 0.010992624999999978,
+    "total_time_sec": 0.06723379200000001,
+    "detailed_intervals": {
+      "variable_creation": 0.0022955409999999565,
+      "transitivity_constraints": 0.0009354590000000274,
+      "y_computation_constraints": 0.046661916000000025,
+      "comparison_constraints": 0.005286499999999972,
+      "constraint_addition": 0.05288512500000003,
+      "total_build": 0.05610466599999997,
+      "solver_time": 0.010754541999999978
+    }
+  }
+}

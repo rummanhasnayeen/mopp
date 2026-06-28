@@ -1,0 +1,98 @@
+{
+  "timestamp": "20260627_171041",
+  "title": "Drone Delivery Fleet (8 objectives, 6 plans)",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 8,
+    "objectives": [
+      "flight_safety",
+      "battery_life",
+      "delivery_speed",
+      "noise_pollution",
+      "weather_resilience",
+      "cargo_integrity",
+      "airspace_compliance",
+      "maintenance_cost"
+    ],
+    "num_plans": 6,
+    "num_comparisons": 15
+  },
+  "model_stats": {
+    "num_variables": 600,
+    "num_constraints": 2148
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 11.0,
+    "preorder_size": 11,
+    "preorder_edges": [
+      [
+        "flight_safety",
+        "airspace_compliance"
+      ],
+      [
+        "battery_life",
+        "airspace_compliance"
+      ],
+      [
+        "battery_life",
+        "maintenance_cost"
+      ],
+      [
+        "delivery_speed",
+        "airspace_compliance"
+      ],
+      [
+        "delivery_speed",
+        "maintenance_cost"
+      ],
+      [
+        "noise_pollution",
+        "airspace_compliance"
+      ],
+      [
+        "weather_resilience",
+        "noise_pollution"
+      ],
+      [
+        "weather_resilience",
+        "airspace_compliance"
+      ],
+      [
+        "cargo_integrity",
+        "flight_safety"
+      ],
+      [
+        "cargo_integrity",
+        "airspace_compliance"
+      ],
+      [
+        "maintenance_cost",
+        "airspace_compliance"
+      ]
+    ]
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 11,
+    "num_comparisons_checked": 15,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 0.033743125,
+    "solver_time_sec": 0.06256687500000001,
+    "total_time_sec": 0.09673062499999999,
+    "detailed_intervals": {
+      "variable_creation": 0.010874833,
+      "transitivity_constraints": 0.004039667000000011,
+      "y_computation_constraints": 0.012619958,
+      "comparison_constraints": 0.003341791999999996,
+      "constraint_addition": 0.020002375000000003,
+      "total_build": 0.03373025,
+      "solver_time": 0.06210954199999999
+    }
+  }
+}

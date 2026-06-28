@@ -1,0 +1,72 @@
+{
+  "timestamp": "20260627_165640",
+  "title": "Autonomous Vehicle (10 objectives, 5 plans)",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 10,
+    "objectives": [
+      "safety",
+      "energy",
+      "time",
+      "comfort",
+      "cost",
+      "legal",
+      "robust",
+      "emissions",
+      "maint",
+      "payload"
+    ],
+    "num_plans": 5,
+    "num_comparisons": 10
+  },
+  "model_stats": {
+    "num_variables": 750,
+    "num_constraints": 2946
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 4.0,
+    "preorder_size": 4,
+    "preorder_edges": [
+      [
+        "energy",
+        "comfort"
+      ],
+      [
+        "time",
+        "safety"
+      ],
+      [
+        "cost",
+        "safety"
+      ],
+      [
+        "payload",
+        "maint"
+      ]
+    ]
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 4,
+    "num_comparisons_checked": 10,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 0.028833042000000003,
+    "solver_time_sec": 0.027469915999999983,
+    "total_time_sec": 0.05639212499999999,
+    "detailed_intervals": {
+      "variable_creation": 0.0017449999999999966,
+      "transitivity_constraints": 0.006157874999999979,
+      "y_computation_constraints": 0.01721450000000002,
+      "comparison_constraints": 0.0031836249999999955,
+      "constraint_addition": 0.026557042000000003,
+      "total_build": 0.028823374999999984,
+      "solver_time": 0.027320416999999986
+    }
+  }
+}

@@ -1,0 +1,69 @@
+
+======================================================================
+probe n=5
+======================================================================
+Timestamp: 20260628_042257
+Mode: Big-M
+Objectives (5): ['o_1', 'o_2', 'o_3', 'o_4', 'o_5']
+Plans: ['pi_1', 'pi_2', 'pi_3', 'pi_4', 'pi_5', 'pi_6', 'pi_7', 'pi_8', 'pi_9', 'pi_10', 'pi_11', 'pi_12', 'pi_13', 'pi_14', 'pi_15', 'pi_16', 'pi_17', 'pi_18', 'pi_20', 'pi_19']
+Comparisons (10):
+  (pi_1, pi_2, ?) [incomparable]
+  (pi_3, pi_4, ?) [incomparable]
+  (pi_5, pi_6, ?) [incomparable]
+  (pi_7, pi_8, ?) [incomparable]
+  (pi_9, pi_10, ?) [incomparable]
+  (pi_11, pi_12, ?) [incomparable]
+  (pi_13, pi_14, ?) [incomparable]
+  (pi_15, pi_16, ?) [incomparable]
+  (pi_17, pi_18, ?) [incomparable]
+  (pi_20, pi_19, 1) [preferred]
+
+Plan values:
+  pi_1: {'o_1': 72, 'o_2': 26, 'o_3': 92, 'o_4': 84, 'o_5': 90}
+  pi_2: {'o_1': 70, 'o_2': 54, 'o_3': 29, 'o_4': 58, 'o_5': 76}
+  pi_3: {'o_1': 36, 'o_2': 1, 'o_3': 98, 'o_4': 21, 'o_5': 90}
+  pi_4: {'o_1': 55, 'o_2': 44, 'o_3': 36, 'o_4': 20, 'o_5': 28}
+  pi_5: {'o_1': 98, 'o_2': 44, 'o_3': 14, 'o_4': 12, 'o_5': 49}
+  pi_6: {'o_1': 13, 'o_2': 46, 'o_3': 45, 'o_4': 78, 'o_5': 34}
+  pi_7: {'o_1': 6, 'o_2': 94, 'o_3': 59, 'o_4': 69, 'o_5': 16}
+  pi_8: {'o_1': 49, 'o_2': 11, 'o_3': 71, 'o_4': 38, 'o_5': 81}
+  pi_9: {'o_1': 80, 'o_2': 47, 'o_3': 74, 'o_4': 25, 'o_5': 91}
+  pi_10: {'o_1': 9, 'o_2': 6, 'o_3': 85, 'o_4': 30, 'o_5': 99}
+  pi_11: {'o_1': 38, 'o_2': 11, 'o_3': 30, 'o_4': 13, 'o_5': 49}
+  pi_12: {'o_1': 36, 'o_2': 59, 'o_3': 82, 'o_4': 47, 'o_5': 21}
+  pi_13: {'o_1': 48, 'o_2': 46, 'o_3': 27, 'o_4': 86, 'o_5': 35}
+  pi_14: {'o_1': 90, 'o_2': 88, 'o_3': 83, 'o_4': 10, 'o_5': 78}
+  pi_15: {'o_1': 82, 'o_2': 22, 'o_3': 69, 'o_4': 94, 'o_5': 32}
+  pi_16: {'o_1': 21, 'o_2': 60, 'o_3': 49, 'o_4': 35, 'o_5': 82}
+  pi_17: {'o_1': 89, 'o_2': 72, 'o_3': 29, 'o_4': 88, 'o_5': 42}
+  pi_18: {'o_1': 99, 'o_2': 100, 'o_3': 8, 'o_4': 30, 'o_5': 5}
+  pi_19: {'o_1': 41, 'o_2': 52, 'o_3': 35, 'o_4': 9, 'o_5': 28}
+  pi_20: {'o_1': 73, 'o_2': 92, 'o_3': 41, 'o_4': 28, 'o_5': 84}
+
+Model built in 0.044409 sec
+  Variables: 615
+  Constraints: 1974
+
+Solver finished in 0.021108 sec
+  Status: OPTIMAL
+  Feasible: True
+  Optimal: True
+  Objective value (preorder size): 0.0
+  Preorder edges (0):
+
+Verification:
+  Verified: True
+  Comparisons checked: 10
+  Violations: 0
+
+Timing:
+  Construction time: 0.044409 sec
+  Solver time:       0.021108 sec
+  Total time:        0.065855 sec
+  comparison_constraints: 0.003079 sec
+  constraint_addition: 0.029964 sec
+  solver_time: 0.020650 sec
+  total_build: 0.044387 sec
+  transitivity_constraints: 0.001514 sec
+  variable_creation: 0.012157 sec
+  y_computation_constraints: 0.025370 sec
