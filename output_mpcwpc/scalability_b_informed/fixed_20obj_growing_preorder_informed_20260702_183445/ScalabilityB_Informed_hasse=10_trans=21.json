@@ -1,0 +1,216 @@
+{
+  "timestamp": "20260702_183450",
+  "title": "ScalabilityB_Informed_hasse=10_trans=21",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 20,
+    "objectives": [
+      "o_1",
+      "o_2",
+      "o_3",
+      "o_4",
+      "o_5",
+      "o_6",
+      "o_7",
+      "o_8",
+      "o_9",
+      "o_10",
+      "o_11",
+      "o_12",
+      "o_13",
+      "o_14",
+      "o_15",
+      "o_16",
+      "o_17",
+      "o_18",
+      "o_19",
+      "o_20"
+    ],
+    "num_plans": 204,
+    "num_comparisons": 102,
+    "ground_truth_hasse": [
+      [
+        "o_10",
+        "o_9"
+      ],
+      [
+        "o_14",
+        "o_13"
+      ],
+      [
+        "o_12",
+        "o_15"
+      ],
+      [
+        "o_9",
+        "o_7"
+      ],
+      [
+        "o_15",
+        "o_10"
+      ],
+      [
+        "o_3",
+        "o_7"
+      ],
+      [
+        "o_6",
+        "o_2"
+      ],
+      [
+        "o_5",
+        "o_16"
+      ],
+      [
+        "o_5",
+        "o_12"
+      ],
+      [
+        "o_16",
+        "o_11"
+      ]
+    ],
+    "ground_truth_hasse_size": 10,
+    "ground_truth_preorder": [
+      [
+        "o_3",
+        "o_7"
+      ],
+      [
+        "o_5",
+        "o_15"
+      ],
+      [
+        "o_5",
+        "o_9"
+      ],
+      [
+        "o_5",
+        "o_11"
+      ],
+      [
+        "o_5",
+        "o_12"
+      ],
+      [
+        "o_5",
+        "o_7"
+      ],
+      [
+        "o_5",
+        "o_10"
+      ],
+      [
+        "o_5",
+        "o_16"
+      ],
+      [
+        "o_6",
+        "o_2"
+      ],
+      [
+        "o_9",
+        "o_7"
+      ],
+      [
+        "o_10",
+        "o_7"
+      ],
+      [
+        "o_10",
+        "o_9"
+      ],
+      [
+        "o_12",
+        "o_15"
+      ],
+      [
+        "o_12",
+        "o_7"
+      ],
+      [
+        "o_12",
+        "o_10"
+      ],
+      [
+        "o_12",
+        "o_9"
+      ],
+      [
+        "o_14",
+        "o_13"
+      ],
+      [
+        "o_15",
+        "o_7"
+      ],
+      [
+        "o_15",
+        "o_10"
+      ],
+      [
+        "o_15",
+        "o_9"
+      ],
+      [
+        "o_16",
+        "o_11"
+      ]
+    ],
+    "ground_truth_preorder_size": 21
+  },
+  "model_stats": {
+    "num_variables": 86020,
+    "num_constraints": 329322
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 5.0,
+    "preorder_size": 5,
+    "preorder_edges": [
+      [
+        "o_5",
+        "o_6"
+      ],
+      [
+        "o_10",
+        "o_18"
+      ],
+      [
+        "o_12",
+        "o_13"
+      ],
+      [
+        "o_14",
+        "o_18"
+      ],
+      [
+        "o_16",
+        "o_7"
+      ]
+    ]
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 5,
+    "num_comparisons_checked": 102,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 3.1804437080000003,
+    "solver_time_sec": 1.8825085000000001,
+    "total_time_sec": 5.063692874999999,
+    "detailed_intervals": {
+      "variable_creation": 0.09373320899999982,
+      "transitivity_constraints": 0.05237258299999947,
+      "y_computation_constraints": 2.905401542000001,
+      "comparison_constraints": 0.07782837499999928,
+      "constraint_addition": 3.035604125,
+      "total_build": 3.180136417,
+      "solver_time": 1.8788361249999994
+    }
+  }
+}

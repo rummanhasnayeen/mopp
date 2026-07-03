@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 
 @dataclass
@@ -7,6 +7,8 @@ class MPCwPCInstance:
     objectives: List[str]
     plan_values: Dict[str, Dict[str, float]]
     comparisons: List[Tuple[str, str, object]]
+    ground_truth_hasse: Optional[List[Tuple[str, str]]] = field(default=None)
+    ground_truth_preorder: Optional[List[Tuple[str, str]]] = field(default=None)
 
     @property
     def plans(self) -> List[str]:

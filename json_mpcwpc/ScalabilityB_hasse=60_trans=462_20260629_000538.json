@@ -1,0 +1,231 @@
+{
+  "timestamp": "20260629_000538",
+  "title": "ScalabilityB hasse=60 trans=462",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 25,
+    "objectives": [
+      "o_1",
+      "o_2",
+      "o_3",
+      "o_4",
+      "o_5",
+      "o_6",
+      "o_7",
+      "o_8",
+      "o_9",
+      "o_10",
+      "o_11",
+      "o_12",
+      "o_13",
+      "o_14",
+      "o_15",
+      "o_16",
+      "o_17",
+      "o_18",
+      "o_19",
+      "o_20",
+      "o_21",
+      "o_22",
+      "o_23",
+      "o_24",
+      "o_25"
+    ],
+    "num_plans": 150,
+    "num_comparisons": 75
+  },
+  "model_stats": {
+    "num_variables": 97875,
+    "num_constraints": 384966
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 40.0,
+    "preorder_size": 40,
+    "preorder_edges": [
+      [
+        "o_1",
+        "o_22"
+      ],
+      [
+        "o_3",
+        "o_2"
+      ],
+      [
+        "o_3",
+        "o_22"
+      ],
+      [
+        "o_4",
+        "o_22"
+      ],
+      [
+        "o_5",
+        "o_22"
+      ],
+      [
+        "o_5",
+        "o_23"
+      ],
+      [
+        "o_6",
+        "o_22"
+      ],
+      [
+        "o_6",
+        "o_23"
+      ],
+      [
+        "o_7",
+        "o_22"
+      ],
+      [
+        "o_8",
+        "o_7"
+      ],
+      [
+        "o_8",
+        "o_22"
+      ],
+      [
+        "o_9",
+        "o_17"
+      ],
+      [
+        "o_10",
+        "o_18"
+      ],
+      [
+        "o_10",
+        "o_22"
+      ],
+      [
+        "o_11",
+        "o_2"
+      ],
+      [
+        "o_11",
+        "o_17"
+      ],
+      [
+        "o_12",
+        "o_2"
+      ],
+      [
+        "o_13",
+        "o_2"
+      ],
+      [
+        "o_13",
+        "o_17"
+      ],
+      [
+        "o_14",
+        "o_2"
+      ],
+      [
+        "o_15",
+        "o_7"
+      ],
+      [
+        "o_15",
+        "o_8"
+      ],
+      [
+        "o_15",
+        "o_22"
+      ],
+      [
+        "o_16",
+        "o_17"
+      ],
+      [
+        "o_16",
+        "o_22"
+      ],
+      [
+        "o_18",
+        "o_10"
+      ],
+      [
+        "o_18",
+        "o_22"
+      ],
+      [
+        "o_19",
+        "o_4"
+      ],
+      [
+        "o_19",
+        "o_22"
+      ],
+      [
+        "o_19",
+        "o_23"
+      ],
+      [
+        "o_20",
+        "o_5"
+      ],
+      [
+        "o_20",
+        "o_22"
+      ],
+      [
+        "o_20",
+        "o_23"
+      ],
+      [
+        "o_21",
+        "o_4"
+      ],
+      [
+        "o_21",
+        "o_22"
+      ],
+      [
+        "o_23",
+        "o_22"
+      ],
+      [
+        "o_24",
+        "o_7"
+      ],
+      [
+        "o_24",
+        "o_22"
+      ],
+      [
+        "o_25",
+        "o_9"
+      ],
+      [
+        "o_25",
+        "o_17"
+      ]
+    ]
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 40,
+    "num_comparisons_checked": 75,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 6.232040416000018,
+    "solver_time_sec": 38.925528375,
+    "total_time_sec": 45.15858770799997,
+    "detailed_intervals": {
+      "variable_creation": 0.16741170800003147,
+      "transitivity_constraints": 0.187733833999971,
+      "y_computation_constraints": 5.656268124999997,
+      "comparison_constraints": 0.11495087500003365,
+      "constraint_addition": 5.958955583999966,
+      "total_build": 6.231713291999995,
+      "solver_time": 38.916344167000034
+    }
+  }
+}

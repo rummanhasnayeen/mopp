@@ -1,0 +1,143 @@
+{
+  "timestamp": "20260629_000353",
+  "title": "ScalabilityB hasse=40 trans=221",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 25,
+    "objectives": [
+      "o_1",
+      "o_2",
+      "o_3",
+      "o_4",
+      "o_5",
+      "o_6",
+      "o_7",
+      "o_8",
+      "o_9",
+      "o_10",
+      "o_11",
+      "o_12",
+      "o_13",
+      "o_14",
+      "o_15",
+      "o_16",
+      "o_17",
+      "o_18",
+      "o_19",
+      "o_20",
+      "o_21",
+      "o_22",
+      "o_23",
+      "o_24",
+      "o_25"
+    ],
+    "num_plans": 150,
+    "num_comparisons": 75
+  },
+  "model_stats": {
+    "num_variables": 98025,
+    "num_constraints": 385122
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 18.0,
+    "preorder_size": 18,
+    "preorder_edges": [
+      [
+        "o_1",
+        "o_22"
+      ],
+      [
+        "o_3",
+        "o_22"
+      ],
+      [
+        "o_4",
+        "o_5"
+      ],
+      [
+        "o_6",
+        "o_2"
+      ],
+      [
+        "o_8",
+        "o_7"
+      ],
+      [
+        "o_9",
+        "o_5"
+      ],
+      [
+        "o_10",
+        "o_2"
+      ],
+      [
+        "o_11",
+        "o_17"
+      ],
+      [
+        "o_12",
+        "o_17"
+      ],
+      [
+        "o_13",
+        "o_17"
+      ],
+      [
+        "o_13",
+        "o_22"
+      ],
+      [
+        "o_14",
+        "o_16"
+      ],
+      [
+        "o_18",
+        "o_22"
+      ],
+      [
+        "o_19",
+        "o_2"
+      ],
+      [
+        "o_20",
+        "o_17"
+      ],
+      [
+        "o_21",
+        "o_16"
+      ],
+      [
+        "o_23",
+        "o_5"
+      ],
+      [
+        "o_25",
+        "o_5"
+      ]
+    ]
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 18,
+    "num_comparisons_checked": 75,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 6.297823916999988,
+    "solver_time_sec": 5.899028125000001,
+    "total_time_sec": 12.197861166999985,
+    "detailed_intervals": {
+      "variable_creation": 0.18428416699998706,
+      "transitivity_constraints": 0.174031833000015,
+      "y_computation_constraints": 5.6765982080000015,
+      "comparison_constraints": 0.16558333399999015,
+      "constraint_addition": 6.016215750000015,
+      "total_build": 6.297485916999989,
+      "solver_time": 5.890963249999999
+    }
+  }
+}

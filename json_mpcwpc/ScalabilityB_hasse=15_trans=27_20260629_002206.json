@@ -1,0 +1,65 @@
+{
+  "timestamp": "20260629_002206",
+  "title": "ScalabilityB hasse=15 trans=27",
+  "mode": "big_m",
+  "inputs": {
+    "num_objectives": 20,
+    "objectives": [
+      "o_1",
+      "o_2",
+      "o_3",
+      "o_4",
+      "o_5",
+      "o_6",
+      "o_7",
+      "o_8",
+      "o_9",
+      "o_10",
+      "o_11",
+      "o_12",
+      "o_13",
+      "o_14",
+      "o_15",
+      "o_16",
+      "o_17",
+      "o_18",
+      "o_19",
+      "o_20"
+    ],
+    "num_plans": 200,
+    "num_comparisons": 100
+  },
+  "model_stats": {
+    "num_variables": 84380,
+    "num_constraints": 323040
+  },
+  "result": {
+    "status": "OPTIMAL",
+    "feasible": true,
+    "optimal": true,
+    "objective_value": 0.0,
+    "preorder_size": 0,
+    "preorder_edges": []
+  },
+  "verification": {
+    "verified": true,
+    "preorder_size": 0,
+    "num_comparisons_checked": 100,
+    "violations": [],
+    "num_violations": 0
+  },
+  "timing": {
+    "construction_time_sec": 5.242099375000002,
+    "solver_time_sec": 1.835796375000001,
+    "total_time_sec": 7.079089916000001,
+    "detailed_intervals": {
+      "variable_creation": 0.1386515000000017,
+      "transitivity_constraints": 0.08538537499999777,
+      "y_computation_constraints": 4.795188458000002,
+      "comparison_constraints": 0.1390694169999982,
+      "constraint_addition": 5.019645957999998,
+      "total_build": 5.241636500000002,
+      "solver_time": 1.8302321669999984
+    }
+  }
+}

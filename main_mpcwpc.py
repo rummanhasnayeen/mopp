@@ -12,13 +12,14 @@ from typing import List, Tuple, Dict
 from Models.mpcwpc_instance import MPCwPCInstance
 from Solvers.mpcwpc_ilp_solver import MPCwPCILPSolver
 
-TEXT_LOG_DIR = "text_mpcwpc"
-JSON_LOG_DIR = "json_mpcwpc"
+OUTPUT_BASE_DIR = "output_mpcwpc"
 
 
-def ensure_output_dirs():
-    os.makedirs(TEXT_LOG_DIR, exist_ok=True)
-    os.makedirs(JSON_LOG_DIR, exist_ok=True)
+def _make_run_dir(run_type: str, identifier: str, ts_str: str) -> str:
+    safe_id = identifier.replace(" ", "_").replace("/", "_")[:60]
+    run_dir = os.path.join(OUTPUT_BASE_DIR, run_type, f"{safe_id}_{ts_str}")
+    os.makedirs(run_dir, exist_ok=True)
+    return run_dir
 
 def build_paper_hasse_example() -> MPCwPCInstance:
     objectives = ["o1", "o2", "o3"]
@@ -32,10 +33,15 @@ def build_paper_hasse_example() -> MPCwPCInstance:
         ("pi_prime", "pi", 1),
     ]
 
+    hasse = [("o2", "o1"), ("o2", "o3")]
+    preorder = _generate_transitive_closure(objectives, hasse)
+
     return MPCwPCInstance(
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
+        ground_truth_hasse=hasse,
+        ground_truth_preorder=preorder,
     )
 
 
@@ -123,33 +129,12 @@ def build_autonomous_vehicle_hierarchy_example() -> MPCwPCInstance:
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
+        ground_truth_hasse=hasse_edges,
+        ground_truth_preorder=preorder_edges,
     )
 
 
 def build_drone_delivery_example() -> MPCwPCInstance:
-    """
-    Drone delivery fleet case study.
-
-    A drone delivery company operates in an urban area. Each plan represents
-    a different delivery route policy with tradeoffs across 8 objectives.
-
-    Ground-truth preorder (Hasse diagram):
-
-            airspace_compliance
-                    |
-              flight_safety
-               /         \\
-      cargo_integrity   weather_resilience
-                            |
-                        battery_life
-                         /        \\
-               delivery_speed   maintenance_cost
-                                    |
-                              noise_pollution
-
-    7 Hasse edges, 21 after transitive closure.
-    Comparisons derived programmatically via weak-stochastic dominance.
-    """
     objectives = [
         "flight_safety", "battery_life", "delivery_speed", "noise_pollution",
         "weather_resilience", "cargo_integrity", "airspace_compliance", "maintenance_cost",
@@ -192,6 +177,8 @@ def build_drone_delivery_example() -> MPCwPCInstance:
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
+        ground_truth_hasse=hasse_edges,
+        ground_truth_preorder=preorder_edges,
     )
 
 
@@ -200,6 +187,7 @@ def run_drone_delivery_example():
     run_single_experiment(
         instance,
         title="Drone Delivery Fleet (8 objectives, 6 plans)",
+        run_type="case_study",
         use_big_m=True,
     )
 
@@ -209,6 +197,7 @@ def run_autonomous_vehicle_example():
     run_single_experiment(
         instance,
         title="Autonomous Vehicle (10 objectives, 5 plans)",
+        run_type="case_study",
         use_big_m=True,
     )
 
@@ -243,6 +232,7 @@ def run_autonomous_vehicle_hierarchy_example():
     run_single_experiment(
         instance,
         title="Autonomous Vehicle Hierarchy (10 objectives, 5 plans, deep preorder)",
+        run_type="case_study",
         use_big_m=True,
     )
 
@@ -463,12 +453,15 @@ def build_random_instance(
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
+        ground_truth_preorder=preorder_edges,
     )
 
 
 def run_single_experiment(
     instance: MPCwPCInstance,
     title: str,
+    run_type: str = "single",
+    run_dir: str = None,
     use_big_m: bool = True,
     big_m: float = 1e4,
     epsilon: float = 1e-3,
@@ -492,6 +485,15 @@ def run_single_experiment(
         for pi, pi_p, r in instance.comparisons:
             label = {0: 'indifferent', 1: 'preferred', '?': 'incomparable'}[r]
             print(f"  ({pi}, {pi_p}, {r}) [{label}]")
+
+        if instance.ground_truth_hasse is not None:
+            print(f"\nGround truth Hasse edges ({len(instance.ground_truth_hasse)}):")
+            for a, b in instance.ground_truth_hasse:
+                print(f"  {a} ≽ {b}")
+        if instance.ground_truth_preorder is not None:
+            print(f"\nGround truth preorder after transitive closure ({len(instance.ground_truth_preorder)} edges):")
+            for a, b in sorted(instance.ground_truth_preorder):
+                print(f"  {a} ≽ {b}")
 
         print("\nPlan values:")
         for p, vals in instance.plan_values.items():
@@ -569,6 +571,10 @@ def run_single_experiment(
             "objectives": instance.objectives,
             "num_plans": len(instance.plans),
             "num_comparisons": len(instance.comparisons),
+            "ground_truth_hasse": instance.ground_truth_hasse,
+            "ground_truth_hasse_size": len(instance.ground_truth_hasse) if instance.ground_truth_hasse is not None else None,
+            "ground_truth_preorder": instance.ground_truth_preorder,
+            "ground_truth_preorder_size": len(instance.ground_truth_preorder) if instance.ground_truth_preorder is not None else None,
         },
         "model_stats": {
             "num_variables": result["num_variables"],
@@ -591,10 +597,11 @@ def run_single_experiment(
         },
     }
 
-    ensure_output_dirs()
+    if run_dir is None:
+        run_dir = _make_run_dir(run_type, title, ts_str)
     safe_title = title.replace(" ", "_").replace("/", "_")[:50]
-    text_path = os.path.join(TEXT_LOG_DIR, f"{safe_title}_{ts_str}.txt")
-    json_path = os.path.join(JSON_LOG_DIR, f"{safe_title}_{ts_str}.json")
+    text_path = os.path.join(run_dir, f"{safe_title}.txt")
+    json_path = os.path.join(run_dir, f"{safe_title}.json")
 
     with open(text_path, "w", encoding="utf-8") as f:
         f.write(text_log)
@@ -612,6 +619,7 @@ def run_paper_example():
     run_single_experiment(
         instance,
         title="Paper Hasse Diagram Example (3 objectives)",
+        run_type="case_study",
         use_big_m=True,
     )
 
@@ -621,6 +629,7 @@ def run_coloring_example():
     run_single_experiment(
         instance,
         title="3-Coloring Gadget (A-B-C triangle)",
+        run_type="case_study",
         use_big_m=True,
     )
 
@@ -663,6 +672,8 @@ def _build_scalability_instance(
         objectives=objectives,
         plan_values=plan_values,
         comparisons=comparisons,
+        ground_truth_hasse=hasse_edges,
+        ground_truth_preorder=preorder_edges,
     )
 
 
@@ -678,6 +689,7 @@ def run_scalability_experiments(
 
     all_results = []
     ts_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_dir = _make_run_dir("scalability_a", "increasing_objectives", ts_str)
 
     for step_idx, n_obj in enumerate(objective_range):
         n_comp = n_obj * comparisons_multiplier
@@ -693,7 +705,9 @@ def run_scalability_experiments(
 
         result = run_single_experiment(
             instance,
-            title=f"Scalability n_obj={n_obj} n_comp={n_comp}",
+            title=f"Scalability_A_n_obj={n_obj}_n_comp={n_comp}",
+            run_type="scalability_a",
+            run_dir=run_dir,
             use_big_m=use_big_m,
             time_limit=time_limit,
         )
@@ -709,7 +723,7 @@ def run_scalability_experiments(
         build_t = result["timing"]["construction_time_sec"]
         solve_t = result["timing"]["solver_time_sec"]
         preorder = result["result"]["preorder_size"]
-        verified = result.get("verification", {}).get("verified", "N/A")
+        verified = (result.get("verification") or {}).get("verified", "N/A")
         print(f"  >> n={n_obj} comp={n_comp} pref={counts[1]} incomp={counts['?']} "
               f"build={build_t:.1f}s solve={solve_t:.1f}s preorder={preorder} "
               f"verified={verified} status={status}")
@@ -718,8 +732,7 @@ def run_scalability_experiments(
             print(f"  >> Time limit reached at n_obj={n_obj}. Stopping.")
             break
 
-    ensure_output_dirs()
-    summary_path = os.path.join(JSON_LOG_DIR, f"scalability_summary_{ts_str}.json")
+    summary_path = os.path.join(run_dir, f"scalability_a_summary.json")
     summary = {
         "timestamp": ts_str,
         "mode": "big_m" if use_big_m else "indicator",
@@ -739,7 +752,7 @@ def run_scalability_experiments(
                 "construction_time_sec": r["timing"]["construction_time_sec"],
                 "solver_time_sec": r["timing"]["solver_time_sec"],
                 "total_time_sec": r["timing"]["total_time_sec"],
-                "verified": r.get("verification", {}).get("verified"),
+                "verified": (r.get("verification") or {}).get("verified"),
             }
             for r in all_results
         ],
@@ -750,7 +763,432 @@ def run_scalability_experiments(
     print(f"\nScalability summary saved to: {summary_path}")
 
 
+def _build_scalability_b_instance(
+    num_objectives: int,
+    num_comparisons: int,
+    hasse_edges: List[Tuple[str, str]],
+    fixed_plan_values: Dict[str, Dict[str, float]],
+    fixed_pairs: List[Tuple[str, str]],
+) -> MPCwPCInstance:
+    objectives = [f"o_{i+1}" for i in range(num_objectives)]
+    preorder_edges = _generate_transitive_closure(objectives, hasse_edges)
+
+    comparisons = []
+    for pi_name, pip_name in fixed_pairs:
+        lifted_pi  = _compute_lifted_values(objectives, fixed_plan_values[pi_name],  preorder_edges)
+        lifted_pip = _compute_lifted_values(objectives, fixed_plan_values[pip_name], preorder_edges)
+        r, swap = _determine_comparison_label(lifted_pi, lifted_pip, objectives)
+        if swap:
+            comparisons.append((pip_name, pi_name, r))
+        else:
+            comparisons.append((pi_name, pip_name, r))
+
+    return MPCwPCInstance(
+        objectives=objectives,
+        plan_values=fixed_plan_values,
+        comparisons=comparisons,
+        ground_truth_hasse=hasse_edges,
+        ground_truth_preorder=preorder_edges,
+    )
+
+
+def run_scalability_b_experiments(
+    num_objectives: int = 20,
+    num_comparisons: int = 100,
+    initial_edges: int = 5,
+    edge_increment: int = 5,
+    max_edges: int = None,
+    use_big_m: bool = True,
+    time_limit: float = 300.0,
+    seed: int = 42,
+):
+    rng = random.Random(seed)
+    objectives = [f"o_{i+1}" for i in range(num_objectives)]
+
+    if max_edges is None:
+        max_edges = num_objectives * (num_objectives - 1)
+
+    # Generate fixed pool of plans and pairs once
+    fixed_plan_values: Dict[str, Dict[str, float]] = {}
+    fixed_pairs: List[Tuple[str, str]] = []
+    for idx in range(num_comparisons):
+        pi_name  = f"pi_{2*idx+1}"
+        pip_name = f"pi_{2*idx+2}"
+        fixed_plan_values[pi_name]  = {o: rng.randint(1, 10) for o in objectives}
+        fixed_plan_values[pip_name] = {o: rng.randint(1, 10) for o in objectives}
+        fixed_pairs.append((pi_name, pip_name))
+
+    all_used = set()
+    hasse_edges: List[Tuple[str, str]] = []
+
+    all_results = []
+    ts_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_dir = _make_run_dir("scalability_b", f"fixed_{num_objectives}obj_growing_preorder", ts_str)
+
+    num_to_add = initial_edges
+    iteration = 0
+
+    while len(hasse_edges) < max_edges:
+        iteration += 1
+
+        added = 0
+        attempts = 0
+        while added < num_to_add and attempts < num_objectives * num_objectives:
+            attempts += 1
+            a = rng.choice(objectives)
+            b = rng.choice(objectives)
+            if a == b:
+                continue
+            candidate = (a, b)
+            if candidate in all_used or (b, a) in all_used:
+                continue
+            all_used.add(candidate)
+            hasse_edges.append(candidate)
+            added += 1
+
+        if added == 0:
+            print(f"  >> No more edges to add. Stopping at iteration {iteration}.")
+            break
+
+        preorder_edges = _generate_transitive_closure(objectives, hasse_edges)
+        num_hasse = len(hasse_edges)
+        num_transitive = len(preorder_edges)
+
+        instance = _build_scalability_b_instance(
+            num_objectives=num_objectives,
+            num_comparisons=num_comparisons,
+            hasse_edges=hasse_edges,
+            fixed_plan_values=fixed_plan_values,
+            fixed_pairs=fixed_pairs,
+        )
+
+        counts = {0: 0, 1: 0, '?': 0}
+        for _, _, r in instance.comparisons:
+            counts[r] += 1
+
+        result = run_single_experiment(
+            instance,
+            title=f"ScalabilityB_hasse={num_hasse}_trans={num_transitive}",
+            run_type="scalability_b",
+            run_dir=run_dir,
+            use_big_m=use_big_m,
+            time_limit=time_limit,
+        )
+
+        result["comparison_distribution"] = {
+            "preferred": counts[1],
+            "incomparable": counts['?'],
+            "indifferent": counts[0],
+        }
+        result["preorder_input"] = {
+            "num_hasse_edges": num_hasse,
+            "num_transitive_edges": num_transitive,
+            "hasse_edges": hasse_edges[:],
+        }
+        all_results.append(result)
+
+        status = result["result"]["status"]
+        build_t = result["timing"]["construction_time_sec"]
+        solve_t = result["timing"]["solver_time_sec"]
+        preorder = result["result"]["preorder_size"]
+        verified = (result.get("verification") or {}).get("verified", "N/A")
+        print(f"  >> iter={iteration} hasse={num_hasse} trans={num_transitive} "
+              f"pref={counts[1]} incomp={counts['?']} "
+              f"build={build_t:.1f}s solve={solve_t:.1f}s preorder={preorder} "
+              f"verified={verified} status={status}")
+
+        if status == "TIME_LIMIT":
+            print(f"  >> Time limit reached at {num_hasse} hasse edges. Stopping.")
+            break
+
+        num_to_add = edge_increment
+
+    summary_path = os.path.join(run_dir, f"scalability_b_summary.json")
+    summary = {
+        "timestamp": ts_str,
+        "variant": "B",
+        "mode": "big_m" if use_big_m else "indicator",
+        "fixed_objectives": num_objectives,
+        "fixed_comparisons": num_comparisons,
+        "time_limit_sec": time_limit,
+        "experiments": [
+            {
+                "iteration": i + 1,
+                "num_hasse_edges": r["preorder_input"]["num_hasse_edges"],
+                "num_transitive_edges": r["preorder_input"]["num_transitive_edges"],
+                "num_comparisons": r["inputs"]["num_comparisons"],
+                "num_plans": r["inputs"]["num_plans"],
+                "num_variables": r["model_stats"]["num_variables"],
+                "num_constraints": r["model_stats"]["num_constraints"],
+                "status": r["result"]["status"],
+                "solver_preorder_size": r["result"]["preorder_size"],
+                "preferred_count": r["comparison_distribution"]["preferred"],
+                "incomparable_count": r["comparison_distribution"]["incomparable"],
+                "indifferent_count": r["comparison_distribution"]["indifferent"],
+                "construction_time_sec": r["timing"]["construction_time_sec"],
+                "solver_time_sec": r["timing"]["solver_time_sec"],
+                "total_time_sec": r["timing"]["total_time_sec"],
+                "verified": (r.get("verification") or {}).get("verified"),
+            }
+            for i, r in enumerate(all_results)
+        ],
+    }
+
+    with open(summary_path, "w", encoding="utf-8") as f:
+        json.dump(summary, f, indent=2)
+    print(f"\nScalability B summary saved to: {summary_path}")
+
+
+def _generate_informative_pair(
+    objectives: List[str],
+    preorder_edges: List[Tuple[str, str]],
+    rng: random.Random,
+    value_range: Tuple[int, int] = (1, 10),
+    max_attempts: int = 500,
+):
+    for _ in range(max_attempts):
+        pi_vals  = {o: rng.randint(*value_range) for o in objectives}
+        pip_vals = {o: rng.randint(*value_range) for o in objectives}
+
+        lifted_pi  = _compute_lifted_values(objectives, pi_vals,  preorder_edges)
+        lifted_pip = _compute_lifted_values(objectives, pip_vals, preorder_edges)
+        r, swap = _determine_comparison_label(lifted_pi, lifted_pip, objectives)
+        if r != 1:
+            continue
+
+        # Reject if raw values alone already explain the preference
+        r_raw, _ = _determine_comparison_label(pi_vals, pip_vals, objectives)
+        if r_raw == 1:
+            continue
+
+        return pi_vals, pip_vals, swap
+
+    return None
+
+
+def _build_scalability_b_informed_instance(
+    num_objectives: int,
+    num_comparisons: int,
+    hasse_edges: List[Tuple[str, str]],
+    fixed_plan_values: Dict[str, Dict[str, float]],
+    fixed_pairs: List[Tuple[str, str]],
+    informative_plan_values: Dict[str, Dict[str, float]],
+    informative_pairs: List[Tuple[str, str]],
+) -> MPCwPCInstance:
+    objectives = [f"o_{i+1}" for i in range(num_objectives)]
+    preorder_edges = _generate_transitive_closure(objectives, hasse_edges)
+
+    all_plan_values = {**fixed_plan_values, **informative_plan_values}
+    comparisons = []
+
+    for pi_name, pip_name in fixed_pairs:
+        lifted_pi  = _compute_lifted_values(objectives, all_plan_values[pi_name],  preorder_edges)
+        lifted_pip = _compute_lifted_values(objectives, all_plan_values[pip_name], preorder_edges)
+        r, swap = _determine_comparison_label(lifted_pi, lifted_pip, objectives)
+        if swap:
+            comparisons.append((pip_name, pi_name, r))
+        else:
+            comparisons.append((pi_name, pip_name, r))
+
+    for pi_name, pip_name in informative_pairs:
+        lifted_pi  = _compute_lifted_values(objectives, all_plan_values[pi_name],  preorder_edges)
+        lifted_pip = _compute_lifted_values(objectives, all_plan_values[pip_name], preorder_edges)
+        r, swap = _determine_comparison_label(lifted_pi, lifted_pip, objectives)
+        if swap:
+            comparisons.append((pip_name, pi_name, r))
+        else:
+            comparisons.append((pi_name, pip_name, r))
+
+    return MPCwPCInstance(
+        objectives=objectives,
+        plan_values=all_plan_values,
+        comparisons=comparisons,
+        ground_truth_hasse=hasse_edges,
+        ground_truth_preorder=preorder_edges,
+    )
+
+
+def run_scalability_b_informed_experiments(
+    num_objectives: int = 20,
+    num_comparisons: int = 100,
+    num_informative: int = 5,
+    initial_edges: int = 5,
+    edge_increment: int = 5,
+    max_edges: int = None,
+    use_big_m: bool = True,
+    time_limit: float = 300.0,
+    seed: int = 42,
+):
+    rng = random.Random(seed)
+    objectives = [f"o_{i+1}" for i in range(num_objectives)]
+
+    if max_edges is None:
+        max_edges = num_objectives * (num_objectives - 1)
+
+    fixed_plan_values: Dict[str, Dict[str, float]] = {}
+    fixed_pairs: List[Tuple[str, str]] = []
+    for idx in range(num_comparisons):
+        pi_name  = f"pi_{2*idx+1}"
+        pip_name = f"pi_{2*idx+2}"
+        fixed_plan_values[pi_name]  = {o: rng.randint(1, 10) for o in objectives}
+        fixed_plan_values[pip_name] = {o: rng.randint(1, 10) for o in objectives}
+        fixed_pairs.append((pi_name, pip_name))
+
+    all_used = set()
+    hasse_edges: List[Tuple[str, str]] = []
+
+    all_results = []
+    ts_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_dir = _make_run_dir(
+        "scalability_b_informed",
+        f"fixed_{num_objectives}obj_growing_preorder_informed",
+        ts_str,
+    )
+
+    num_to_add = initial_edges
+    iteration = 0
+
+    while len(hasse_edges) < max_edges:
+        iteration += 1
+
+        added = 0
+        attempts = 0
+        while added < num_to_add and attempts < num_objectives * num_objectives:
+            attempts += 1
+            a = rng.choice(objectives)
+            b = rng.choice(objectives)
+            if a == b:
+                continue
+            candidate = (a, b)
+            if candidate in all_used or (b, a) in all_used:
+                continue
+            all_used.add(candidate)
+            hasse_edges.append(candidate)
+            added += 1
+
+        if added == 0:
+            print(f"  >> No more edges to add. Stopping at iteration {iteration}.")
+            break
+
+        preorder_edges = _generate_transitive_closure(objectives, hasse_edges)
+        num_hasse = len(hasse_edges)
+        num_transitive = len(preorder_edges)
+
+        informative_plan_values: Dict[str, Dict[str, float]] = {}
+        informative_pairs: List[Tuple[str, str]] = []
+        inf_counter = 0
+        for _ in range(num_informative):
+            result = _generate_informative_pair(objectives, preorder_edges, rng)
+            if result is None:
+                print(f"  >> Warning: could not generate informative pair at iter={iteration}")
+                continue
+            pi_vals, pip_vals, swap = result
+            inf_counter += 1
+            pi_name  = f"inf_{iteration}_{inf_counter}_a"
+            pip_name = f"inf_{iteration}_{inf_counter}_b"
+            informative_plan_values[pi_name]  = pi_vals
+            informative_plan_values[pip_name] = pip_vals
+            if swap:
+                informative_pairs.append((pip_name, pi_name))
+            else:
+                informative_pairs.append((pi_name, pip_name))
+
+        instance = _build_scalability_b_informed_instance(
+            num_objectives=num_objectives,
+            num_comparisons=num_comparisons,
+            hasse_edges=hasse_edges,
+            fixed_plan_values=fixed_plan_values,
+            fixed_pairs=fixed_pairs,
+            informative_plan_values=informative_plan_values,
+            informative_pairs=informative_pairs,
+        )
+
+        counts = {0: 0, 1: 0, '?': 0}
+        for _, _, r in instance.comparisons:
+            counts[r] += 1
+
+        result = run_single_experiment(
+            instance,
+            title=f"ScalabilityB_Informed_hasse={num_hasse}_trans={num_transitive}",
+            run_type="scalability_b_informed",
+            run_dir=run_dir,
+            use_big_m=use_big_m,
+            time_limit=time_limit,
+        )
+
+        result["comparison_distribution"] = {
+            "preferred": counts[1],
+            "incomparable": counts['?'],
+            "indifferent": counts[0],
+        }
+        result["preorder_input"] = {
+            "num_hasse_edges": num_hasse,
+            "num_transitive_edges": num_transitive,
+            "hasse_edges": hasse_edges[:],
+        }
+        result["num_informative_pairs"] = len(informative_pairs)
+        all_results.append(result)
+
+        status = result["result"]["status"]
+        build_t = result["timing"]["construction_time_sec"]
+        solve_t = result["timing"]["solver_time_sec"]
+        preorder = result["result"]["preorder_size"]
+        verified = (result.get("verification") or {}).get("verified", "N/A")
+        print(f"  >> iter={iteration} hasse={num_hasse} trans={num_transitive} "
+              f"pref={counts[1]} incomp={counts['?']} inf={len(informative_pairs)} "
+              f"build={build_t:.1f}s solve={solve_t:.1f}s preorder={preorder} "
+              f"verified={verified} status={status}")
+
+        if status == "TIME_LIMIT":
+            print(f"  >> Time limit reached at {num_hasse} hasse edges. Stopping.")
+            break
+
+        num_to_add = edge_increment
+
+    summary_path = os.path.join(run_dir, "scalability_b_informed_summary.json")
+    summary = {
+        "timestamp": ts_str,
+        "variant": "B_informed",
+        "mode": "big_m" if use_big_m else "indicator",
+        "fixed_objectives": num_objectives,
+        "fixed_comparisons": num_comparisons,
+        "num_informative_pairs": num_informative,
+        "time_limit_sec": time_limit,
+        "experiments": [
+            {
+                "iteration": i + 1,
+                "num_hasse_edges": r["preorder_input"]["num_hasse_edges"],
+                "num_transitive_edges": r["preorder_input"]["num_transitive_edges"],
+                "num_comparisons": r["inputs"]["num_comparisons"],
+                "num_plans": r["inputs"]["num_plans"],
+                "num_informative_pairs": r["num_informative_pairs"],
+                "num_variables": r["model_stats"]["num_variables"],
+                "num_constraints": r["model_stats"]["num_constraints"],
+                "status": r["result"]["status"],
+                "solver_preorder_size": r["result"]["preorder_size"],
+                "preferred_count": r["comparison_distribution"]["preferred"],
+                "incomparable_count": r["comparison_distribution"]["incomparable"],
+                "indifferent_count": r["comparison_distribution"]["indifferent"],
+                "construction_time_sec": r["timing"]["construction_time_sec"],
+                "solver_time_sec": r["timing"]["solver_time_sec"],
+                "total_time_sec": r["timing"]["total_time_sec"],
+                "verified": (r.get("verification") or {}).get("verified"),
+            }
+            for i, r in enumerate(all_results)
+        ],
+    }
+
+    with open(summary_path, "w", encoding="utf-8") as f:
+        json.dump(summary, f, indent=2)
+    print(f"\nScalability B (informed) summary saved to: {summary_path}")
+
+
 if __name__ == "__main__":
-    run_drone_delivery_example()
-    # run_scalability_experiments(objective_range=[3, 5, 8, 10, 15, 20])
-    # run_coloring_example()
+    run_scalability_b_informed_experiments(
+        num_objectives=20,
+        num_comparisons=100,
+        num_informative=3,
+        initial_edges=15,
+        edge_increment=5,
+        seed=42,
+    )
