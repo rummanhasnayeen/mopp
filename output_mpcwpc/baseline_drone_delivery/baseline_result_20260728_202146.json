@@ -1,0 +1,19 @@
+{
+  "timestamp": "20260728_202146",
+  "instance": "drone_delivery",
+  "num_objectives": 8,
+  "num_comparisons": 15,
+  "num_directed_edges": 56,
+  "ground_truth_hasse_size": 7,
+  "ground_truth_preorder_size": 21,
+  "time_limit_sec": 600.0,
+  "status": "TIME_LIMIT",
+  "preorder_size": null,
+  "preorder_edges": null,
+  "elapsed_sec": 600.001,
+  "progress_at_timeout": {
+    "last_k_reached": 6,
+    "total_candidates_checked": 13424416,
+    "candidates_checked_at_last_k": 9207993
+  }
+}

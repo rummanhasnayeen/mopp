@@ -1,0 +1,139 @@
+{
+  "timestamp": "20260728_190916",
+  "time_limit_sec": 600.0,
+  "experiments": [
+    {
+      "n_obj": 10,
+      "n_comp": 30,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    },
+    {
+      "n_obj": 15,
+      "n_comp": 45,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    },
+    {
+      "n_obj": 20,
+      "n_comp": 60,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    },
+    {
+      "n_obj": 25,
+      "n_comp": 75,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    },
+    {
+      "n_obj": 30,
+      "n_comp": 90,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    },
+    {
+      "n_obj": 35,
+      "n_comp": 105,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    },
+    {
+      "n_obj": 40,
+      "n_comp": 120,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    },
+    {
+      "n_obj": 45,
+      "n_comp": 135,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.001
+    },
+    {
+      "n_obj": 50,
+      "n_comp": 150,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.001
+    },
+    {
+      "n_obj": 55,
+      "n_comp": 165,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    },
+    {
+      "n_obj": 60,
+      "n_comp": 180,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.001
+    },
+    {
+      "n_obj": 65,
+      "n_comp": 195,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.001
+    },
+    {
+      "n_obj": 70,
+      "n_comp": 210,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.001
+    },
+    {
+      "n_obj": 75,
+      "n_comp": 225,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    },
+    {
+      "n_obj": 80,
+      "n_comp": 240,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.001
+    },
+    {
+      "n_obj": 85,
+      "n_comp": 255,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    },
+    {
+      "n_obj": 90,
+      "n_comp": 270,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.001
+    },
+    {
+      "n_obj": 95,
+      "n_comp": 285,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    },
+    {
+      "n_obj": 100,
+      "n_comp": 300,
+      "status": "TIME_LIMIT",
+      "preorder_size": null,
+      "elapsed_sec": 600.0
+    }
+  ]
+}

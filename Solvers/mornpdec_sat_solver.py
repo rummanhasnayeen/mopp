@@ -1,3 +1,4 @@
+import threading
 from typing import Dict, List, Optional, Tuple
 
 # from pysat.card import CardEnc
@@ -116,14 +117,51 @@ class MORNPDECSATSolver:
         for i in range(2, n + 1):
             self.cnf.append([-x_at(i), -self._t(i - 1, k)])
 
-    def solve(self) -> Dict:
+    def solve(self, time_limit_sec: Optional[float] = None) -> Dict:
+        """
+        `time_limit_sec=None` (default) preserves the original, unbounded
+        behavior exactly -- existing callers that don't pass this argument
+        see no change. When given, mirrors MOPPDECSATSolver.solve()'s
+        timeout pattern: a background timer interrupts the solver and the
+        call returns with "timed_out": True instead of hanging indefinitely.
+        """
         with Minisat22(bootstrap_with=self.cnf.clauses) as solver:  # Minisat because its lightweight(gemini)
-            sat = solver.solve()
+            timed_out = False
+            timer = None
+
+            if time_limit_sec is not None:
+                def _timeout():
+                    nonlocal timed_out
+                    timed_out = True
+                    try:
+                        solver.interrupt()
+                    except Exception:
+                        pass
+
+                timer = threading.Timer(time_limit_sec, _timeout)
+                timer.daemon = True
+                timer.start()
+
+            try:
+                sat = solver.solve()
+            finally:
+                if timer is not None:
+                    timer.cancel()
+
+            if timed_out:
+                return {
+                    "sat": None,
+                    "selected_objectives": [],
+                    "model": None,
+                    "timed_out": True,
+                }
+
             if not sat:
                 return {
                     "sat": False,
                     "selected_objectives": [],
                     "model": None,
+                    "timed_out": False,
                 }
 
             model = solver.get_model()
@@ -141,6 +179,7 @@ class MORNPDECSATSolver:
                 "sat": True,
                 "selected_objectives": selected,
                 "model": model,
+                "timed_out": False,
             }
 
     def explain_pair_constants(self, pi: str, pi_prime: str) -> Dict[str, int]:

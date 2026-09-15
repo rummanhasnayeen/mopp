@@ -1183,12 +1183,129 @@ def run_scalability_b_informed_experiments(
     print(f"\nScalability B (informed) summary saved to: {summary_path}")
 
 
+def _check_consistency(
+    objectives: List[str],
+    plan_values: Dict[str, Dict[str, float]],
+    preorder_edges: List[Tuple[str, str]],
+    comparisons: List[Tuple[str, str, object]],
+) -> bool:
+    """Check if the given preorder (as transitive closure edge list) is consistent with all comparisons."""
+    upper_closure = {o: {o} for o in objectives}
+    for o, o_p in preorder_edges:
+        upper_closure[o].add(o_p)
+
+    for pi_name, pip_name, r in comparisons:
+        pi_vals = plan_values[pi_name]
+        pip_vals = plan_values[pip_name]
+
+        lifted_pi = {o: sum(pi_vals[o_p] for o_p in upper_closure[o]) for o in objectives}
+        lifted_pip = {o: sum(pip_vals[o_p] for o_p in upper_closure[o]) for o in objectives}
+
+        actual_r, _ = _determine_comparison_label(lifted_pi, lifted_pip, objectives)
+        if actual_r != r:
+            return False
+    return True
+
+
+def run_scalability_baseline_experiments(
+    objective_range: List[int] = None,
+    comparisons_multiplier: int = 3,
+    time_limit: float = 600.0,
+    seed_base: int = 42,
+):
+    """Brute-force baseline: enumerate preorders from smallest to largest, return first consistent."""
+    import itertools
+
+    if objective_range is None:
+        objective_range = list(range(10, 101, 5))
+
+    ts_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_dir = os.path.join(OUTPUT_BASE_DIR, "scalability_baseline", f"increasing_objectives_{ts_str}")
+    os.makedirs(run_dir, exist_ok=True)
+
+    all_results = []
+
+    for step_idx, n_obj in enumerate(objective_range):
+        n_comp = n_obj * comparisons_multiplier
+        instance = _build_scalability_instance(
+            num_objectives=n_obj,
+            num_comparisons=n_comp,
+            seed=seed_base + step_idx,
+        )
+
+        objectives = instance.objectives
+        plan_values = instance.plan_values
+        comparisons = instance.comparisons
+
+        all_directed_edges = [
+            (o_i, o_j)
+            for o_i in objectives
+            for o_j in objectives
+            if o_i != o_j
+        ]
+        total_possible_edges = len(all_directed_edges)
+
+        found = False
+        result_preorder_size = 0
+        elapsed = 0.0
+        status = "TIME_LIMIT"
+
+        start_time = time.perf_counter()
+
+        for k in range(total_possible_edges + 1):
+            elapsed = time.perf_counter() - start_time
+            if elapsed >= time_limit:
+                break
+
+            for edge_subset in itertools.combinations(all_directed_edges, k):
+                elapsed = time.perf_counter() - start_time
+                if elapsed >= time_limit:
+                    break
+
+                tc_edges = _generate_transitive_closure(objectives, list(edge_subset))
+
+                if _check_consistency(objectives, plan_values, tc_edges, comparisons):
+                    elapsed = time.perf_counter() - start_time
+                    result_preorder_size = len(tc_edges)
+                    found = True
+                    status = "OPTIMAL"
+                    break
+
+            if found or elapsed >= time_limit:
+                break
+
+        elapsed = time.perf_counter() - start_time
+
+        entry = {
+            "n_obj": n_obj,
+            "n_comp": n_comp,
+            "status": status,
+            "preorder_size": result_preorder_size if found else None,
+            "elapsed_sec": round(elapsed, 3),
+        }
+        all_results.append(entry)
+
+        size_str = str(result_preorder_size) if found else "---"
+        print(f"  >> n={n_obj} comp={n_comp} status={status} preorder_size={size_str} time={elapsed:.2f}s")
+
+    summary_path = os.path.join(run_dir, "scalability_baseline_summary.json")
+    with open(summary_path, "w", encoding="utf-8") as f:
+        json.dump({
+            "timestamp": ts_str,
+            "time_limit_sec": time_limit,
+            "experiments": all_results,
+        }, f, indent=2)
+    print(f"\nBaseline summary saved to: {summary_path}")
+    return all_results
+
+
 if __name__ == "__main__":
-    run_scalability_b_informed_experiments(
-        num_objectives=20,
-        num_comparisons=100,
-        num_informative=3,
-        initial_edges=15,
-        edge_increment=5,
-        seed=42,
-    )
+    run_scalability_baseline_experiments()
+    # run_scalability_b_informed_experiments(
+    #     num_objectives=20,
+    #     num_comparisons=100,
+    #     num_informative=3,
+    #     initial_edges=15,
+    #     edge_increment=5,
+    #     seed=42,
+    # )

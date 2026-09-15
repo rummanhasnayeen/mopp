@@ -99,21 +99,18 @@ class MOPPDECSATSolver:
             self.cnf.append([-self.x[i]])
 
     # Constraints for r = ?
-    def _add_rq_constraints(self, pi, pi_p, B, W):
-        # Prevent π ≻ π'
-        for j in B:
-            clause = [-self.x[j]]
-            if W:
-                clause += [self.x[i] for i in W]
-            self.cnf.append(clause)
+    def _add_rq_constraints(self, B, W):
+        # ∨_{i ∈ B} x_i  — at least one selected objective must favor π
+        if not B:
+            self.cnf.append([])  # empty clause → UNSAT: π never wins anywhere, can't be incomparable
+        else:
+            self.cnf.append([self.x[i] for i in B])
 
-        # Prevent π' ≻ π
-        Bp, Wp = self._compute_B_W(pi_p, pi)
-        for j in Bp:
-            clause = [-self.x[j]]
-            if Wp:
-                clause += [self.x[i] for i in Wp]
-            self.cnf.append(clause)
+        # ∨_{i ∈ W} x_i  — at least one selected objective must favor π'
+        if not W:
+            self.cnf.append([])  # empty clause → UNSAT: π' never wins anywhere, can't be incomparable
+        else:
+            self.cnf.append([self.x[i] for i in W])
 
     # Cardinality constraint
     def _add_cardinality_constraints(self):
@@ -155,7 +152,7 @@ class MOPPDECSATSolver:
             elif r == 0:
                 self._add_r0_constraints(B, W)
             elif r == "?":
-                self._add_rq_constraints(pi, pi_p, B, W)
+                self._add_rq_constraints(B, W)
             else:
                 raise ValueError(f"Unknown comparison label: {r}")
 
