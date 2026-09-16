@@ -66,6 +66,8 @@ def _extract_solver_summary(optimal_search_result: dict) -> dict:
             "omega_size": None,
             "omega": None,
             "solve_time_sec_at_optimal": None,
+            "num_vars_at_optimal": None,
+            "num_clauses_at_optimal": None,
             "certified_minimal": certified_minimal,
             "timed_out": timed_out,
         }
@@ -74,6 +76,8 @@ def _extract_solver_summary(optimal_search_result: dict) -> dict:
         "omega_size": len(optimal["solution"]) if optimal["solution"] is not None else None,
         "omega": optimal["solution"],
         "solve_time_sec_at_optimal": optimal["solve_time_sec"],
+        "num_vars_at_optimal": optimal.get("num_vars"),
+        "num_clauses_at_optimal": optimal.get("num_clauses"),
         "certified_minimal": certified_minimal,
         "timed_out": timed_out,
     }
@@ -199,6 +203,8 @@ def run_comparison_experiment() -> dict:
             "omega_size": mopp_summary["omega_size"],
             "omega": mopp_summary["omega"],
             "total_solve_time_sec": mopp_total_solve_time,
+            "num_vars_at_optimal": mopp_summary["num_vars_at_optimal"],
+            "num_clauses_at_optimal": mopp_summary["num_clauses_at_optimal"],
             "halving_iterations": mopp_search_result["halving"]["iterations"],
             "binary_search_iterations": mopp_search_result["binary_iterations"],
         },
@@ -212,6 +218,8 @@ def run_comparison_experiment() -> dict:
             "omega_size": mornp_summary["omega_size"],
             "omega": mornp_summary["omega"],
             "total_solve_time_sec": mornp_total_solve_time,
+            "num_vars_at_optimal": mornp_summary["num_vars_at_optimal"],
+            "num_clauses_at_optimal": mornp_summary["num_clauses_at_optimal"],
             "halving_iterations": mornp_search_result["halving"]["iterations"],
             "binary_search_iterations": mornp_search_result["binary_iterations"],
         },
@@ -229,6 +237,8 @@ def run_comparison_experiment() -> dict:
         "mopp_omega": mopp_summary["omega"],
         "mopp_achieved_label_mix": mopp_derive_meta["achieved_label_mix"],
         "mopp_total_solve_time_sec": mopp_total_solve_time,
+        "mopp_num_vars": mopp_summary["num_vars_at_optimal"],
+        "mopp_num_clauses": mopp_summary["num_clauses_at_optimal"],
         "mornp_optimal_t": mornp_summary["optimal_t"],
         "mornp_omega_size": mornp_summary["omega_size"],
         "mornp_omega": mornp_summary["omega"],
@@ -237,6 +247,8 @@ def run_comparison_experiment() -> dict:
         "mornp_positive_count": mornp_derive_meta["positive_count"],
         "mornp_negative_count": mornp_derive_meta["negative_count"],
         "mornp_total_solve_time_sec": mornp_total_solve_time,
+        "mornp_num_vars": mornp_summary["num_vars_at_optimal"],
+        "mornp_num_clauses": mornp_summary["num_clauses_at_optimal"],
         "mornp_time_limit_sec_per_solve": MORNP_TIME_LIMIT_SEC,
         "total_experiment_time_sec": total_time,
     }
@@ -265,5 +277,102 @@ def run_comparison_experiment() -> dict:
     }
 
 
+def run_comparison_sweep(
+    num_rounds: int,
+    *,
+    base_num_objectives: int = NUM_OBJECTIVES,
+    objectives_increment: int = 0,
+    base_num_plans: int = NUM_PLANS,
+    plans_increment: int = 0,
+    base_omega_star_size: int = OMEGA_STAR_SIZE,
+    omega_star_size_increment: int = 0,
+    base_num_comparisons: int = NUM_COMPARISONS,
+    comparisons_increment: int = 0,
+    comparisons_equal_plans: bool = False,
+    label_mix=LABEL_MIX,
+    seed: int = SEED,
+    mornp_time_limit_sec: float = MORNP_TIME_LIMIT_SEC,
+    verbose: bool = True,
+) -> dict:
+
+    global NUM_OBJECTIVES, NUM_PLANS, OMEGA_STAR_SIZE, NUM_COMPARISONS
+    global LABEL_MIX, SEED, MORNP_TIME_LIMIT_SEC
+
+    orig = dict(
+        NUM_OBJECTIVES=NUM_OBJECTIVES, NUM_PLANS=NUM_PLANS,
+        OMEGA_STAR_SIZE=OMEGA_STAR_SIZE, NUM_COMPARISONS=NUM_COMPARISONS,
+        LABEL_MIX=LABEL_MIX, SEED=SEED,
+        MORNP_TIME_LIMIT_SEC=MORNP_TIME_LIMIT_SEC,
+    )
+
+    sweep_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    sweep_results = []
+
+    try:
+        for i in range(num_rounds):
+            if i > 0:
+                time.sleep(1.1)
+
+            NUM_OBJECTIVES = base_num_objectives + i * objectives_increment
+            NUM_PLANS = base_num_plans + i * plans_increment
+            OMEGA_STAR_SIZE = base_omega_star_size + i * omega_star_size_increment
+            NUM_COMPARISONS = (
+                NUM_PLANS if comparisons_equal_plans
+                else base_num_comparisons + i * comparisons_increment
+            )
+            LABEL_MIX = label_mix
+            SEED = seed
+            MORNP_TIME_LIMIT_SEC = mornp_time_limit_sec
+
+            if verbose:
+                print("\n" + "#" * 70)
+                print(f"[Sweep round {i + 1}/{num_rounds}] "
+                      f"objectives={NUM_OBJECTIVES}, plans={NUM_PLANS}, "
+                      f"omega*_size={OMEGA_STAR_SIZE}, "
+                      f"comparisons={NUM_COMPARISONS}")
+                print("#" * 70)
+
+            round_result = run_comparison_experiment()
+            sweep_results.append({
+                "round": i + 1,
+                "params": {
+                    "num_objectives": NUM_OBJECTIVES,
+                    "num_plans": NUM_PLANS,
+                    "omega_star_size": OMEGA_STAR_SIZE,
+                    "num_comparisons": NUM_COMPARISONS,
+                },
+                "summary_data": round_result["summary_data"],
+                "json_path": round_result["json_path"],
+                "summary_path": round_result["summary_path"],
+            })
+    finally:
+        NUM_OBJECTIVES = orig["NUM_OBJECTIVES"]
+        NUM_PLANS = orig["NUM_PLANS"]
+        OMEGA_STAR_SIZE = orig["OMEGA_STAR_SIZE"]
+        NUM_COMPARISONS = orig["NUM_COMPARISONS"]
+        LABEL_MIX = orig["LABEL_MIX"]
+        SEED = orig["SEED"]
+        MORNP_TIME_LIMIT_SEC = orig["MORNP_TIME_LIMIT_SEC"]
+
+    _ensure_output_dirs()
+    sweep_summary_path = os.path.join(SUMMARY_LOG_DIR, f"sweep_{sweep_timestamp}.json")
+    with open(sweep_summary_path, "w", encoding="utf-8") as f:
+        json.dump(sweep_results, f, indent=2)
+
+    if verbose:
+        print(f"\nSweep summary saved to: {sweep_summary_path}")
+
+    return {"sweep_summary_path": sweep_summary_path, "rounds": sweep_results}
+
+
 if __name__ == "__main__":
-    run_comparison_experiment()
+    # run_comparison_experiment()
+
+
+    #
+    run_comparison_sweep(
+        num_rounds=5,
+        base_num_plans=20,
+        plans_increment=40,
+        comparisons_equal_plans=True,
+    )

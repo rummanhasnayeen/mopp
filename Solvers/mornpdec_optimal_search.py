@@ -8,20 +8,26 @@ from Solvers.mornpdec_sat_solver import MORNPDECSATSolver
 def _solve_at_t(instance, t, time_limit_sec=None):
     """
     Build and solve a fresh MORNPDECSATSolver at cardinality bound t.
-    Returns a list (SAT), None (UNSAT), or the string "TIMEOUT".
+    Returns a (status, num_vars, num_clauses) tuple, where status is a
+    list (SAT), None (UNSAT), or the string "TIMEOUT". num_vars/num_clauses
+    are captured right after build_formula(), so they are always populated
+    -- including in the TIMEOUT case, since the formula is fully built
+    before the solver's timer starts.
     """
     inst_t = copy.copy(instance)
     inst_t.k = t
 
     solver = MORNPDECSATSolver(inst_t)
     solver.build_formula()
+    num_vars = solver.vpool.top
+    num_clauses = len(solver.cnf.clauses)
     result = solver.solve(time_limit_sec=time_limit_sec)
 
     if result.get("timed_out"):
-        return "TIMEOUT"
+        return "TIMEOUT", num_vars, num_clauses
     if result["sat"]:
-        return result["selected_objectives"]
-    return None
+        return result["selected_objectives"], num_vars, num_clauses
+    return None, num_vars, num_clauses
 
 
 def solve_mornpdec_with_halving_t(instance, *, verbose=True, time_limit_sec=None):
@@ -60,7 +66,7 @@ def solve_mornpdec_with_halving_t(instance, *, verbose=True, time_limit_sec=None
             print("=" * 60)
 
         t_solve_start = time.perf_counter()
-        solution = _solve_at_t(instance, t, time_limit_sec=time_limit_sec)
+        solution, num_vars, num_clauses = _solve_at_t(instance, t, time_limit_sec=time_limit_sec)
         t_solve_end = time.perf_counter()
         solve_time = t_solve_end - t_solve_start
 
@@ -68,6 +74,7 @@ def solve_mornpdec_with_halving_t(instance, *, verbose=True, time_limit_sec=None
             entry = {
                 "iteration": it, "t": t, "is_sat": None, "timed_out": True,
                 "solution": None, "solve_time_sec": solve_time,
+                "num_vars": num_vars, "num_clauses": num_clauses,
             }
             iteration_log.append(entry)
             timed_out_entry = entry
@@ -78,6 +85,7 @@ def solve_mornpdec_with_halving_t(instance, *, verbose=True, time_limit_sec=None
         entry = {
             "iteration": it, "t": t, "is_sat": solution is not None, "timed_out": False,
             "solution": solution, "solve_time_sec": solve_time,
+            "num_vars": num_vars, "num_clauses": num_clauses,
         }
         iteration_log.append(entry)
 
@@ -102,6 +110,8 @@ def solve_mornpdec_with_halving_t(instance, *, verbose=True, time_limit_sec=None
                 "solution": solution,
                 "solve_time_sec": solve_time,
                 "iteration": it,
+                "num_vars": num_vars,
+                "num_clauses": num_clauses,
             }
 
     return {
@@ -170,6 +180,8 @@ def solve_mornpdec_with_optimal_t(instance, *, verbose=True, time_limit_sec=None
                 "t": last_yes["t"],
                 "solution": last_yes["solution"],
                 "solve_time_sec": last_yes["solve_time_sec"],
+                "num_vars": last_yes["num_vars"],
+                "num_clauses": last_yes["num_clauses"],
             },
             "certified_minimal": False,
             "timed_out": True,
@@ -179,7 +191,7 @@ def solve_mornpdec_with_optimal_t(instance, *, verbose=True, time_limit_sec=None
         if verbose:
             print("\nHalving never produced NO. Refining by directly testing t=1.")
         t0 = time.perf_counter()
-        sol1 = _solve_at_t(instance, 1, time_limit_sec=time_limit_sec)
+        sol1, num_vars1, num_clauses1 = _solve_at_t(instance, 1, time_limit_sec=time_limit_sec)
         t1 = time.perf_counter()
         solve_time_1 = t1 - t0
 
@@ -192,10 +204,12 @@ def solve_mornpdec_with_optimal_t(instance, *, verbose=True, time_limit_sec=None
                 "binary_iterations": [{
                     "t": 1, "is_sat": None, "timed_out": True,
                     "solution": None, "solve_time_sec": solve_time_1,
+                    "num_vars": num_vars1, "num_clauses": num_clauses1,
                 }],
                 "optimal": {
                     "t": last_yes["t"], "solution": last_yes["solution"],
                     "solve_time_sec": last_yes["solve_time_sec"],
+                    "num_vars": last_yes["num_vars"], "num_clauses": last_yes["num_clauses"],
                 },
                 "certified_minimal": False,
                 "timed_out": True,
@@ -210,8 +224,12 @@ def solve_mornpdec_with_optimal_t(instance, *, verbose=True, time_limit_sec=None
                 "binary_iterations": [{
                     "t": 1, "is_sat": True, "timed_out": False, "solution": sol1,
                     "solve_time_sec": solve_time_1,
+                    "num_vars": num_vars1, "num_clauses": num_clauses1,
                 }],
-                "optimal": {"t": 1, "solution": sol1, "solve_time_sec": solve_time_1},
+                "optimal": {
+                    "t": 1, "solution": sol1, "solve_time_sec": solve_time_1,
+                    "num_vars": num_vars1, "num_clauses": num_clauses1,
+                },
                 "certified_minimal": True,
                 "timed_out": False,
             }
@@ -222,12 +240,16 @@ def solve_mornpdec_with_optimal_t(instance, *, verbose=True, time_limit_sec=None
             t_yes = last_yes["t"]
             best_sol = last_yes["solution"]
             best_time = last_yes["solve_time_sec"]
+            best_num_vars = last_yes["num_vars"]
+            best_num_clauses = last_yes["num_clauses"]
             binary_log = []
     else:
         t_no = first_no["t"]
         t_yes = last_yes["t"]
         best_sol = last_yes["solution"]
         best_time = last_yes["solve_time_sec"]
+        best_num_vars = last_yes["num_vars"]
+        best_num_clauses = last_yes["num_clauses"]
         binary_log = []
 
     if verbose:
@@ -247,7 +269,7 @@ def solve_mornpdec_with_optimal_t(instance, *, verbose=True, time_limit_sec=None
             print("-" * 60)
 
         t0 = time.perf_counter()
-        sol_mid = _solve_at_t(instance, mid, time_limit_sec=time_limit_sec)
+        sol_mid, num_vars_mid, num_clauses_mid = _solve_at_t(instance, mid, time_limit_sec=time_limit_sec)
         t1 = time.perf_counter()
         solve_time = t1 - t0
 
@@ -255,6 +277,7 @@ def solve_mornpdec_with_optimal_t(instance, *, verbose=True, time_limit_sec=None
             entry = {
                 "t": mid, "is_sat": None, "timed_out": True,
                 "solution": None, "solve_time_sec": solve_time,
+                "num_vars": num_vars_mid, "num_clauses": num_clauses_mid,
             }
             binary_log.append(entry)
             certified_minimal = False
@@ -266,6 +289,7 @@ def solve_mornpdec_with_optimal_t(instance, *, verbose=True, time_limit_sec=None
         entry = {
             "t": mid, "is_sat": sol_mid is not None, "timed_out": False,
             "solution": sol_mid, "solve_time_sec": solve_time,
+            "num_vars": num_vars_mid, "num_clauses": num_clauses_mid,
         }
         binary_log.append(entry)
 
@@ -281,10 +305,15 @@ def solve_mornpdec_with_optimal_t(instance, *, verbose=True, time_limit_sec=None
             t_yes = mid
             best_sol = sol_mid
             best_time = solve_time
+            best_num_vars = num_vars_mid
+            best_num_clauses = num_clauses_mid
         else:
             t_no = mid
 
-    optimal = {"t": t_yes, "solution": best_sol, "solve_time_sec": best_time}
+    optimal = {
+        "t": t_yes, "solution": best_sol, "solve_time_sec": best_time,
+        "num_vars": best_num_vars, "num_clauses": best_num_clauses,
+    }
 
     if verbose:
         print("\n" + "=" * 60)

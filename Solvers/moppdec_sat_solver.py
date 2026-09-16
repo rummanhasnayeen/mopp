@@ -252,6 +252,8 @@ def solve_with_halving_k(instance, *, verbose=True):
         t_solve_end = time.perf_counter()
 
         solve_time = t_solve_end - t_solve_start
+        num_vars = solver.var_id - 1
+        num_clauses = len(solver.cnf.clauses)
 
         result = {
             "iteration": it,
@@ -259,6 +261,8 @@ def solve_with_halving_k(instance, *, verbose=True):
             "is_sat": solution is not None,
             "solution": solution,
             "solve_time_sec": solve_time,
+            "num_vars": num_vars,
+            "num_clauses": num_clauses,
         }
         iteration_log.append(result)
 
@@ -290,6 +294,8 @@ def solve_with_halving_k(instance, *, verbose=True):
                 "solution": solution,
                 "solve_time_sec": solve_time,
                 "iteration": it,
+                "num_vars": num_vars,
+                "num_clauses": num_clauses,
             }
 
     return {
@@ -336,8 +342,11 @@ def solve_with_optimal_k(instance, *, verbose=True):
         inst1 = copy.copy(instance)
         inst1.k = 1
         t0 = time.perf_counter()
-        sol1 = MOPPDECSATSolver(inst1).solve()
+        solver1 = MOPPDECSATSolver(inst1)
+        sol1 = solver1.solve()
         t1 = time.perf_counter()
+        num_vars1 = solver1.var_id - 1
+        num_clauses1 = len(solver1.cnf.clauses)
 
         if sol1 is not None:
             if verbose:
@@ -346,9 +355,13 @@ def solve_with_optimal_k(instance, *, verbose=True):
                 "mode": "halving+binary",
                 "halving": halving_res,
                 "binary_iterations": [{
-                    "k": 1, "is_sat": True, "solution": sol1, "solve_time_sec": (t1 - t0)
+                    "k": 1, "is_sat": True, "solution": sol1, "solve_time_sec": (t1 - t0),
+                    "num_vars": num_vars1, "num_clauses": num_clauses1,
                 }],
-                "optimal": {"k": 1, "solution": sol1, "solve_time_sec": (t1 - t0)},
+                "optimal": {
+                    "k": 1, "solution": sol1, "solve_time_sec": (t1 - t0),
+                    "num_vars": num_vars1, "num_clauses": num_clauses1,
+                },
             }
         else:
             # SAT at last_yes.k but UNSAT at 1; bracket is [1, last_yes.k]
@@ -358,6 +371,8 @@ def solve_with_optimal_k(instance, *, verbose=True):
             k_yes = last_yes["k"]
             best_sol = last_yes["solution"]
             best_time = last_yes["solve_time_sec"]
+            best_num_vars = last_yes["num_vars"]
+            best_num_clauses = last_yes["num_clauses"]
             binary_log = []
     else:
         # Normal bracket from halving: first NO is smaller, last YES is larger
@@ -365,6 +380,8 @@ def solve_with_optimal_k(instance, *, verbose=True):
         k_yes = last_yes["k"]
         best_sol = last_yes["solution"]
         best_time = last_yes["solve_time_sec"]
+        best_num_vars = last_yes["num_vars"]
+        best_num_clauses = last_yes["num_clauses"]
         binary_log = []
 
     if verbose:
@@ -385,15 +402,20 @@ def solve_with_optimal_k(instance, *, verbose=True):
             print("-" * 60)
 
         t0 = time.perf_counter()
-        sol_mid = MOPPDECSATSolver(inst_mid).solve(time_limit_sec=TIME_LIMIT)
+        solver_mid = MOPPDECSATSolver(inst_mid)
+        sol_mid = solver_mid.solve(time_limit_sec=TIME_LIMIT)
         t1 = time.perf_counter()
         solve_time = t1 - t0
+        num_vars_mid = solver_mid.var_id - 1
+        num_clauses_mid = len(solver_mid.cnf.clauses)
 
         entry = {
             "k": mid,
             "is_sat": sol_mid is not None,
             "solution": sol_mid,
             "solve_time_sec": solve_time,
+            "num_vars": num_vars_mid,
+            "num_clauses": num_clauses_mid,
         }
         binary_log.append(entry)
 
@@ -410,12 +432,17 @@ def solve_with_optimal_k(instance, *, verbose=True):
             k_yes = mid
             best_sol = sol_mid
             best_time = solve_time
+            best_num_vars = num_vars_mid
+            best_num_clauses = num_clauses_mid
         else:
             # UNSAT: move NO boundary up
             k_no = mid
 
     # Now they are consecutive: NO at k_no and YES at k_yes
-    optimal = {"k": k_yes, "solution": best_sol, "solve_time_sec": best_time}
+    optimal = {
+        "k": k_yes, "solution": best_sol, "solve_time_sec": best_time,
+        "num_vars": best_num_vars, "num_clauses": best_num_clauses,
+    }
 
     if verbose:
         print("\n" + "=" * 60)

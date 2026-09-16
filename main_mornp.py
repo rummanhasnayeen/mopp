@@ -37,13 +37,13 @@ def build_small_example() -> MORNPInstance:
     objectives = ["o1", "o2", "o3"]
 
     plan_values = {
-        "p_pos": {"o1": 8, "o2": 5, "o3": 4},
-        "p_neg": {"o1": 6, "o2": 7, "o3": 4},
+        "p_pos": {"o1": 1, "o2": 1, "o3": 1},
+        "p_neg": {"o1": 0, "o2": 0, "o3": 0},
     }
 
     positive_plans = ["p_pos"]
     negative_plans = ["p_neg"]
-    k = 1
+    k = 3
 
     return MORNPInstance(
         objectives=objectives,
@@ -822,11 +822,11 @@ def run_stress_test_experiment(initial_config: dict) -> None:
 
 
 if __name__ == "__main__":
-    # inst1 = build_small_example()
-    # run_instance(inst1, "Example 1: Small example")
+    inst1 = build_small_example()
+    run_instance(inst1, "Example 1: Small example")
     #
     # inst2 = build_small_example_equality_unsat()
     # run_instance(inst2, "Example 2: equality UNSAT")
 
-    run_floorplan_experiment()
+    # run_floorplan_experiment()
     # run_default_stress_test_experiment()
